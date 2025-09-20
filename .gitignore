@@ -1,2 +1,7 @@
 node_modules
-packages/kernel/.vscode
+
+# Finder (MacOS) folder config
+.DS_Store
+
+# VSCode settings
+.vscode

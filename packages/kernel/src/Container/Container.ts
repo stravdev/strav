@@ -12,21 +12,7 @@ import { MetadataManager, type DependencyMetadata } from '../Utils/MetadataManag
  * management (singleton/transient scopes). Now supports automatic dependency detection
  * through a single @Inject decorator with zero configuration.
  *
- * @example
- * ```typescript
- * @Inject() // Automatically detects DatabaseService and Logger as dependencies
- * class UserService {
- *   constructor(
- *     private db: DatabaseService,
- *     private logger: Logger,
- *     private retryCount = 3 // Non-object with default value
- *   ) {}
- * }
- *
- * const container = new Container();
- * container.registerClass(UserService); // Uses class as token, auto-detects dependencies
- * const userService = container.resolve(UserService);
- * ```
+ * @see {@link ../examples/container.ts} for usage examples
  */
 export class Container {
   /** Internal registry of service definitions indexed by token */
@@ -62,21 +48,7 @@ export class Container {
    * @param scope - Service lifecycle scope (default: Scope.SINGLETON)
    * @returns The container instance for method chaining
    *
-   * @example
-   * ```typescript
-   * // Auto-detection with @Inject
-   * @Inject()
-   * class UserService {
-   *   constructor(private db: DatabaseService, private maxRetries = 3) {}
-   * }
-   * container.registerClass(UserService); // Uses class as token, auto-detects DatabaseService
-   *
-   * // Explicit registration
-   * container.registerClass('userService', UserService);
-   *
-   * // Manual dependencies (overrides auto-detection)
-   * container.registerClass('userService', UserService, ['database', 'logger']);
-   * ```
+   * @see {@link ../examples/container.ts} for usage examples
    */
   registerClass<T>(
     token: Token<T> | Constructor<T>,
@@ -118,21 +90,7 @@ export class Container {
    * @param scope - Service lifecycle scope (default: Scope.SINGLETON)
    * @returns The container instance for method chaining
    *
-   * @example
-   * ```typescript
-   * // Manual dependencies
-   * container.registerFactory('emailService', (config: Config, logger: Logger) => {
-   *   return new EmailService(config.smtp);
-   * }, [Config, Logger]);
-   *
-   * // With method decorated for auto-detection (if using a class method as factory)
-   * class ServiceFactory {
-   *   @Inject()
-   *   createEmailService(config: Config, logger: Logger, retries = 3) {
-   *     return new EmailService(config.smtp);
-   *   }
-   * }
-   * ```
+   * @see {@link ../examples/container.ts} for usage examples
    */
   registerFactory<T>(
     token: Token<T>,
@@ -171,16 +129,7 @@ export class Container {
    * @param scope - Service lifecycle scope (default: Scope.SINGLETON)
    * @returns The container instance for method chaining
    *
-   * @example
-   * ```typescript
-   * @Inject()
-   * class UserService {
-   *   constructor(private db: DatabaseService) {} // Auto-detected
-   * }
-   *
-   * container.registerInjectable(UserService);
-   * const service = container.resolve(UserService);
-   * ```
+   * @see {@link ../examples/container.ts} for usage examples
    */
   registerInjectable(target: Constructor<any>, scope = Scope.SINGLETON): this {
     if (!this.isInjectable(target)) {
@@ -197,16 +146,7 @@ export class Container {
    * @param scope - Service lifecycle scope for all services (default: Scope.SINGLETON)
    * @returns The container instance for method chaining
    *
-   * @example
-   * ```typescript
-   * @Inject()
-   * class UserService {}
-   *
-   * @Inject()
-   * class EmailService {}
-   *
-   * container.registerInjectables([UserService, EmailService]);
-   * ```
+   * @see {@link ../examples/container.ts} for usage examples
    */
   registerInjectables(targets: Constructor<any>[], scope = Scope.SINGLETON): this {
     for (const target of targets) {

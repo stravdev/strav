@@ -12,15 +12,7 @@ import type { Token, ServiceDefinition } from '../Types'
  * dependency resolution. It maintains a resolution stack to detect circular
  * dependencies and manages the singleton cache for performance optimization.
  *
- * @example
- * ```typescript
- * const services = new Map();
- * const singletons = new Map();
- * const resolver = new DependencyResolver(services, singletons);
- *
- * // Resolver is typically used internally by Container
- * const instance = resolver.resolve('myService');
- * ```
+ * @see {@link ../examples/dependency-resolver.ts} for usage examples
  */
 export class DependencyResolver {
   /**
@@ -56,14 +48,7 @@ export class DependencyResolver {
    * @throws {DICircularDependencyException} When circular dependencies are detected
    * @throws {DIServiceNotFoundException} When the service token is not registered
    *
-   * @example
-   * ```typescript
-   * // Resolve a service (typically called by Container)
-   * const userService = resolver.resolve<UserService>('userService');
-   *
-   * // The resolver handles complex dependency chains automatically:
-   * // UserService -> DatabaseService -> ConfigService
-   * ```
+   * @see {@link ../examples/dependency-resolver.ts} for usage examples
    */
   resolve<T>(token: Token<T>): T {
     // Detect circular dependencies by checking if token is already in resolution stack
@@ -114,17 +99,7 @@ export class DependencyResolver {
    *
    * @throws {Error} When the service definition is invalid or incomplete
    *
-   * @example
-   * ```typescript
-   * // For a class definition:
-   * // new UserService(databaseService, loggerService)
-   *
-   * // For a factory definition:
-   * // emailFactory(configService, loggerService)
-   *
-   * // For a value definition:
-   * // { apiKey: 'secret', port: 3000 }
-   * ```
+   * @see {@link ../examples/dependency-resolver.ts} for usage examples
    */
   private createInstance<T>(definition: ServiceDefinition<T>): T {
     // Handle static value definitions
@@ -159,15 +134,7 @@ export class DependencyResolver {
    * @param tokens - Array of dependency tokens to resolve
    * @returns Array of resolved dependency instances in the same order
    *
-   * @example
-   * ```typescript
-   * // If tokens = ['database', 'logger', 'config']
-   * // Returns = [DatabaseService, LoggerService, ConfigService]
-   *
-   * // These dependencies are then passed to:
-   * // new UserService(DatabaseService, LoggerService, ConfigService)
-   * // or factory(DatabaseService, LoggerService, ConfigService)
-   * ```
+   * @see {@link ../examples/dependency-resolver.ts#} for usage examples
    */
   private resolveDependencies(tokens: Token[]): any[] {
     return tokens.map((token) => this.resolve(token))

@@ -30,26 +30,7 @@ import {
  * - **State Tracking**: Maintains separate tracking of registered and booted providers
  * - **Circular Dependency Detection**: Prevents infinite loops in dependency chains
  *
- * @example
- * ```typescript
- * const container = new Container();
- * const serviceManager = new ServiceManager(container);
- *
- * // Register providers
- * serviceManager.register(new ConfigServiceProvider());
- * serviceManager.register(new DatabaseServiceProvider());
- * serviceManager.register(new EmailServiceProvider());
- *
- * // Application startup
- * await serviceManager.registerAll();
- * await serviceManager.bootAll();
- *
- * // Application runtime - services are now available
- * const userService = container.resolve<UserService>('userService');
- *
- * // Application shutdown
- * await serviceManager.shutdownAll();
- * ```
+ * @example See {@link ../docs/service-manager-examples.md#basic-usage} for usage examples
  */
 export class ServiceManager {
   /** The dependency injection container that services are registered with */
@@ -89,59 +70,32 @@ export class ServiceManager {
   }
 
   /**
-   * Adds a service provider to the registration queue.
+   * Registers a service provider for later initialization.
    *
-   * Providers are not immediately registered when added - they are queued
-   * until `registerAll()` is called. This allows for collecting all providers
-   * before beginning the registration process.
+   * This method adds a provider to the registration queue but does not
+   * immediately call its register() method. Providers are processed during
+   * the registerAll() phase to ensure proper dependency ordering.
    *
-   * @param provider - The service provider to add to the registration queue
+   * @param provider - The service provider to register
    *
-   * @example
-   * ```typescript
-   * // Add multiple providers
-   * serviceManager.register(new ConfigServiceProvider());
-   * serviceManager.register(new DatabaseServiceProvider());
-   * serviceManager.register(new EmailServiceProvider());
-   *
-   * // Nothing is registered yet - providers are just queued
-   * console.log(serviceManager.getRegisteredProviders().length); // 0
-   *
-   * // Register all queued providers
-   * await serviceManager.registerAll();
-   * console.log(serviceManager.getRegisteredProviders().length); // 3
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#service-provider-registration} for registration examples
    */
   public register(provider: ServiceProvider): void {
     this.providers.push(provider)
   }
 
   /**
-   * Registers all queued service providers by calling their register methods.
+   * Registers all queued service providers with the container.
    *
-   * This method processes all providers added via `register()` and calls their
-   * `register()` method with the container. Providers register their services
-   * during this phase, making them available for dependency resolution.
+   * This method processes all providers that have been added via register()
+   * and calls their register() method to bind services to the container.
+   * Registration happens before booting to ensure all services are available
+   * for dependency injection during the boot phase.
    *
-   * Registration happens in the order providers were added, not dependency order.
-   * Dependency order is only considered during the boot phase.
+   * @throws {Error} If any provider's register() method throws an exception
+   * @returns Promise that resolves when all providers have been registered
    *
-   * @throws {Error} If a provider's register method throws an exception
-   * @returns Promise that resolves when all providers have registered their services
-   *
-   * @example
-   * ```typescript
-   * // Queue providers
-   * serviceManager.register(new DatabaseServiceProvider());
-   * serviceManager.register(new EmailServiceProvider());
-   *
-   * // Register all services with the container
-   * await serviceManager.registerAll();
-   *
-   * // Services are now registered and can be resolved
-   * const database = container.resolve('database');
-   * const emailService = container.resolve('emailService');
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#service-provider-registration} for registration examples
    */
   public async registerAll(): Promise<void> {
     for (const provider of this.providers) {
@@ -151,35 +105,22 @@ export class ServiceManager {
   }
 
   /**
-   * Boots all registered providers that implement the boot method.
+   * Boots all registered service providers in dependency order.
    *
-   * The boot phase happens after registration and is where providers perform
-   * initialization logic such as:
-   * - Establishing database connections
-   * - Running migrations
-   * - Warming caches
-   * - Starting background services
-   * - Validating configurations
+   * This method calls the boot() method on providers that implement it,
+   * ensuring that dependencies are booted before their dependents. Providers
+   * without a boot() method are skipped but remain in the registered list.
    *
-   * Providers are booted in dependency order using topological sorting to ensure
-   * that dependencies are available before dependents are booted.
+   * The boot phase is where providers can:
+   * - Initialize services that depend on other services
+   * - Set up event listeners
+   * - Perform complex initialization logic
+   * - Access services registered by other providers
    *
-   * @throws {ServiceBootException} If dependency resolution fails or a provider's boot method fails
+   * @throws {ServiceBootException} If dependency resolution fails or boot methods throw
    * @returns Promise that resolves when all providers have been booted
    *
-   * @example
-   * ```typescript
-   * // After registration
-   * await serviceManager.registerAll();
-   *
-   * // Boot providers in dependency order
-   * await serviceManager.bootAll();
-   *
-   * // Providers have performed their initialization
-   * // Database is connected, caches are warmed, etc.
-   * const database = container.resolve<DatabaseService>('database');
-   * console.log(database.isConnected); // true
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#service-provider-booting} for booting examples
    */
   public async bootAll(): Promise<void> {
     const sortedProviders = this.topologicalSort(this.registeredProviders, false)
@@ -209,23 +150,7 @@ export class ServiceManager {
    * @throws {GroupedShutdownException} If one or more providers fail to shutdown
    * @returns Promise that resolves when all providers have been shut down
    *
-   * @example
-   * ```typescript
-   * // Graceful application shutdown
-   * try {
-   *   await serviceManager.shutdownAll();
-   *   console.log('Application shut down successfully');
-   * } catch (error) {
-   *   if (error instanceof GroupedShutdownException) {
-   *     console.error('Some providers failed to shutdown:', error.failures);
-   *     // Application should still terminate - failures are logged
-   *   }
-   * }
-   *
-   * // Manager state is reset
-   * console.log(serviceManager.getRegisteredProviders().length); // 0
-   * console.log(serviceManager.getBootedProviders().length); // 0
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#graceful-shutdown} for shutdown examples
    */
   public async shutdownAll(): Promise<void> {
     // Shutdown all registered providers in reverse dependency order
@@ -274,20 +199,7 @@ export class ServiceManager {
    *
    * @returns Array containing copies of all registered service providers
    *
-   * @example
-   * ```typescript
-   * serviceManager.register(new DatabaseServiceProvider());
-   * serviceManager.register(new EmailServiceProvider());
-   *
-   * console.log(serviceManager.getRegisteredProviders().length); // 0 (not registered yet)
-   *
-   * await serviceManager.registerAll();
-   * console.log(serviceManager.getRegisteredProviders().length); // 2
-   *
-   * // Safe to modify without affecting internal state
-   * const providers = serviceManager.getRegisteredProviders();
-   * providers.push(new AnotherProvider()); // Doesn't affect ServiceManager
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#provider-information} for provider information examples
    */
   public getRegisteredProviders(): Array<ServiceProvider> {
     return [...this.registeredProviders]
@@ -302,19 +214,7 @@ export class ServiceManager {
    *
    * @returns Array containing copies of all booted service providers
    *
-   * @example
-   * ```typescript
-   * // Some providers have boot methods, others don't
-   * serviceManager.register(new DatabaseServiceProvider()); // has boot()
-   * serviceManager.register(new ConfigServiceProvider());   // has boot()
-   * serviceManager.register(new UtilityServiceProvider());  // no boot()
-   *
-   * await serviceManager.registerAll();
-   * console.log(serviceManager.getRegisteredProviders().length); // 3
-   *
-   * await serviceManager.bootAll();
-   * console.log(serviceManager.getBootedProviders().length); // 2 (only those with boot())
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#provider-information} for provider information examples
    */
   public getBootedProviders(): Array<ServiceProvider> {
     return [...this.bootedProviders]
@@ -339,23 +239,7 @@ export class ServiceManager {
    * @param provider - The service provider to get a name for
    * @returns The provider's unique name
    *
-   * @example
-   * ```typescript
-   * // Provider with explicit name
-   * class DatabaseServiceProvider implements ServiceProvider {
-   *   getProviderName(): string { return 'DatabaseServiceProvider'; }
-   * }
-   *
-   * // Provider without explicit name (uses constructor name)
-   * class EmailProvider implements ServiceProvider {
-   *   // Will use 'EmailProvider' as name
-   * }
-   *
-   * // Anonymous provider (generates unique name)
-   * const anonymousProvider = new (class implements ServiceProvider {
-   *   // Will generate 'AnonymousProvider_1', 'AnonymousProvider_2', etc.
-   * })();
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#provider-naming} for provider naming examples
    */
   private getProviderName(provider: ServiceProvider): string {
     // Check if we already assigned a name to this provider
@@ -393,14 +277,7 @@ export class ServiceManager {
    * @param provider - The service provider to get dependencies for
    * @returns Array of tokens this provider depends on (empty array if no dependencies)
    *
-   * @example
-   * ```typescript
-   * class EmailServiceProvider implements ServiceProvider {
-   *   getDependencies() {
-   *     return ['database', 'logger']; // Must boot after database and logger
-   *   }
-   * }
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#provider-dependencies} for dependency examples
    */
   private getProviderDependencies(provider: ServiceProvider): Array<Token<any>> {
     return provider.getDependencies?.() || []
@@ -417,14 +294,7 @@ export class ServiceManager {
    * @param provider - The service provider to get provided services for
    * @returns Array of service tokens this provider makes available (empty array if none declared)
    *
-   * @example
-   * ```typescript
-   * class DatabaseServiceProvider implements ServiceProvider {
-   *   getProvidedServices() {
-   *     return ['database', 'migrationRunner']; // This provider makes these services available
-   *   }
-   * }
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#provider-dependencies} for dependency examples
    */
   private getProvidedServices(provider: ServiceProvider): Array<Token<any>> {
     return provider.getProvidedServices?.() || []
@@ -443,14 +313,7 @@ export class ServiceManager {
    *
    * @throws {ServiceBootException} If circular dependencies are detected
    *
-   * @example
-   * ```typescript
-   * // Boot order: Config -> Database -> Email
-   * // Shutdown order: Email -> Database -> Config
-   *
-   * const bootOrder = this.topologicalSort(providers, false);
-   * const shutdownOrder = this.topologicalSort(providers, true);
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#dependency-resolution} for dependency resolution examples
    */
   private topologicalSort(
     providers: Array<ServiceProvider>,
@@ -490,15 +353,7 @@ export class ServiceManager {
    *   - Missing service dependencies
    *   - Circular dependencies
    *
-   * @example
-   * ```typescript
-   * // Given these dependencies:
-   * // ConfigProvider -> provides: ['config']
-   * // DatabaseProvider -> depends: ['config'], provides: ['database']
-   * // EmailProvider -> depends: ['config', 'database'], provides: ['email']
-   *
-   * // Result: [ConfigProvider, DatabaseProvider, EmailProvider]
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#dependency-resolution} for dependency resolution examples
    */
   private getBootOrder(providers: Array<ServiceProvider>): Array<ServiceProvider> {
     const graph = new Map<string, ServiceProvider>()
@@ -605,18 +460,7 @@ export class ServiceManager {
    * @param token - Token to convert to a string key
    * @returns String representation of the token for use as a map key
    *
-   * @example
-   * ```typescript
-   * // String tokens
-   * getTokenKey('database') // -> 'database'
-   *
-   * // Symbol tokens
-   * const TOKEN = Symbol('myService');
-   * getTokenKey(TOKEN) // -> 'myService' (if symbol has description)
-   *
-   * // Constructor tokens
-   * getTokenKey(DatabaseService) // -> 'class DatabaseService { ... }'
-   * ```
+   * @example See {@link ../docs/service-manager-examples.md#token-key-conversion} for token conversion examples
    */
   private getTokenKey(token: Token<any>): string {
     const description = (token as any)?.description

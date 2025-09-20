@@ -6,8 +6,10 @@
   ],
   "scripts": {
     "build": "bun run --filter='*' build",
+    "build:types": "bun run --filter='*' build:types",
     "test": "bun run --filter='*' test",
-    "publish-all": "bun run --filter='*' publish"
+    "publish-all": "bun run --filter='*' publish",
+    "typecheck": "bun run --filter='*' typecheck --noEmit"
   },
   "devDependencies": {
     "bun": "latest"

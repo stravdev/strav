@@ -1,0 +1,9 @@
+{
+  "app": {
+    "version": "2.0.0",
+    "features": ["advanced"]
+  },
+  "api": {
+    "baseUrl": "https://api.example.com"
+  }
+}

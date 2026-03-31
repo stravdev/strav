@@ -1,6 +1,6 @@
-# @stravigor/create
+# @strav/create
 
-CLI scaffolding tool to create new Strav applications. Invoked via `bun create stravigor`.
+CLI scaffolding tool to create new Strav applications. Invoked via `bun create strav`.
 
 ## Dependencies
 None (standalone CLI tool).

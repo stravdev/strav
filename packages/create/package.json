@@ -13,7 +13,7 @@
     "create"
   ],
   "bin": {
-    "@stravigor/create": "./src/index.ts"
+    "@strav/create": "./src/index.ts"
   },
   "files": [
     "src/",

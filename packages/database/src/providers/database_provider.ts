@@ -1,0 +1,25 @@
+import ServiceProvider from '@stravigor/kernel/core/service_provider'
+import type Application from '@stravigor/kernel/core/application'
+import Database from '../database/database'
+
+export default class DatabaseProvider extends ServiceProvider {
+  readonly name = 'database'
+  override readonly dependencies = ['config']
+
+  private db: Database | null = null
+
+  override register(app: Application): void {
+    app.singleton(Database)
+  }
+
+  override boot(app: Application): void {
+    this.db = app.resolve(Database)
+  }
+
+  override async shutdown(): Promise<void> {
+    if (this.db) {
+      await this.db.close()
+      this.db = null
+    }
+  }
+}

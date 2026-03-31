@@ -1,0 +1,6 @@
+data
+.claude
+bun.lock
+node_modules
+publish.sh
+scripts

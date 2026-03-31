@@ -1,0 +1,20 @@
+{
+  "required": "This field is required",
+  "string": "Must be a string",
+  "integer": "Must be an integer",
+  "number": "Must be a number",
+  "boolean": "Must be a boolean",
+  "min": {
+    "number": "Must be at least :min",
+    "string": "Must be at least :min characters"
+  },
+  "max": {
+    "number": "Must be at most :max",
+    "string": "Must be at most :max characters"
+  },
+  "email": "Must be a valid email address",
+  "url": "Must be a valid URL",
+  "regex": "Invalid format",
+  "enum": "Must be one of: :values",
+  "array": "Must be an array"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@strav/machine",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "State machine for the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "files": [
+    "src/",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*",
+    "@strav/database": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  }
+}

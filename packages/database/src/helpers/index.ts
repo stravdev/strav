@@ -1,0 +1,1 @@
+export { extractUserId } from './identity'

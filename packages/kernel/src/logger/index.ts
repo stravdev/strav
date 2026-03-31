@@ -1,0 +1,5 @@
+export { default } from './logger.ts'
+export { default as Logger } from './logger.ts'
+export { LogSink, type SinkConfig, type LogLevel } from './sinks/sink.ts'
+export { ConsoleSink, type ConsoleSinkConfig } from './sinks/console_sink.ts'
+export { FileSink, type FileSinkConfig } from './sinks/file_sink.ts'

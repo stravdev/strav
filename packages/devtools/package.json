@@ -1,0 +1,33 @@
+{
+  "name": "@strav/devtools",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Debug inspector and performance monitor for the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "strav": {
+    "commands": "src/commands"
+  },
+  "files": [
+    "src/",
+    "stubs/",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*",
+    "@strav/http": "workspace:*",
+    "@strav/database": "workspace:*",
+    "@strav/cli": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "commander": "^14.0.3"
+  }
+}

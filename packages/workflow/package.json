@@ -1,0 +1,23 @@
+{
+  "name": "@strav/workflow",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Workflow orchestration for the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "files": [
+    "src/",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  }
+}

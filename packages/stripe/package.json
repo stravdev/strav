@@ -1,0 +1,29 @@
+{
+  "name": "@strav/stripe",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Stripe billing for the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "files": [
+    "src/",
+    "stubs/",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*",
+    "@strav/database": "workspace:*",
+    "@strav/http": "workspace:*"
+  },
+  "dependencies": {
+    "stripe": "^17.4.0"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  }
+}

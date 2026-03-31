@@ -1,0 +1,36 @@
+{
+  "name": "@strav/mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Model Context Protocol (MCP) server for the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "strav": {
+    "commands": "src/commands"
+  },
+  "files": [
+    "src/",
+    "stubs/",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.25 || ^4.0"
+  },
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*",
+    "@strav/http": "workspace:*",
+    "@strav/cli": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "commander": "^14.0.3"
+  }
+}

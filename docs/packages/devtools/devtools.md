@@ -1,0 +1,477 @@
+# Devtools
+
+Application debugging and performance monitoring. Combines a **request inspector** (individual entry capture) with an **APM dashboard** (pre-aggregated metrics) — think Laravel Telescope + Laravel Pulse in one package.
+
+Two modes:
+
+- **Inspector** — captures individual requests, queries, exceptions, logs, and jobs. Every entry is stored in full and grouped into batches so you can trace a single request across all its queries, logs, and side effects.
+- **Metrics** — records pre-aggregated performance data (slow requests, slow queries) in time buckets for at-a-glance monitoring without scanning raw entries.
+
+Both modes feed into a built-in SPA dashboard served at `/_devtools`.
+
+## Installation
+
+```bash
+bun add @stravigor/devtools
+bun strav install devtools
+```
+
+The `install` command copies files into your project:
+
+- `config/devtools.ts` — toggle collectors, recorders, thresholds.
+- `database/schemas/devtools_entries.ts` — the entries table schema.
+- `database/schemas/devtools_aggregates.ts` — the aggregates table schema.
+
+## Setup
+
+### Register the provider
+
+```typescript
+import { DevtoolsProvider } from '@stravigor/devtools'
+
+app.use(new DevtoolsProvider())
+```
+
+That's it. The provider automatically:
+
+- Registers `DevtoolsManager` as a singleton
+- Creates the storage tables
+- Adds the request-tracking middleware to the router
+- Mounts the dashboard at `/_devtools`
+- Tears down collectors on shutdown
+
+It depends on the `database` provider.
+
+Options:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `ensureTables` | `true` | Auto-create the entries and aggregates tables |
+| `middleware` | `true` | Auto-register the request-tracking middleware on the router |
+| `dashboard` | `true` | Auto-register the dashboard routes at `/_devtools` |
+| `guard` | — | Custom auth guard for the dashboard (see [Dashboard auth](#dashboard-auth)) |
+
+To add a custom dashboard auth guard:
+
+```typescript
+app.use(new DevtoolsProvider({
+  guard: (ctx) => ctx.get('user')?.isAdmin === true,
+}))
+```
+
+To disable auto-registration of middleware or dashboard (for manual control):
+
+```typescript
+app.use(new DevtoolsProvider({ middleware: false, dashboard: false }))
+```
+
+### Manual setup
+
+If you prefer full control over middleware and route placement:
+
+```typescript
+import DevtoolsManager from '@stravigor/devtools'
+import { devtools } from '@stravigor/devtools'
+import { registerDashboard } from '@stravigor/devtools/dashboard/routes'
+
+// Register and resolve the manager
+app.singleton(DevtoolsManager)
+app.resolve(DevtoolsManager)
+
+// Create tables
+await devtools.ensureTables()
+// Or via CLI: bun strav devtools:setup
+
+// Add request-tracking middleware
+router.use(devtools.middleware())
+
+// Mount the dashboard
+registerDashboard(router)
+```
+
+The middleware captures request/response data, sets a batch ID on the context, and triggers query collection via a SQL proxy. All other collectors (exceptions, logs, jobs) activate automatically through Emitter events.
+
+### Configure
+
+Edit `config/devtools.ts`:
+
+```typescript
+import { env } from '@stravigor/core/helpers'
+
+export default {
+  enabled: env('DEVTOOLS_ENABLED', 'true').bool(),
+
+  storage: {
+    pruneAfter: 24, // hours
+  },
+
+  collectors: {
+    request: { enabled: true, sizeLimit: 64 },
+    query: { enabled: true, slow: 100 },
+    exception: { enabled: true },
+    log: { enabled: true, level: 'debug' },
+    job: { enabled: true },
+  },
+
+  recorders: {
+    slowRequests: { enabled: true, threshold: 1000, sampleRate: 1.0 },
+    slowQueries: { enabled: true, threshold: 1000, sampleRate: 1.0 },
+  },
+}
+```
+
+Set `DEVTOOLS_ENABLED=false` in production to disable all collection with zero overhead.
+
+## Collectors
+
+Collectors capture individual events and store them as entries.
+
+### Request
+
+Middleware-based. Captures method, path, status, duration, memory usage, request/response headers, and IP. Sensitive headers (`authorization`, `cookie`) are automatically redacted.
+
+Tags: `status:<code>`, `slow` (if >1000ms), `user:<id>` (if authenticated).
+
+```typescript
+collectors: {
+  request: { enabled: true, sizeLimit: 64 },
+}
+```
+
+The `sizeLimit` option (in KB) controls the maximum body size captured.
+
+### Query
+
+Intercepts SQL queries by proxying the `Bun.sql` connection. Captures query text, bindings, duration, and a `familyHash` for grouping similar queries. Queries to devtools' own tables (`_strav_devtools_*`) are excluded.
+
+Tags: `slow` (if exceeding threshold).
+
+```typescript
+collectors: {
+  query: { enabled: true, slow: 100 },
+}
+```
+
+The `slow` option (in ms) marks queries above this duration.
+
+### Exception
+
+Listens to `http:error` Emitter events. Captures error class, message, stack trace (first 20 lines), and request context (path, method). Uses `familyHash` to group occurrences of the same error.
+
+Tags: error class name (e.g. `TypeError`).
+
+### Log
+
+Listens to `log:entry` Emitter events. Filters by minimum level.
+
+```typescript
+collectors: {
+  log: { enabled: true, level: 'debug' },
+}
+```
+
+Supported levels (lowest to highest): `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Setting `level: 'info'` captures `info`, `warn`, `error`, and `fatal` — not `trace` or `debug`.
+
+Tags: level name. Entries at `error` or `fatal` also get the `error` tag.
+
+### Job
+
+Listens to `queue:dispatched`, `queue:processed`, and `queue:failed` Emitter events. Captures job name, queue, status, duration, and error message (for failures).
+
+Tags: job name, status (`dispatched`, `processed`, `failed`).
+
+## Recorders
+
+Recorders aggregate metrics into time buckets for the dashboard. They don't store individual entries — they update counters and extreme values.
+
+### Slow Requests
+
+Records requests exceeding the threshold. Aggregates: `count`, `max`.
+
+```typescript
+recorders: {
+  slowRequests: { enabled: true, threshold: 1000, sampleRate: 1.0 },
+}
+```
+
+### Slow Queries
+
+Records queries exceeding the threshold. Normalizes SQL text (replaces string literals and `$N` parameters) for consistent grouping. Aggregates: `count`, `max`.
+
+```typescript
+recorders: {
+  slowQueries: { enabled: true, threshold: 1000, sampleRate: 1.0 },
+}
+```
+
+### sampleRate
+
+Both recorders support a `sampleRate` option (0.0 to 1.0). At `1.0`, every event is recorded. At `0.5`, roughly half are sampled. Useful for high-traffic applications.
+
+## Batch correlation
+
+Every request gets a unique `batchId`. All entries produced during that request — the request itself, its queries, log entries, and exceptions — share the same `batchId`. The dashboard detail view shows all related entries.
+
+Downstream code can read the batch ID:
+
+```typescript
+const batchId = ctx.get<string>('_devtools_batch_id')
+```
+
+## devtools helper
+
+The `devtools` helper provides the primary convenience API:
+
+```typescript
+import { devtools } from '@stravigor/devtools'
+```
+
+### Querying entries
+
+```typescript
+// List recent entries (all types)
+const entries = await devtools.entries()
+
+// Filter by type
+const requests = await devtools.entries('request', 50)
+const queries = await devtools.entries('query', 100, 0)
+
+// Find by UUID
+const entry = await devtools.find('550e8400-e29b-41d4-a716-446655440000')
+
+// Find all entries in a batch
+const batch = await devtools.batch(entry.batchId)
+
+// Search by tag
+const slow = await devtools.byTag('slow')
+const user42 = await devtools.byTag('user:42')
+
+// Count
+const total = await devtools.count()
+const exceptions = await devtools.count('exception')
+```
+
+### Querying metrics
+
+```typescript
+import { PERIODS } from '@stravigor/devtools'
+
+// Time-series data
+const hourly = await devtools.aggregates('slow_request', PERIODS.ONE_HOUR, 'count')
+const daily = await devtools.aggregates('slow_query', PERIODS.ONE_DAY, 'max')
+
+// Top offenders
+const topSlow = await devtools.topKeys('slow_request', PERIODS.ONE_HOUR, 'count', 10)
+```
+
+### Pruning
+
+```typescript
+// Prune entries older than the configured pruneAfter value
+const { entries, aggregates } = await devtools.prune()
+
+// Or specify hours explicitly
+const result = await devtools.prune(48)
+```
+
+## Dashboard
+
+The built-in SPA dashboard is served at `/_devtools` and provides seven views:
+
+**Inspector views:**
+
+| View | Shows |
+|------|-------|
+| Requests | Method, path, status, duration, time |
+| Queries | SQL preview, duration, slow flag |
+| Exceptions | Error class, message, request path |
+| Logs | Level, message, timestamp |
+| Jobs | Name, status, queue, duration |
+
+**Metrics views:**
+
+| View | Shows |
+|------|-------|
+| Slow Requests | Top endpoints by count and max duration |
+| Slow Queries | Top queries by count and max duration |
+
+Clicking any entry opens a detail view with full content and all related batch entries. The dashboard auto-refreshes every 5 seconds.
+
+### Dashboard auth
+
+By default, the dashboard is only accessible in `development` and `local` environments. In production, it returns 403.
+
+To allow access in production, pass a custom guard:
+
+```typescript
+import { registerDashboard } from '@stravigor/devtools/dashboard/routes'
+
+registerDashboard(router, (ctx) => {
+  const user = ctx.get('user')
+  return user?.isAdmin === true
+})
+```
+
+The guard receives the request context and returns `true` or `false` (or a Promise). It's called on every request to the `/_devtools` prefix.
+
+You can also use the middleware directly:
+
+```typescript
+import { dashboardAuth } from '@stravigor/devtools/dashboard/middleware'
+
+router.group({
+  prefix: '/_devtools',
+  middleware: [dashboardAuth((ctx) => ctx.get('user')?.isAdmin)]
+}, (r) => {
+  // custom routes
+})
+```
+
+## CLI commands
+
+### devtools:setup
+
+Create the storage tables (idempotent):
+
+```bash
+bun strav devtools:setup
+```
+
+### devtools:prune
+
+Delete old entries and aggregates:
+
+```bash
+bun strav devtools:prune
+bun strav devtools:prune --hours 48
+```
+
+**Options:**
+- `--hours <hours>` — Delete data older than this many hours (default: `24`).
+
+## Dashboard API
+
+The dashboard mounts a REST API under `/_devtools/api/`:
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/entries` | List entries. Query: `type`, `limit`, `offset` |
+| GET | `/api/entries/:uuid` | Single entry by UUID |
+| GET | `/api/entries/:uuid/batch` | All entries in the same batch |
+| GET | `/api/entries/tag/:tag` | Entries by tag. Query: `limit` |
+| GET | `/api/metrics/:type` | Time-series aggregates. Query: `period`, `aggregate`, `limit` |
+| GET | `/api/metrics/:type/top` | Top keys by value. Query: `period`, `aggregate`, `limit` |
+| GET | `/api/stats` | Entry counts by type |
+| DELETE | `/api/entries` | Prune old data. Query: `hours` |
+
+## Entry types
+
+```typescript
+type EntryType =
+  | 'request'
+  | 'query'
+  | 'exception'
+  | 'log'
+  | 'job'
+  | 'cache'     // reserved for future use
+  | 'mail'      // reserved for future use
+  | 'event'     // reserved for future use
+  | 'schedule'  // reserved for future use
+```
+
+## Aggregate functions
+
+```typescript
+type AggregateFunction = 'count' | 'min' | 'max' | 'sum' | 'avg'
+```
+
+## Aggregate periods
+
+```typescript
+import { PERIODS } from '@stravigor/devtools'
+
+PERIODS.ONE_HOUR    // 3600
+PERIODS.SIX_HOURS   // 21600
+PERIODS.ONE_DAY     // 86400
+PERIODS.SEVEN_DAYS  // 604800
+```
+
+## Database tables
+
+### _strav_devtools_entries
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | `bigserial` | Primary key |
+| `uuid` | `uuid` | Unique entry identifier |
+| `batch_id` | `uuid` | Groups entries from the same request |
+| `type` | `varchar(30)` | Entry type (request, query, etc.) |
+| `family_hash` | `varchar(64)` | Groups similar entries (same error, same query) |
+| `content` | `jsonb` | Full entry payload |
+| `tags` | `text[]` | Searchable string tags |
+| `created_at` | `timestamptz` | When the entry was recorded |
+
+Indexes: `batch_id`, `(type, created_at DESC)`, `family_hash` (partial, where not null).
+
+### _strav_devtools_aggregates
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | `bigserial` | Primary key |
+| `bucket` | `int` | Unix timestamp of the time bucket start |
+| `period` | `int` | Bucket size in seconds |
+| `type` | `varchar(30)` | Metric type (slow_request, slow_query) |
+| `key` | `text` | Grouping key (e.g. `GET /api/users`) |
+| `aggregate` | `varchar(10)` | Function (count, min, max, sum, avg) |
+| `value` | `numeric(20,2)` | Aggregated value |
+| `count` | `int` | Number of samples in this bucket |
+
+Unique constraint: `(bucket, period, type, aggregate, key)`.
+
+## Zero-cost when disabled
+
+All core event emissions use a `listenerCount()` guard:
+
+```typescript
+if (Emitter.listenerCount('log:entry') === 0) return
+```
+
+When devtools is not installed or `enabled: false`, there are no listeners registered, so the guard short-circuits before allocating any event objects. The SQL proxy is also skipped entirely when disabled.
+
+## Error handling
+
+```typescript
+import { DevtoolsError } from '@stravigor/devtools'
+```
+
+`DevtoolsError` extends `ConfigurationError` from core. It's thrown when DevtoolsManager is accessed before being resolved through the container.
+
+## Testing
+
+Disable devtools in tests to avoid recording test traffic:
+
+```env
+# .env.test
+DEVTOOLS_ENABLED=false
+```
+
+Or don't resolve `DevtoolsManager` in your test bootstrap — collectors and recorders simply won't activate, and the `listenerCount()` guards ensure zero overhead.
+
+## Full setup example
+
+```typescript
+import { app } from '@stravigor/core/core'
+import { DevtoolsProvider } from '@stravigor/devtools'
+
+app.use(new DevtoolsProvider({
+  guard: (ctx) => {
+    if (process.env.NODE_ENV === 'production') {
+      const user = ctx.get('user')
+      return user?.isAdmin === true
+    }
+    return true
+  },
+}))
+
+await app.start()
+```

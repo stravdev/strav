@@ -1,0 +1,46 @@
+{
+  "name": "@strav/database",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Database layer for the Strav framework \u2014 query builder, ORM, schema builder, and migrations",
+  "license": "MIT",
+  "keywords": [
+    "bun",
+    "framework",
+    "typescript",
+    "strav",
+    "database",
+    "orm"
+  ],
+  "files": [
+    "src/",
+    "package.json",
+    "tsconfig.json",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./database": "./src/database/index.ts",
+    "./database/*": "./src/database/*.ts",
+    "./orm": "./src/orm/index.ts",
+    "./orm/*": "./src/orm/*.ts",
+    "./schema": "./src/schema/index.ts",
+    "./schema/*": "./src/schema/*.ts",
+    "./helpers": "./src/helpers/index.ts",
+    "./helpers/*": "./src/helpers/*.ts",
+    "./providers": "./src/providers/index.ts",
+    "./providers/*": "./src/providers/*.ts"
+  },
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*"
+  },
+  "dependencies": {
+    "@types/luxon": "^3.7.1",
+    "luxon": "^3.7.2",
+    "reflect-metadata": "^0.2.2"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  }
+}

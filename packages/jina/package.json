@@ -1,0 +1,27 @@
+{
+  "name": "@strav/jina",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Headless authentication flows for the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "files": [
+    "src/",
+    "stubs/",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*",
+    "@strav/http": "workspace:*",
+    "@strav/signal": "workspace:*",
+    "@strav/database": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  }
+}

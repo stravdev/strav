@@ -1,6 +1,6 @@
-import { Emitter } from '@stravigor/kernel'
-import { Session } from '@stravigor/http'
-import type { Context } from '@stravigor/http'
+import { Emitter } from '@strav/kernel'
+import { Session } from '@strav/http'
+import type { Context } from '@strav/http'
 import JinaManager from '../jina_manager.ts'
 import { JinaEvents } from '../types.ts'
 

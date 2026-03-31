@@ -1,5 +1,5 @@
 import { test, expect, describe, beforeEach } from 'bun:test'
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 import { defineMachine } from '../src/machine.ts'
 import { TransitionError, GuardError } from '../src/errors.ts'
 

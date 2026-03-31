@@ -7,7 +7,7 @@ The core module provides the Application lifecycle manager, the Service Provider
 The `Container` class manages service registration and resolution. Services can be registered as **singletons** (one shared instance) or **transient** (new instance per resolution).
 
 ```typescript
-import Container from '@stravigor/core/core/container'
+import Container from '@strav/core/core/container'
 
 const app = new Container()
 ```
@@ -75,7 +75,7 @@ const svc = app.resolve(UserService) // db and logger are injected
 Mark any class with `@inject` to make it eligible for auto-wiring:
 
 ```typescript
-import { inject } from '@stravigor/core/core'
+import { inject } from '@strav/core/core'
 
 @inject
 class PaymentService {
@@ -90,7 +90,7 @@ The decorator works both as `@inject` and `@inject()`. It sets internal metadata
 A pre-created singleton container is exported for convenience:
 
 ```typescript
-import { app } from '@stravigor/core/core'
+import { app } from '@strav/core/core'
 
 app.singleton(Database)
 const db = app.resolve(Database)
@@ -126,12 +126,12 @@ This is used internally by `router.resource()` and `[Controller, 'method']` tupl
 The `Application` class extends `Container` with service provider lifecycle management. It is the primary way to bootstrap a Strav application — registering providers, booting them in dependency order, and handling graceful shutdown.
 
 ```typescript
-import { app } from '@stravigor/core/core'
+import { app } from '@strav/core/core'
 import {
   ConfigProvider, DatabaseProvider, AuthProvider,
   SessionProvider, CacheProvider, MailProvider,
   QueueProvider, HttpProvider,
-} from '@stravigor/core/providers'
+} from '@strav/core/providers'
 import User from './app/models/user'
 
 app
@@ -202,8 +202,8 @@ app.isShuttingDown    // true during shutdown
 A service provider encapsulates the full lifecycle of a framework service: registration (binding into the container), booting (async initialization), and shutdown (cleanup).
 
 ```typescript
-import { ServiceProvider } from '@stravigor/core/core'
-import type { Application } from '@stravigor/core/core'
+import { ServiceProvider } from '@strav/core/core'
+import type { Application } from '@strav/core/core'
 ```
 
 ### Anatomy of a provider
@@ -240,8 +240,8 @@ class MyProvider extends ServiceProvider {
 Extend `ServiceProvider`, set `name` and optionally `dependencies`, and implement the lifecycle methods you need:
 
 ```typescript
-import { ServiceProvider } from '@stravigor/core/core'
-import type { Application } from '@stravigor/core/core'
+import { ServiceProvider } from '@strav/core/core'
+import type { Application } from '@strav/core/core'
 
 class RedisProvider extends ServiceProvider {
   readonly name = 'redis'
@@ -263,7 +263,7 @@ class RedisProvider extends ServiceProvider {
 
 ### Built-in providers
 
-All built-in providers are exported from `@stravigor/core/providers`:
+All built-in providers are exported from `@strav/core/providers`:
 
 | Provider | Name | Dependencies | What it does |
 |----------|------|-------------|--------------|
@@ -286,11 +286,11 @@ External packages provide their own providers:
 
 | Package | Provider | Name | Dependencies |
 |---------|----------|------|-------------|
-| `@stravigor/search` | `SearchProvider` | `search` | `config` |
-| `@stravigor/devtools` | `DevtoolsProvider` | `devtools` | `database` |
-| `@stravigor/brain` | `BrainProvider` | `brain` | `config` |
-| `@stravigor/stripe` | `StripeProvider` | `stripe` | `database` |
-| `@stravigor/social` | `SocialProvider` | `social` | `database` |
+| `@strav/search` | `SearchProvider` | `search` | `config` |
+| `@strav/devtools` | `DevtoolsProvider` | `devtools` | `database` |
+| `@strav/brain` | `BrainProvider` | `brain` | `config` |
+| `@strav/stripe` | `StripeProvider` | `stripe` | `database` |
+| `@strav/social` | `SocialProvider` | `social` | `database` |
 
 ### Provider options
 
@@ -309,19 +309,19 @@ new BroadcastProvider({ middleware: [session()], path: '/_broadcast' })
 
 ```typescript
 // index.ts
-import { app } from '@stravigor/core/core'
-import { router } from '@stravigor/core/http'
+import { app } from '@strav/core/core'
+import { router } from '@strav/core/http'
 import {
   ConfigProvider, DatabaseProvider, EncryptionProvider,
   LoggerProvider, CacheProvider, StorageProvider,
   AuthProvider, SessionProvider, MailProvider,
   QueueProvider, NotificationProvider, I18nProvider,
   BroadcastProvider, HttpProvider,
-} from '@stravigor/core/providers'
-import { SearchProvider } from '@stravigor/search'
-import { DevtoolsProvider } from '@stravigor/devtools'
-import { session } from '@stravigor/core/session'
-import { auth } from '@stravigor/core/auth'
+} from '@strav/core/providers'
+import { SearchProvider } from '@strav/search'
+import { DevtoolsProvider } from '@strav/devtools'
+import { session } from '@strav/core/session'
+import { auth } from '@strav/core/auth'
 import User from './app/models/user'
 
 // Register providers

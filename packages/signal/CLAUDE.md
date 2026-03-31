@@ -1,12 +1,12 @@
-# @stravigor/signal
+# @strav/signal
 
 Communication layer for the Strav framework — mail, notifications, and real-time broadcasting.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/database (peer)
-- @stravigor/queue (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/database (peer)
+- @strav/queue (peer)
 
 ## Commands
 - bun test
@@ -19,6 +19,6 @@ Communication layer for the Strav framework — mail, notifications, and real-ti
 - src/providers/ — MailProvider, NotificationProvider, BroadcastProvider
 
 ## Conventions
-- Mail uses view engine from @stravigor/http for HTML templates
-- Notifications can be queued via @stravigor/queue
-- Broadcast depends on @stravigor/http's Router for WebSocket upgrade
+- Mail uses view engine from @strav/http for HTML templates
+- Notifications can be queued via @strav/queue
+- Broadcast depends on @strav/http's Router for WebSocket upgrade

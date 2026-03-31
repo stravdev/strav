@@ -1,7 +1,7 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
 import { bootstrap, shutdown } from '../cli/bootstrap.ts'
-import SchemaDiffer from '@stravigor/database/database/migration/differ'
+import SchemaDiffer from '@strav/database/database/migration/differ'
 
 export function register(program: Command): void {
   program

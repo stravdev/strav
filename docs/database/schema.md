@@ -6,7 +6,7 @@ The schema module lets you define your data models using a TypeScript DSL. Schem
 
 ```typescript
 // database/schemas/user.ts
-import { defineSchema, t, Archetype } from '@stravigor/database'
+import { defineSchema, t, Archetype } from '@strav/database'
 
 export default defineSchema('user', {
   archetype: Archetype.Entity,
@@ -41,7 +41,7 @@ Strav defines 8 archetypes, each with specific timestamp rules:
 Dependent archetypes (`component`, `attribute`, `event`, `configuration`, `contribution`) automatically receive foreign keys to their parents:
 
 ```typescript
-import { defineSchema, t, Archetype } from '@stravigor/database'
+import { defineSchema, t, Archetype } from '@strav/database'
 
 export default defineSchema('profile', {
   archetype: Archetype.Attribute,
@@ -118,7 +118,7 @@ Define a pivot table between two entities using `defineAssociation`:
 
 ```typescript
 // database/schemas/team_member.ts
-import { defineAssociation, t } from '@stravigor/database'
+import { defineAssociation, t } from '@strav/database'
 
 export default defineAssociation(['team', 'user'], {
   as: { team: 'members', user: 'teams' },  // relationship names
@@ -155,7 +155,7 @@ ULIDs are:
 You can also generate ULIDs manually:
 
 ```typescript
-import { ulid, isUlid } from '@stravigor/kernel/helpers'
+import { ulid, isUlid } from '@strav/kernel/helpers'
 
 const id = ulid()  // e.g., "01HQVB2YKQF5JZRJ8E9QKQHQWR"
 console.log(isUlid(id))  // true
@@ -166,7 +166,7 @@ console.log(isUlid(id))  // true
 The `SchemaRegistry` discovers, validates, and resolves schemas:
 
 ```typescript
-import SchemaRegistry from '@stravigor/database'
+import SchemaRegistry from '@strav/database'
 
 const registry = new SchemaRegistry()
 await registry.discover('database/schemas')  // finds all schema files

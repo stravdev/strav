@@ -26,7 +26,7 @@ The Logger is injectable and provides six log levels.
 ### Using a service provider (recommended)
 
 ```typescript
-import { LoggerProvider } from '@stravigor/core/providers'
+import { LoggerProvider } from '@strav/core/providers'
 
 app.use(new LoggerProvider())
 ```
@@ -36,7 +36,7 @@ The `LoggerProvider` registers `Logger` as a singleton. It depends on the `confi
 ### Manual setup
 
 ```typescript
-import Logger from '@stravigor/core/logger/logger'
+import Logger from '@strav/core/logger/logger'
 
 app.singleton(Logger)
 const logger = app.resolve(Logger)
@@ -76,7 +76,7 @@ Writes JSON-formatted log entries to a file. Automatically creates parent direct
 Extend the `LogSink` base class and register it in the sink registry inside `logger.ts`:
 
 ```typescript
-import { LogSink, type SinkConfig } from '@stravigor/core/logger/sinks/sink'
+import { LogSink, type SinkConfig } from '@strav/core/logger/sinks/sink'
 
 class CustomSink extends LogSink {
   createStream() {

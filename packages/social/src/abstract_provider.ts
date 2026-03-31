@@ -1,5 +1,5 @@
-import type { Context, Session } from '@stravigor/http'
-import { randomHex, ExternalServiceError } from '@stravigor/kernel'
+import type { Context, Session } from '@strav/http'
+import { randomHex, ExternalServiceError } from '@strav/kernel'
 import type { ProviderConfig, SocialUser, TokenResponse } from './types.ts'
 
 const STATE_KEY = 'social_state'

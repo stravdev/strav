@@ -1,5 +1,5 @@
 import { test, expect, describe, beforeEach, afterEach } from 'bun:test'
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 import SlowRequestsRecorder from '../src/recorders/slow_requests.ts'
 import SlowQueriesRecorder from '../src/recorders/slow_queries.ts'
 import Recorder from '../src/recorders/recorder.ts'

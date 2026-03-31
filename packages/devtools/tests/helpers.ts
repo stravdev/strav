@@ -1,4 +1,4 @@
-import { Context } from '@stravigor/http'
+import { Context } from '@strav/http'
 import type {
   DevtoolsEntry,
   EntryRecord,

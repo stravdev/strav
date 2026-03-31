@@ -2,8 +2,8 @@ import type { Command } from 'commander'
 import chalk from 'chalk'
 import path from 'node:path'
 import { bootstrap, shutdown } from '../cli/bootstrap.ts'
-import Scheduler from '@stravigor/queue/scheduler/scheduler'
-import SchedulerRunner from '@stravigor/queue/scheduler/runner'
+import Scheduler from '@strav/queue/scheduler/scheduler'
+import SchedulerRunner from '@strav/queue/scheduler/runner'
 
 export function register(program: Command): void {
   program

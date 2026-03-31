@@ -1,5 +1,5 @@
-import { Emitter } from '@stravigor/kernel'
-import type { Listener } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
+import type { Listener } from '@strav/kernel'
 import Collector from './collector.ts'
 import type EntryStore from '../storage/entry_store.ts'
 import type { CollectorOptions } from '../types.ts'

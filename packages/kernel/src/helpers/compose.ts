@@ -29,9 +29,9 @@ interface MixinFunction<In, Out> {
  * for up to 8 mixins.
  *
  * @example
- * import { compose } from '@stravigor/kernel/helpers'
- * import { BaseModel } from '@stravigor/database/orm'
- * import { billable } from '@stravigor/stripe'
+ * import { compose } from '@strav/kernel/helpers'
+ * import { BaseModel } from '@strav/database/orm'
+ * import { billable } from '@strav/stripe'
  *
  * // Without compose (nested):
  * class User extends billable(softDeletes(BaseModel)) { }

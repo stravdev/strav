@@ -1,12 +1,12 @@
-# @stravigor/devtools
+# @strav/devtools
 
 Application debugging and performance monitoring. Combines a request inspector with an APM dashboard. Captures requests, queries, exceptions, logs, and jobs. Serves a built-in SPA dashboard at `/_devtools`.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/database (peer)
-- @stravigor/cli (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/database (peer)
+- @strav/cli (peer)
 
 ## Commands
 - bun test

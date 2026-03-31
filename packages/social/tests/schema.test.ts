@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'bun:test'
 import { schema } from '../src/schema.ts'
-import { Archetype } from '@stravigor/database'
+import { Archetype } from '@strav/database'
 
 describe('social_account schema', () => {
   test('name is social_account', () => {

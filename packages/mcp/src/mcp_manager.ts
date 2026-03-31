@@ -1,4 +1,4 @@
-import { inject, app, Configuration, Emitter, ConfigurationError } from '@stravigor/kernel'
+import { inject, app, Configuration, Emitter, ConfigurationError } from '@strav/kernel'
 import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type {
   McpConfig,

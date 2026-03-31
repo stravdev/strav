@@ -1,9 +1,9 @@
 import type { ServerWebSocket } from 'bun'
-import Context from '@stravigor/http/http/context'
-import { compose } from '@stravigor/http/http/middleware'
-import type { Middleware } from '@stravigor/http/http/middleware'
-import type Router from '@stravigor/http/http/router'
-import type { WebSocketData } from '@stravigor/http/http/router'
+import Context from '@strav/http/http/context'
+import { compose } from '@strav/http/http/middleware'
+import type { Middleware } from '@strav/http/http/middleware'
+import type Router from '@strav/http/http/router'
+import type { WebSocketData } from '@strav/http/http/router'
 
 // ---------------------------------------------------------------------------
 // Types

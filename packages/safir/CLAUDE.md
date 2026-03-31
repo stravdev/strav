@@ -6,7 +6,7 @@ Lightweight Vue 3 UI component library + page stubs for the Stravigor framework.
 
 ```
 safir/
-  src/                          # npm package (@stravigor/safir)
+  src/                          # npm package (@strav/safir)
     index.ts                    # Barrel export for all components + composables
     utils/cn.ts                 # clsx + tailwind-merge utility
     composables/useToast.ts     # Programmatic toast API

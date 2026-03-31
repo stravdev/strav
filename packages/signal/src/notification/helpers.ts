@@ -1,15 +1,15 @@
 import NotificationManager from './notification_manager.ts'
 import type { BaseNotification } from './base_notification.ts'
 import type { Notifiable, NotificationRecord } from './types.ts'
-import Queue from '@stravigor/queue/queue/queue'
-import Emitter from '@stravigor/kernel/events/emitter'
-import Database from '@stravigor/database/database/database'
+import Queue from '@strav/queue/queue/queue'
+import Emitter from '@strav/kernel/events/emitter'
+import Database from '@strav/database/database/database'
 
 /**
  * Send a notification to one or more recipients.
  *
  * @example
- * import { notify } from '@stravigor/signal/notification'
+ * import { notify } from '@strav/signal/notification'
  *
  * await notify(user, new TaskAssignedNotification(task, assigner))
  * await notify([user1, user2], new InvoicePaidNotification(invoice))
@@ -70,7 +70,7 @@ async function sendNow(notifiable: Notifiable, notification: BaseNotification): 
  * Notification query helper — convenience API for in-app notification reads.
  *
  * @example
- * import { notifications } from '@stravigor/signal/notification'
+ * import { notifications } from '@strav/signal/notification'
  *
  * const unread = await notifications.unread('user', userId)
  * await notifications.markAsRead(notificationId)

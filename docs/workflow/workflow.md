@@ -1,11 +1,11 @@
 # Workflow
 
-General-purpose workflow orchestration. Build multi-step processes with sequential, parallel, conditional, and looping steps. Includes saga-style compensation for automatic rollback on failure. Used internally by `@stravigor/brain` for multi-agent pipelines.
+General-purpose workflow orchestration. Build multi-step processes with sequential, parallel, conditional, and looping steps. Includes saga-style compensation for automatic rollback on failure. Used internally by `@strav/brain` for multi-agent pipelines.
 
 ## Installation
 
 ```bash
-bun add @stravigor/workflow
+bun add @strav/workflow
 ```
 
 No service provider or configuration needed — the `Workflow` class is a standalone utility.
@@ -13,7 +13,7 @@ No service provider or configuration needed — the `Workflow` class is a standa
 ## Basic usage
 
 ```typescript
-import { workflow } from '@stravigor/workflow'
+import { workflow } from '@strav/workflow'
 
 const result = await workflow('order-process')
   .step('validate', async (ctx) => {
@@ -196,7 +196,7 @@ If `schedule-shipping` fails:
 If a compensate function itself throws, the error is collected but does **not** prevent other compensations from running. After all compensations complete, a `CompensationError` is thrown containing both the original error and all compensation errors.
 
 ```typescript
-import { CompensationError } from '@stravigor/workflow'
+import { CompensationError } from '@strav/workflow'
 
 try {
   await workflow('saga').step(...).step(...).run({})
@@ -227,13 +227,13 @@ Parallel entries can also define compensators:
 ])
 ```
 
-## Integrating with `@stravigor/brain`
+## Integrating with `@strav/brain`
 
-The `@stravigor/brain` workflow is built on top of this package. Each AI agent step wraps an `AgentRunner` execution inside a generic workflow step handler.
+The `@strav/brain` workflow is built on top of this package. Each AI agent step wraps an `AgentRunner` execution inside a generic workflow step handler.
 
 ```typescript
 // This AI workflow...
-import { brain } from '@stravigor/brain'
+import { brain } from '@strav/brain'
 
 await brain.workflow('content-pipeline')
   .step('research', ResearchAgent)
@@ -243,7 +243,7 @@ await brain.workflow('content-pipeline')
   .run({ topic: 'AI' })
 
 // ...is equivalent to this general workflow with agent wrappers:
-import { workflow } from '@stravigor/workflow'
+import { workflow } from '@strav/workflow'
 
 await workflow('content-pipeline')
   .step('research', async (ctx) => {
@@ -261,7 +261,7 @@ await workflow('content-pipeline')
 For long-running workflows, dispatch them as queue jobs:
 
 ```typescript
-import Queue from '@stravigor/core/queue'
+import Queue from '@strav/core/queue'
 
 // Define the job handler
 Queue.handle('run-workflow', async (payload) => {

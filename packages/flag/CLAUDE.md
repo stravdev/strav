@@ -1,12 +1,12 @@
-# @stravigor/flag
+# @strav/flag
 
 Feature flags with a unified API, scoped per-user or per-team, with optional rich values for A/B testing. Built-in drivers for PostgreSQL (persistent) and in-memory (testing).
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/database (peer)
-- @stravigor/http (peer)
-- @stravigor/cli (peer)
+- @strav/kernel (peer)
+- @strav/database (peer)
+- @strav/http (peer)
+- @strav/cli (peer)
 
 ## Commands
 - bun test

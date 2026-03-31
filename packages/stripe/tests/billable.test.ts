@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach } from 'bun:test'
-import { BaseModel } from '@stravigor/database'
-import { compose } from '@stravigor/kernel'
+import { BaseModel } from '@strav/database'
+import { compose } from '@strav/kernel'
 import { billable } from '../src/billable.ts'
 import {
   bootStripe,

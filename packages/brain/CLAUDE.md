@@ -1,10 +1,10 @@
-# @stravigor/brain
+# @strav/brain
 
 Multi-provider AI module with agents, tool use, structured output, multi-turn threads, and workflow orchestration. Supports Anthropic, OpenAI, and DeepSeek. Zero SDK dependencies — all provider communication uses raw fetch().
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/workflow (peer)
+- @strav/kernel (peer)
+- @strav/workflow (peer)
 
 ## Commands
 - bun test
@@ -15,7 +15,7 @@ Multi-provider AI module with agents, tool use, structured output, multi-turn th
 - src/brain_provider.ts — service provider registration
 - src/agent.ts — AI agent abstraction
 - src/tool.ts — tool definitions for AI tool use
-- src/workflow.ts — AI workflow orchestration (uses @stravigor/workflow)
+- src/workflow.ts — AI workflow orchestration (uses @strav/workflow)
 - src/providers/ — provider implementations (Anthropic, OpenAI, DeepSeek)
 - src/memory/ — conversation memory management (token counting, compaction, semantic facts, persistence)
 - src/utils/ — shared utilities
@@ -33,5 +33,5 @@ Multi-provider AI module with agents, tool use, structured output, multi-turn th
 ## Conventions
 - Providers implement a common interface — no SDK dependencies, raw fetch() only
 - Tools are defined declaratively and passed to agents
-- Workflows compose agents and tools into multi-step processes via @stravigor/workflow
+- Workflows compose agents and tools into multi-step processes via @strav/workflow
 - Memory is opt-in and backward-compatible — existing Thread API unchanged without .memory()

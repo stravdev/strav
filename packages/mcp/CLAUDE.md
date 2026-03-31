@@ -1,11 +1,11 @@
-# @stravigor/mcp
+# @strav/mcp
 
 Model Context Protocol (MCP) server for the Strav framework. Expose application capabilities to AI clients (e.g. Claude Desktop) through tools, resources, and prompts. Supports stdio (local) and HTTP (hosted) transports.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/cli (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/cli (peer)
 
 ## Commands
 - bun test

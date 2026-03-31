@@ -1,4 +1,4 @@
-import type { Router, Context } from '@stravigor/http'
+import type { Router, Context } from '@strav/http'
 import { dashboardAuth } from './middleware.ts'
 import DevtoolsManager from '../devtools_manager.ts'
 import type { EntryType, AggregateFunction } from '../types.ts'
@@ -10,7 +10,7 @@ import { PERIODS } from '../storage/aggregate_store.ts'
  * Mounts the API under `/_devtools` and serves the SPA dashboard.
  *
  * @example
- * import { registerDashboard } from '@stravigor/devtools/dashboard/routes'
+ * import { registerDashboard } from '@strav/devtools/dashboard/routes'
  * registerDashboard(router)
  *
  * // With custom auth guard

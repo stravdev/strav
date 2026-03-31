@@ -3,7 +3,7 @@ import { readdirSync } from 'node:fs'
 import type Database from '../database'
 import type MigrationTracker from './tracker'
 import type { MigrationManifest } from './types'
-import { DatabaseError } from '@stravigor/kernel/exceptions/errors'
+import { DatabaseError } from '@strav/kernel/exceptions/errors'
 import { getMigrationTableName } from '../../schema/domain_discovery'
 
 export interface RunResult {

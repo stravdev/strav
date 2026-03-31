@@ -1,5 +1,5 @@
-import { ServiceProvider } from '@stravigor/kernel'
-import type { Application } from '@stravigor/kernel'
+import { ServiceProvider } from '@strav/kernel'
+import type { Application } from '@strav/kernel'
 import RagManager from './rag_manager.ts'
 
 export default class RagProvider extends ServiceProvider {

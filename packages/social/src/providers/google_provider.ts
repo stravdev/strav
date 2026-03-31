@@ -1,4 +1,4 @@
-import { ExternalServiceError } from '@stravigor/kernel'
+import { ExternalServiceError } from '@strav/kernel'
 import { AbstractProvider } from '../abstract_provider.ts'
 import type { SocialUser } from '../types.ts'
 

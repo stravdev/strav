@@ -8,7 +8,7 @@ import Database from './database'
  * main `DatabaseSeeder`.
  *
  * @example
- * import { Seeder } from '@stravigor/database/database'
+ * import { Seeder } from '@strav/database/database'
  *
  * export default class DatabaseSeeder extends Seeder {
  *   async run(): Promise<void> {

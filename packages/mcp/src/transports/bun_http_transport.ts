@@ -1,6 +1,6 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
-import type { Router, Context } from '@stravigor/http'
-import { Emitter } from '@stravigor/kernel'
+import type { Router, Context } from '@strav/http'
+import { Emitter } from '@strav/kernel'
 import McpManager from '../mcp_manager.ts'
 
 export type { WebStandardStreamableHTTPServerTransport }

@@ -1,5 +1,5 @@
-import { Emitter } from '@stravigor/kernel'
-import type { Listener } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
+import type { Listener } from '@strav/kernel'
 import Recorder from './recorder.ts'
 import type AggregateStore from '../storage/aggregate_store.ts'
 import type { RecorderOptions } from '../types.ts'

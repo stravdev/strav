@@ -7,16 +7,16 @@
 
 ```bash
 # Copy all stubs into your project
-cp -r node_modules/@stravigor/safir/stubs/* resources/views/
+cp -r node_modules/@strav/safir/stubs/* resources/views/
 ```
 
 Or copy only what you need:
 
 ```bash
 # Just auth pages
-cp -r node_modules/@stravigor/safir/stubs/layouts resources/views/
-cp -r node_modules/@stravigor/safir/stubs/partials resources/views/
-cp -r node_modules/@stravigor/safir/stubs/auth resources/views/
+cp -r node_modules/@strav/safir/stubs/layouts resources/views/
+cp -r node_modules/@strav/safir/stubs/partials resources/views/
+cp -r node_modules/@strav/safir/stubs/auth resources/views/
 ```
 
 

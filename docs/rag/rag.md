@@ -4,12 +4,12 @@ Vector retrieval framework for retrieval-augmented generation. Built-in drivers 
 
 The `retrievable()` mixin integrates vector search directly into your ORM models — chunk, embed, and store on save; remove on delete; semantic search with a single static method.
 
-Uses `@stravigor/brain` for embedding generation and `@stravigor/database` for pgvector storage.
+Uses `@strav/brain` for embedding generation and `@strav/database` for pgvector storage.
 
 ## Installation
 
 ```bash
-bun add @stravigor/rag
+bun add @strav/rag
 bun strav install rag
 ```
 
@@ -22,7 +22,7 @@ The `install` command copies `config/rag.ts` into your project. The file is your
 #### Using a service provider (recommended)
 
 ```typescript
-import { RagProvider } from '@stravigor/rag'
+import { RagProvider } from '@strav/rag'
 
 app.use(new RagProvider())
 ```
@@ -32,7 +32,7 @@ The `RagProvider` registers `RagManager` as a singleton. It depends on the `conf
 #### Manual setup
 
 ```typescript
-import RagManager from '@stravigor/rag'
+import RagManager from '@strav/rag'
 
 app.singleton(RagManager)
 app.resolve(RagManager)
@@ -43,7 +43,7 @@ app.resolve(RagManager)
 Edit `config/rag.ts`:
 
 ```typescript
-import { env } from '@stravigor/kernel'
+import { env } from '@strav/kernel'
 
 export default {
   default: env('RAG_DRIVER', 'pgvector'),
@@ -86,7 +86,7 @@ RAG_EMBEDDING_MODEL=text-embedding-3-small
 OPENAI_API_KEY=sk-...
 ```
 
-The embedding provider must be configured in `config/ai.ts` (via `@stravigor/brain`). The RAG package calls `brain.embed()` under the hood.
+The embedding provider must be configured in `config/ai.ts` (via `@strav/brain`). The RAG package calls `brain.embed()` under the hood.
 
 ### 4. Enable pgvector (if using PostgreSQL driver)
 
@@ -102,8 +102,8 @@ CREATE EXTENSION IF NOT EXISTS vector;
 Add vector search to any model with the `retrievable()` mixin:
 
 ```typescript
-import { BaseModel } from '@stravigor/database'
-import { retrievable } from '@stravigor/rag'
+import { BaseModel } from '@strav/database'
+import { retrievable } from '@strav/rag'
 
 class Article extends retrievable(BaseModel) {
   declare id: number
@@ -134,8 +134,8 @@ class Article extends retrievable(BaseModel) {
 Works with `compose()` for multiple mixins:
 
 ```typescript
-import { compose } from '@stravigor/kernel'
-import { searchable } from '@stravigor/search'
+import { compose } from '@strav/kernel'
+import { searchable } from '@strav/search'
 
 class Article extends compose(BaseModel, searchable, retrievable) {
   // Full-text search AND vector retrieval on the same model
@@ -214,7 +214,7 @@ chunking: {
 Implement the `Chunker` interface:
 
 ```typescript
-import type { Chunker, Chunk } from '@stravigor/rag'
+import type { Chunker, Chunk } from '@strav/rag'
 
 class SentenceChunker implements Chunker {
   chunk(content: string): Chunk[] {
@@ -346,7 +346,7 @@ Vectorization failures are silently caught — they should not break the event p
 The `rag` helper provides a standalone API for working with vector stores directly, without going through a model:
 
 ```typescript
-import { rag } from '@stravigor/rag'
+import { rag } from '@strav/rag'
 ```
 
 ### Ingesting content
@@ -441,8 +441,8 @@ rag.store('pgvector')
 Register a custom vector store driver with `extend()`:
 
 ```typescript
-import { rag } from '@stravigor/rag'
-import type { VectorStore } from '@stravigor/rag'
+import { rag } from '@strav/rag'
+import type { VectorStore } from '@strav/rag'
 
 rag.extend('pinecone', (config) => {
   return new PineconeDriver(config)
@@ -522,7 +522,7 @@ RAG_DRIVER=memory
 Swap stores at runtime:
 
 ```typescript
-import RagManager, { MemoryDriver } from '@stravigor/rag'
+import RagManager, { MemoryDriver } from '@strav/rag'
 
 RagManager.useStore(new MemoryDriver())
 ```
@@ -572,7 +572,7 @@ No-op driver. All writes are discarded, queries return empty results. Useful for
 
 ## Architecture
 
-The package follows the same Manager + Driver + Mixin + Helper architecture as `@stravigor/search`:
+The package follows the same Manager + Driver + Mixin + Helper architecture as `@strav/search`:
 
 ```
 RagProvider          →  registers RagManager singleton

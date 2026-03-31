@@ -1,5 +1,5 @@
-import { encrypt, Emitter } from '@stravigor/kernel'
-import type { Context } from '@stravigor/http'
+import { encrypt, Emitter } from '@strav/kernel'
+import type { Context } from '@strav/http'
 import JinaManager from '../jina_manager.ts'
 import { JinaEvents } from '../types.ts'
 

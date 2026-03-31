@@ -1,19 +1,19 @@
 import { join } from 'node:path'
-import { Archetype } from '@stravigor/database/schema/types'
-import type { SchemaDefinition } from '@stravigor/database/schema/types'
+import { Archetype } from '@strav/database/schema/types'
+import type { SchemaDefinition } from '@strav/database/schema/types'
 import type {
   DatabaseRepresentation,
   TableDefinition,
   ColumnDefinition,
-} from '@stravigor/database/schema/database_representation'
-import type { FieldDefinition, FieldValidator } from '@stravigor/database/schema/field_definition'
-import type { PostgreSQLCustomType } from '@stravigor/database/schema/postgres'
+} from '@strav/database/schema/database_representation'
+import type { FieldDefinition, FieldValidator } from '@strav/database/schema/field_definition'
+import type { PostgreSQLCustomType } from '@strav/database/schema/postgres'
 import {
   toSnakeCase,
   toCamelCase,
   toPascalCase,
   pluralize,
-} from '@stravigor/kernel/helpers/strings'
+} from '@strav/kernel/helpers/strings'
 import type { GeneratedFile } from './model_generator.ts'
 import type { GeneratorConfig, GeneratorPaths } from './config.ts'
 import { resolvePaths } from './config.ts'

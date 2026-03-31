@@ -1,4 +1,4 @@
-import { StravError } from '@stravigor/kernel'
+import { StravError } from '@strav/kernel'
 
 /** Base error class for all MCP errors. */
 export class McpError extends StravError {}

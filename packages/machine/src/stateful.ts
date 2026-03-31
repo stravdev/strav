@@ -1,13 +1,13 @@
-import type { BaseModel } from '@stravigor/database'
-import type { NormalizeConstructor } from '@stravigor/kernel'
+import type { BaseModel } from '@strav/database'
+import type { NormalizeConstructor } from '@strav/kernel'
 import type { Machine, TransitionMeta } from './types.ts'
 
 /**
  * Mixin that adds state machine methods to a BaseModel subclass.
  *
  * @example
- * import { BaseModel } from '@stravigor/database'
- * import { defineMachine, stateful } from '@stravigor/machine'
+ * import { BaseModel } from '@strav/database'
+ * import { defineMachine, stateful } from '@strav/machine'
  *
  * const orderMachine = defineMachine({
  *   field: 'status',
@@ -30,7 +30,7 @@ import type { Machine, TransitionMeta } from './types.ts'
  * await order.transition('process')  // validates, mutates, saves, emits
  *
  * // Composable with other mixins:
- * import { compose } from '@stravigor/kernel'
+ * import { compose } from '@strav/kernel'
  * class Order extends compose(BaseModel, searchable, m => stateful(m, orderMachine)) { }
  */
 export function stateful<T extends NormalizeConstructor<typeof BaseModel>>(

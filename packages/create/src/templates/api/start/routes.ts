@@ -1,4 +1,4 @@
-import { router } from '@stravigor/http/http'
+import { router } from '@strav/http/http'
 
 router.get('/', () => {
   return Response.json({

@@ -1,6 +1,6 @@
 import type Context from '../http/context.ts'
 import type { Middleware } from '../http/middleware.ts'
-// Moved from @stravigor/kernel/cache — depends on http types
+// Moved from @strav/kernel/cache — depends on http types
 
 export interface HttpCacheOptions {
   /** Cache-Control max-age in seconds. @default 0 */

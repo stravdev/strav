@@ -5,7 +5,7 @@ Model Context Protocol (MCP) server for the Strav framework. Expose your applica
 ## Installation
 
 ```bash
-bun add @stravigor/mcp
+bun add @strav/mcp
 bun strav install mcp
 ```
 
@@ -18,7 +18,7 @@ The `install` command copies `config/mcp.ts` into your project. The file is your
 #### Using a service provider (recommended)
 
 ```typescript
-import { McpProvider } from '@stravigor/mcp'
+import { McpProvider } from '@strav/mcp'
 
 app.use(new McpProvider())
 ```
@@ -34,7 +34,7 @@ app.use(new McpProvider({ mountHttp: false }))
 #### Manual setup
 
 ```typescript
-import McpManager from '@stravigor/mcp'
+import McpManager from '@strav/mcp'
 
 app.singleton(McpManager)
 app.resolve(McpManager)
@@ -45,7 +45,7 @@ app.resolve(McpManager)
 Edit `config/mcp.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   name: env('MCP_NAME', undefined),
@@ -63,9 +63,9 @@ export default {
 Create the registration file referenced in your config (e.g. `mcp/server.ts`):
 
 ```typescript
-import { mcp } from '@stravigor/mcp'
+import { mcp } from '@strav/mcp'
 import { z } from 'zod'
-import Database from '@stravigor/core/database'
+import Database from '@strav/core/database'
 
 // Tool — an action the AI can invoke
 mcp.tool('get-user', {
@@ -106,7 +106,7 @@ mcp.prompt('summarize', {
 Tools are functions that AI clients can call. Define typed inputs with Zod schemas.
 
 ```typescript
-import { mcp } from '@stravigor/mcp'
+import { mcp } from '@strav/mcp'
 import { z } from 'zod'
 
 mcp.tool('create-post', {
@@ -220,8 +220,8 @@ Add to your Claude Desktop config (`claude_desktop_config.json`):
 For web-based AI clients. Enabled by default when using the provider. Mounts `POST`, `GET`, and `DELETE` handlers at the configured path (default: `/mcp`).
 
 ```typescript
-import { mountHttpTransport } from '@stravigor/mcp'
-import { router } from '@stravigor/core/http'
+import { mountHttpTransport } from '@strav/mcp'
+import { router } from '@strav/core/http'
 
 const transport = mountHttpTransport(router)
 ```
@@ -251,7 +251,7 @@ mcp.tool('send-email', {
 List what's registered:
 
 ```typescript
-import { mcp } from '@stravigor/mcp'
+import { mcp } from '@strav/mcp'
 
 mcp.registeredTools()      // ['get-user', 'create-post', ...]
 mcp.registeredResources()  // ['strav://config', 'strav://posts/{id}', ...]
@@ -281,7 +281,7 @@ MCP operations emit events through the `Emitter`:
 | `mcp:http-request` | `{ method, path }` | HTTP request received |
 
 ```typescript
-import Emitter from '@stravigor/core/events/emitter'
+import Emitter from '@strav/core/events/emitter'
 
 Emitter.on('mcp:tool-called', ({ name, params }) => {
   console.log(`Tool "${name}" called with`, params)
@@ -301,7 +301,7 @@ Call `McpManager.reset()` in test teardown to clear all registrations:
 
 ```typescript
 import { beforeEach, test, expect } from 'bun:test'
-import McpManager, { mcp } from '@stravigor/mcp'
+import McpManager, { mcp } from '@strav/mcp'
 
 beforeEach(() => {
   McpManager.reset()
@@ -321,9 +321,9 @@ test('registers a tool', () => {
 
 ```typescript
 // mcp/server.ts
-import { mcp } from '@stravigor/mcp'
+import { mcp } from '@strav/mcp'
 import { z } from 'zod'
-import Database from '@stravigor/core/database'
+import Database from '@strav/core/database'
 
 mcp.tool('list-users', {
   description: 'List all users with optional role filter',

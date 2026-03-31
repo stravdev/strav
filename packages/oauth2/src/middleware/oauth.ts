@@ -1,4 +1,4 @@
-import type { Middleware } from '@stravigor/http'
+import type { Middleware } from '@strav/http'
 import OAuth2Manager from '../oauth2_manager.ts'
 import OAuthClient from '../client.ts'
 import OAuthToken from '../token.ts'
@@ -11,7 +11,7 @@ import OAuthToken from '../token.ts'
  * on the context state bag.
  *
  * @example
- * import { oauth } from '@stravigor/oauth2'
+ * import { oauth } from '@strav/oauth2'
  *
  * router.group({ prefix: '/api', middleware: [oauth()] }, r => {
  *   r.get('/me', (ctx) => ctx.json({ user: ctx.get('user') }))

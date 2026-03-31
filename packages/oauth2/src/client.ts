@@ -1,6 +1,6 @@
 import { timingSafeEqual as nodeTimingSafeEqual } from 'node:crypto'
 import OAuth2Manager from './oauth2_manager.ts'
-import { randomHex } from '@stravigor/kernel'
+import { randomHex } from '@strav/kernel'
 import type { OAuthClientData, CreateClientInput, GrantType } from './types.ts'
 
 function hashSecret(plain: string): string {

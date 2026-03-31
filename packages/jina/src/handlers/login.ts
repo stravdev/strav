@@ -1,6 +1,6 @@
-import { encrypt, Emitter } from '@stravigor/kernel'
-import { AccessToken } from '@stravigor/http'
-import type { Context, Session } from '@stravigor/http'
+import { encrypt, Emitter } from '@strav/kernel'
+import { AccessToken } from '@strav/http'
+import type { Context, Session } from '@strav/http'
 import JinaManager from '../jina_manager.ts'
 import { JinaEvents } from '../types.ts'
 

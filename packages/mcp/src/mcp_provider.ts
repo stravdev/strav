@@ -1,6 +1,6 @@
-import { ServiceProvider } from '@stravigor/kernel'
-import type { Application } from '@stravigor/kernel'
-import { Router } from '@stravigor/http'
+import { ServiceProvider } from '@strav/kernel'
+import type { Application } from '@strav/kernel'
+import { Router } from '@strav/http'
 import McpManager from './mcp_manager.ts'
 import { mountHttpTransport } from './transports/bun_http_transport.ts'
 

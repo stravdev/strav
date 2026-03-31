@@ -5,7 +5,7 @@ import type { OAuth2Actions } from './types.ts'
  * Zero runtime cost — just provides autocompletion and type checking.
  *
  * @example
- * import { defineActions } from '@stravigor/oauth2'
+ * import { defineActions } from '@strav/oauth2'
  * import { User } from '../models/user'
  *
  * export default defineActions<User>({

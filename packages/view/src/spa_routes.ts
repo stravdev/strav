@@ -1,5 +1,5 @@
-import type Router from '@stravigor/http/http/router'
-import type { HandlerInput } from '@stravigor/http/http/router'
+import type Router from '@strav/http/http/router'
+import type { HandlerInput } from '@strav/http/http/router'
 import type { SpaRouteDefinition } from './route_types.ts'
 
 /**

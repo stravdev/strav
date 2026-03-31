@@ -1,4 +1,4 @@
-import { ExternalServiceError } from '@stravigor/kernel'
+import { ExternalServiceError } from '@strav/kernel'
 import type { SearchEngine } from '../search_engine.ts'
 import type {
   SearchDocument,

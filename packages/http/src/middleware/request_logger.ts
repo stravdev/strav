@@ -1,5 +1,5 @@
 import type { Middleware } from '../http/middleware.ts'
-import type Logger from '@stravigor/kernel/logger/logger'
+import type Logger from '@strav/kernel/logger/logger'
 
 export function requestLogger(logger: Logger): Middleware {
   return async (ctx, next) => {

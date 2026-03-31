@@ -1,5 +1,5 @@
 import OAuth2Manager from './oauth2_manager.ts'
-import { randomHex } from '@stravigor/kernel'
+import { randomHex } from '@strav/kernel'
 import type { OAuthAuthCodeData } from './types.ts'
 
 function hashCode(plain: string): string {

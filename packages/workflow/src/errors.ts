@@ -1,4 +1,4 @@
-import { StravError } from '@stravigor/kernel'
+import { StravError } from '@strav/kernel'
 
 /** Thrown when a workflow step fails during execution. */
 export class WorkflowError extends StravError {

@@ -1,8 +1,8 @@
 import type Context from '../http/context.ts'
 import type { Next } from '../http/middleware.ts'
 import type { Middleware } from '../http/middleware.ts'
-import I18nManager from '@stravigor/kernel/i18n/i18n_manager'
-import { localeStorage } from '@stravigor/kernel/i18n/helpers'
+import I18nManager from '@strav/kernel/i18n/i18n_manager'
+import { localeStorage } from '@strav/kernel/i18n/helpers'
 
 /**
  * i18n middleware — detects the request locale and sets it for the
@@ -11,7 +11,7 @@ import { localeStorage } from '@stravigor/kernel/i18n/helpers'
  * Detection strategies are tried in the order configured in `config/i18n.ts`.
  *
  * @example
- * import { i18n } from '@stravigor/http/middleware/i18n'
+ * import { i18n } from '@strav/http/middleware/i18n'
  * router.use(i18n())
  */
 export function i18n(): Middleware {

@@ -1,9 +1,9 @@
-# @stravigor/database
+# @strav/database
 
 Database layer for the Strav framework — query builder, ORM, schema builder, and migrations.
 
 ## Dependencies
-- @stravigor/kernel (peer)
+- @strav/kernel (peer)
 
 ## Commands
 - bun test
@@ -22,7 +22,7 @@ Database layer for the Strav framework — query builder, ORM, schema builder, a
 ## Conventions
 - database and orm are tightly coupled (circular dependency) — they stay together
 - extractUserId lives here in src/helpers/identity.ts, not in kernel
-- String helpers (toSnakeCase, toCamelCase) are imported from @stravigor/kernel/helpers
+- String helpers (toSnakeCase, toCamelCase) are imported from @strav/kernel/helpers
 
 ## Multi-domain Support
 - Uses PostgreSQL schemas for domain isolation

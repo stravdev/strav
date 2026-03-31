@@ -6,7 +6,7 @@ import chalk from 'chalk'
 /**
  * Discovers and registers CLI commands from two sources:
  *
- * 1. **Package commands** — installed `@stravigor/*` packages that declare
+ * 1. **Package commands** — installed `@strav/*` packages that declare
  *    `"strav": { "commands": "src/commands" }` in their `package.json`.
  * 2. **User commands** — `.ts` files in a `./commands/` directory at the
  *    project root.
@@ -19,7 +19,7 @@ import chalk from 'chalk'
  * await CommandLoader.discover(program)
  *
  * @example
- * // In a package (e.g. @stravigor/search):
+ * // In a package (e.g. @strav/search):
  * // package.json: { "strav": { "commands": "src/commands" } }
  * // src/commands/search_import.ts:
  * export function register(program: Command): void {
@@ -110,8 +110,8 @@ export default class CommandLoader {
     const results: Array<{ root: string; commandsDir: string }> = []
     const seen = new Set<string>()
 
-    // 1. Check node_modules/@stravigor/*
-    const nodeModulesDir = join(root, 'node_modules', '@stravigor')
+    // 1. Check node_modules/@strav/*
+    const nodeModulesDir = join(root, 'node_modules', '@strav')
     if (dirExists(nodeModulesDir)) {
       const dirs = readdirSync(nodeModulesDir)
       for (const dir of dirs) {

@@ -1,12 +1,12 @@
-# @stravigor/jina
+# @strav/jina
 
 Headless authentication flows — registration, login, logout, password reset, email verification, two-factor authentication (TOTP), password confirmation, and profile updates. Supports both session-based and token-based authentication via a headless JSON API.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/signal (peer)
-- @stravigor/database (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/signal (peer)
+- @strav/database (peer)
 
 ## Commands
 - bun test

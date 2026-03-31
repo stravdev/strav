@@ -1,11 +1,11 @@
-# @stravigor/search
+# @strav/search
 
 Full-text search with a unified API across multiple engines. Built-in drivers for Meilisearch, Typesense, and Algolia. The searchable() mixin integrates search directly into ORM models.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/database (peer)
-- @stravigor/cli (peer)
+- @strav/kernel (peer)
+- @strav/database (peer)
+- @strav/cli (peer)
 
 ## Commands
 - bun test

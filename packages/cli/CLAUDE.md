@@ -1,13 +1,13 @@
-# @stravigor/cli
+# @strav/cli
 
 CLI framework and code generators for the Strav framework. Provides the `strav` binary.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/database (peer)
-- @stravigor/queue (peer)
-- @stravigor/signal (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/database (peer)
+- @strav/queue (peer)
+- @strav/signal (peer)
 
 ## Commands
 - bun test
@@ -34,6 +34,6 @@ Database paths for schemas and migrations are configurable via `config/generator
 
 ## Conventions
 - Commands are auto-loaded by command_loader.ts
-- Generators output code that imports from the split packages (@stravigor/kernel, @stravigor/http, etc.)
+- Generators output code that imports from the split packages (@strav/kernel, @strav/http, etc.)
 - The `strav` binary is declared in package.json bin field
 - Domains are validated against filesystem discovery to prevent invalid domain names

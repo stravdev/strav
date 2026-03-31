@@ -6,7 +6,7 @@ import { generateSecret, totpUri, verifyTotp, base32Decode, generateRecoveryCode
  * Jina helper — convenience API for auth flow utilities.
  *
  * @example
- * import { jina } from '@stravigor/jina'
+ * import { jina } from '@strav/jina'
  *
  * const token = jina.signedToken({ sub: user.id, typ: 'custom' }, 60)
  * const payload = jina.verifyToken(token)

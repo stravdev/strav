@@ -3,7 +3,7 @@ import Database from '../database'
 import MigrationRunner from '../migration/runner'
 import MigrationTracker from '../migration/tracker'
 import { withSchema, withoutSchema } from './context'
-import { inject } from '@stravigor/kernel/core/inject'
+import { inject } from '@strav/kernel/core/inject'
 
 /**
  * Schema manager for multi-domain database operations.

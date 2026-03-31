@@ -1,4 +1,4 @@
-import type { Middleware } from '@stravigor/http'
+import type { Middleware } from '@strav/http'
 import FlagManager from '../flag_manager.ts'
 import type { Scopeable } from '../types.ts'
 

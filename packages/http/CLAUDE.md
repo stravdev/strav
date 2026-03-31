@@ -1,9 +1,9 @@
-# @stravigor/http
+# @strav/http
 
 HTTP layer for the Strav framework — router, server, middleware, authentication, sessions, validation, views, and authorization policies.
 
 ## Dependencies
-- @stravigor/kernel (peer)
+- @strav/kernel (peer)
 
 ## Commands
 - bun test

@@ -1,12 +1,12 @@
-import { inject } from '@stravigor/kernel/core/inject'
-import Configuration from '@stravigor/kernel/config/configuration'
-import Database from '@stravigor/database/database/database'
+import { inject } from '@strav/kernel/core/inject'
+import Configuration from '@strav/kernel/config/configuration'
+import Database from '@strav/database/database/database'
 import type { NotificationChannel, NotificationConfig, EventNotificationBinding } from './types.ts'
 import { EmailChannel } from './channels/email_channel.ts'
 import { DatabaseChannel } from './channels/database_channel.ts'
 import { WebhookChannel } from './channels/webhook_channel.ts'
 import { DiscordChannel } from './channels/discord_channel.ts'
-import { ConfigurationError } from '@stravigor/kernel/exceptions/errors'
+import { ConfigurationError } from '@strav/kernel/exceptions/errors'
 
 /**
  * Central notification configuration hub.

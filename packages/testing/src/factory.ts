@@ -1,4 +1,4 @@
-import type { BaseModel } from '@stravigor/database'
+import type { BaseModel } from '@strav/database'
 
 type ModelClass = typeof BaseModel & { create(attrs: Record<string, unknown>): Promise<any> }
 type DefinitionFn = (seq: number) => Record<string, unknown>

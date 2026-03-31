@@ -1,20 +1,20 @@
-# @stravigor/social
+# @strav/social
 
-OAuth social authentication for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Sign in with Google, GitHub, Discord, Facebook, and LinkedIn using a fluent, driver-based API.
+OAuth social authentication for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Sign in with Google, GitHub, Discord, Facebook, and LinkedIn using a fluent, driver-based API.
 
 ## Install
 
 ```bash
-bun add @stravigor/social
+bun add @strav/social
 bun strav install social
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { SocialProvider } from '@stravigor/social'
+import { SocialProvider } from '@strav/social'
 
 app.use(new SocialProvider())
 ```
@@ -22,7 +22,7 @@ app.use(new SocialProvider())
 ## Usage
 
 ```ts
-import { social } from '@stravigor/social'
+import { social } from '@strav/social'
 
 // Redirect to provider
 r.get('/auth/github', ctx => {
@@ -64,7 +64,7 @@ const user = await social.driver('google').userFromToken(accessToken)
 ## Custom Providers
 
 ```ts
-import { AbstractProvider, social } from '@stravigor/social'
+import { AbstractProvider, social } from '@strav/social'
 
 class SpotifyProvider extends AbstractProvider { /* ... */ }
 social.extend('spotify', config => new SpotifyProvider(config))

@@ -1,8 +1,8 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach, afterEach } from 'bun:test'
 import { join } from 'node:path'
-import { app, Configuration } from '@stravigor/kernel'
-import { Database, BaseModel, primary } from '@stravigor/database'
-import { Router } from '@stravigor/http'
+import { app, Configuration } from '@strav/kernel'
+import { Database, BaseModel, primary } from '@strav/database'
+import { Router } from '@strav/http'
 import { TestCase } from '../src/test_case.ts'
 import { Factory } from '../src/factory.ts'
 

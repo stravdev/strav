@@ -6,7 +6,7 @@ TestCase boots your app, provides HTTP helpers, and wraps each test in a rolled-
 
 ```typescript
 import { describe, test, expect } from 'bun:test'
-import { TestCase, Factory } from '@stravigor/testing'
+import { TestCase, Factory } from '@strav/testing'
 import User from '../app/models/user'
 
 const UserFactory = Factory.define(User, (seq) => ({
@@ -161,7 +161,7 @@ database/
 
 ```typescript
 // database/factories/user_factory.ts
-import { Factory } from '@stravigor/testing'
+import { Factory } from '@strav/testing'
 import User from '../../app/models/user'
 
 export const UserFactory = Factory.define(User, (seq) => ({
@@ -181,7 +181,7 @@ import { UserFactory, PostFactory } from '../database/factories'
 ### Define
 
 ```typescript
-import { Factory } from '@stravigor/testing'
+import { Factory } from '@strav/testing'
 import User from '../app/models/user'
 import Post from '../app/models/post'
 
@@ -237,7 +237,7 @@ Factory.resetSequences()  // Resets all factory counters to 0
 
 ```typescript
 import { describe, test, expect } from 'bun:test'
-import { TestCase, Factory } from '@stravigor/testing'
+import { TestCase, Factory } from '@strav/testing'
 import User from '../app/models/user'
 import Post from '../app/models/post'
 

@@ -1,6 +1,7 @@
-import ServiceProvider from '@stravigor/kernel/core/service_provider'
-import type Application from '@stravigor/kernel/core/application'
-import { ViewEngine } from '@stravigor/view'
+import ServiceProvider from '@strav/kernel/core/service_provider'
+import type Application from '@strav/kernel/core/application'
+// ViewProvider is implemented by @strav/view package
+// This provider stub allows http to work without view package
 import Context from '../http/context.ts'
 
 export default class ViewProvider extends ServiceProvider {
@@ -8,11 +9,10 @@ export default class ViewProvider extends ServiceProvider {
   override readonly dependencies = ['config']
 
   override register(app: Application): void {
-    app.singleton(ViewEngine)
+    // ViewEngine registration handled by @strav/view package
   }
 
   override boot(app: Application): void {
-    const engine = app.resolve(ViewEngine)
-    Context.setViewEngine(engine)
+    // ViewEngine setup handled by @strav/view package
   }
 }

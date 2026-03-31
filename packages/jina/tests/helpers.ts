@@ -1,5 +1,5 @@
-import { EncryptionManager } from '@stravigor/kernel'
-import { Context } from '@stravigor/http'
+import { EncryptionManager } from '@strav/kernel'
+import { Context } from '@strav/http'
 import JinaManager from '../src/jina_manager.ts'
 import type { JinaActions, JinaConfig } from '../src/types.ts'
 

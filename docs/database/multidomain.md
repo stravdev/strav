@@ -1,6 +1,6 @@
 # Multi-Domain Database Support
 
-The `@stravigor/database` package provides comprehensive support for multi-domain applications using PostgreSQL schemas. You can organize your database into multiple domains (e.g., `public`, `tenant`, `factory`, `marketing`), with each domain having isolated schemas while sharing the same database instance.
+The `@strav/database` package provides comprehensive support for multi-domain applications using PostgreSQL schemas. You can organize your database into multiple domains (e.g., `public`, `tenant`, `factory`, `marketing`), with each domain having isolated schemas while sharing the same database instance.
 
 ## Domains
 
@@ -79,7 +79,7 @@ export default {
 Use `withSchema()` to execute database operations within a specific tenant's schema:
 
 ```typescript
-import { withSchema } from '@stravigor/database'
+import { withSchema } from '@strav/database'
 import { User } from '../models/User'
 
 // All database operations within this block use company_123 schema
@@ -109,8 +109,8 @@ Create your own middleware in your app layer to extract and set tenant context:
 
 ```typescript
 // app/middleware/tenant.ts
-import { withSchema, withoutSchema, SchemaManager } from '@stravigor/database'
-import type { Middleware } from '@stravigor/http'
+import { withSchema, withoutSchema, SchemaManager } from '@strav/database'
+import type { Middleware } from '@strav/http'
 
 export const tenantMiddleware: Middleware = async (ctx, next) => {
   // Extract tenant from subdomain
@@ -153,7 +153,7 @@ Then use in your routes:
 
 ```typescript
 // app/routes.ts
-import { router } from '@stravigor/http'
+import { router } from '@strav/http'
 import { tenantMiddleware, bypassTenant } from './middleware/tenant'
 
 // Apply tenant context to all routes
@@ -180,7 +180,7 @@ The `SchemaManager` class provides utilities for schema management:
 ### Creating Tenants
 
 ```typescript
-import { SchemaManager } from '@stravigor/database'
+import { SchemaManager } from '@strav/database'
 
 const manager = container.resolve(SchemaManager)
 
@@ -315,7 +315,7 @@ async function processJob(job: Job) {
 Bypass tenant isolation for administrative tasks:
 
 ```typescript
-import { withoutSchema } from '@stravigor/database'
+import { withoutSchema } from '@strav/database'
 
 // Access all schemas without tenant restriction
 await withoutSchema(async () => {
@@ -372,7 +372,7 @@ Test with multiple tenants:
 
 ```typescript
 // test/multi-tenant.test.ts
-import { withSchema, SchemaManager } from '@stravigor/database'
+import { withSchema, SchemaManager } from '@strav/database'
 
 beforeEach(async () => {
   const manager = container.resolve(SchemaManager)
@@ -484,7 +484,7 @@ function logDatabaseOperation(operation: string) {
 ### Checking Current Tenant
 
 ```typescript
-import { getCurrentTenant, getCurrentSchema } from '@stravigor/database'
+import { getCurrentTenant, getCurrentSchema } from '@strav/database'
 
 // In your code
 const context = getCurrentTenant()

@@ -8,7 +8,7 @@ import FieldBuilder from './field_builder'
  * Each method returns a {@link FieldBuilder} with the correct pgType pre-configured.
  *
  * @example
- * import { t } from '@stravigor/database/schema'
+ * import { t } from '@strav/database/schema'
  * t.varchar(255).email().unique().required()
  * t.integer().default(0)
  * t.jsonb().nullable()

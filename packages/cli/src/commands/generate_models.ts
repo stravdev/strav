@@ -1,10 +1,10 @@
 import { join } from 'node:path'
 import type { Command } from 'commander'
 import chalk from 'chalk'
-import SchemaRegistry from '@stravigor/database/schema/registry'
+import SchemaRegistry from '@strav/database/schema/registry'
 import ModelGenerator from '../generators/model_generator.ts'
 import type { GeneratorConfig } from '../generators/config.ts'
-import { discoverDomains } from '@stravigor/database'
+import { discoverDomains } from '@strav/database'
 import { loadGeneratorConfig, getDatabasePaths } from '../config/loader.ts'
 
 export function register(program: Command): void {

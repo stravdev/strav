@@ -1,6 +1,6 @@
 import { test, expect, describe } from 'bun:test'
-import { compose } from '@stravigor/http'
-import type { Handler, Middleware } from '@stravigor/http'
+import { compose } from '@strav/http'
+import type { Handler, Middleware } from '@strav/http'
 import { dashboardAuth } from '../src/dashboard/middleware.ts'
 import { ctx } from './helpers.ts'
 

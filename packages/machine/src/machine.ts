@@ -1,4 +1,4 @@
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 import type { MachineDefinition, Machine, TransitionMeta } from './types.ts'
 import { TransitionError, GuardError } from './errors.ts'
 

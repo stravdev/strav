@@ -1,4 +1,4 @@
-import { StravError } from '@stravigor/kernel'
+import { StravError } from '@strav/kernel'
 
 export class RagError extends StravError {}
 

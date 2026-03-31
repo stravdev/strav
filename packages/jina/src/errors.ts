@@ -1,4 +1,4 @@
-import { StravError } from '@stravigor/kernel'
+import { StravError } from '@strav/kernel'
 
 /** Base error for all Jina errors. */
 export class JinaError extends StravError {}

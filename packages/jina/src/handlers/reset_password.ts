@@ -1,5 +1,5 @@
-import { Emitter } from '@stravigor/kernel'
-import type { Context } from '@stravigor/http'
+import { Emitter } from '@strav/kernel'
+import type { Context } from '@strav/http'
 import JinaManager from '../jina_manager.ts'
 import { verifySignedToken } from '../tokens.ts'
 import { JinaEvents } from '../types.ts'

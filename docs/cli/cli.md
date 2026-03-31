@@ -139,11 +139,11 @@ If `.env` doesn't exist, it creates the file. If `APP_KEY` is already set, the c
 
 ### install
 
-Copies config and schema stubs from a `@stravigor/*` package into your project.
+Copies config and schema stubs from a `@strav/*` package into your project.
 
 ```bash
 bun strav install social
-bun strav install @stravigor/social   # full name also works
+bun strav install @strav/social   # full name also works
 bun strav install social --force       # overwrite existing files
 ```
 
@@ -157,7 +157,7 @@ bun strav install social --force       # overwrite existing files
 4. Copies `stubs/schemas/*.ts` → `./database/schemas/`.
 5. Skips files that already exist (yellow warning) unless `--force` is passed.
 
-Any `@stravigor/*` package can ship stubs by including a `stubs/` directory with `config/` and/or `schemas/` subdirectories. No manifest or registration is needed.
+Any `@strav/*` package can ship stubs by including a `stubs/` directory with `config/` and/or `schemas/` subdirectories. No manifest or registration is needed.
 
 ### seed
 
@@ -265,11 +265,11 @@ Commands are auto-discovered on startup — no registration needed.
 
 ## Package commands
 
-Installed `@stravigor/*` packages can provide their own CLI commands. A package declares its commands directory in `package.json`:
+Installed `@strav/*` packages can provide their own CLI commands. A package declares its commands directory in `package.json`:
 
 ```json
 {
-  "name": "@stravigor/search",
+  "name": "@strav/search",
   "strav": {
     "commands": "src/commands"
   }
@@ -278,14 +278,14 @@ Installed `@stravigor/*` packages can provide their own CLI commands. A package 
 
 Each `.ts` file in that directory must export a `register(program)` function, following the same convention as user commands. The CLI discovers these automatically from `node_modules/` and Bun workspace packages.
 
-For example, `@stravigor/search` provides `search:import` and `search:flush` commands. See the [Search guide](./search.md#cli-commands) for details.
+For example, `@strav/search` provides `search:import` and `search:flush` commands. See the [Search guide](./search.md#cli-commands) for details.
 
 ## Bootstrap
 
 CLI commands that need a database connection use a shared bootstrap function:
 
 ```typescript
-import { bootstrap, shutdown } from '@stravigor/core/cli/bootstrap'
+import { bootstrap, shutdown } from '@strav/core/cli/bootstrap'
 
 export function register(program: Command): void {
   program.command('my:command').action(async () => {

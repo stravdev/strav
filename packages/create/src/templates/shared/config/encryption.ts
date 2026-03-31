@@ -1,4 +1,4 @@
-import { env } from '@stravigor/kernel/helpers/env'
+import { env } from '@strav/kernel/helpers/env'
 
 export default {
   key: env('APP_KEY'),

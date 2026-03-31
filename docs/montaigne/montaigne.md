@@ -7,7 +7,7 @@ The engine is **pure computation** — every function is deterministic with zero
 ## Quick start
 
 ```typescript
-import { montaigne, updateStateSystem, DEFAULT_CONFIG } from '@stravigor/montaigne'
+import { montaigne, updateStateSystem, DEFAULT_CONFIG } from '@strav/montaigne'
 
 // Direct pure function (no IoC required)
 const state = updateStateSystem(inputMetrics, previousState, environment, DEFAULT_CONFIG)
@@ -21,7 +21,7 @@ const state = await montaigne.evaluate(inputMetrics, previousState, environment)
 ### Using a service provider (recommended)
 
 ```typescript
-import { MontaigneProvider } from '@stravigor/montaigne'
+import { MontaigneProvider } from '@strav/montaigne'
 
 app.use(new MontaigneProvider())
 ```
@@ -31,7 +31,7 @@ The `MontaigneProvider` registers `MontaigneManager` as a singleton. It depends 
 ### Manual setup
 
 ```typescript
-import { MontaigneManager } from '@stravigor/montaigne'
+import { MontaigneManager } from '@strav/montaigne'
 
 app.singleton(MontaigneManager)
 app.resolve(MontaigneManager)
@@ -366,7 +366,7 @@ Both models run in parallel on the same user; the platform orchestrator routes b
 Before inputs reach the scoring engine, signals from agents carry two independent confidence dimensions. The `resolveInput` function handles uncertainty:
 
 ```typescript
-import { resolveInput } from '@stravigor/montaigne'
+import { resolveInput } from '@strav/montaigne'
 
 const resolved = resolveInput({
   value: 0.8,
@@ -413,7 +413,7 @@ When using the IoC-integrated `MontaigneManager.evaluate()`, events are emitted:
 | `montaigne:handoff.triggered` | `{ handoff }` | Model handoff first triggered |
 
 ```typescript
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 
 Emitter.on('montaigne:transition.ready', ({ transition, result }) => {
   console.log(`${transition} is ready! Score: ${result.readinessScore}`)
@@ -476,7 +476,7 @@ import {
   // Config
   DEFAULT_CONFIG,
   validateConfig,
-} from '@stravigor/montaigne'
+} from '@strav/montaigne'
 ```
 
 This is useful for:

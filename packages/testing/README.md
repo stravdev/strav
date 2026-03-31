@@ -1,14 +1,14 @@
-# @stravigor/testing
+# @strav/testing
 
-Testing utilities for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Provides HTTP testing helpers, authentication simulation, transaction-based test isolation, and model factories.
+Testing utilities for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Provides HTTP testing helpers, authentication simulation, transaction-based test isolation, and model factories.
 
 ## Install
 
 ```bash
-bun add -d @stravigor/testing
+bun add -d @strav/testing
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## TestCase
 
@@ -16,7 +16,7 @@ Boots the app, provides HTTP helpers, and wraps each test in a rolled-back trans
 
 ```ts
 import { describe, test, expect } from 'bun:test'
-import { TestCase } from '@stravigor/testing'
+import { TestCase } from '@strav/testing'
 
 const t = await TestCase.boot({
   auth: true,
@@ -62,7 +62,7 @@ t.withoutAuth()               // clear auth token
 Lightweight model factory for test data seeding.
 
 ```ts
-import { Factory } from '@stravigor/testing'
+import { Factory } from '@strav/testing'
 
 const UserFactory = Factory.define(User, (seq) => ({
   pid: crypto.randomUUID(),

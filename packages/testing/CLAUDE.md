@@ -1,11 +1,11 @@
-# @stravigor/testing
+# @strav/testing
 
 Testing utilities for the Strav framework. TestCase boots your app, provides HTTP helpers, and wraps each test in a rolled-back database transaction for full isolation.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/database (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/database (peer)
 
 ## Commands
 - bun test

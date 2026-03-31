@@ -1,4 +1,4 @@
-import { Context } from '@stravigor/http'
+import { Context } from '@strav/http'
 import OAuth2Manager from '../src/oauth2_manager.ts'
 import ScopeRegistry from '../src/scopes.ts'
 import type { OAuth2Actions, OAuth2Config } from '../src/types.ts'

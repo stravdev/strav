@@ -5,7 +5,7 @@ Server-side template engine with Vue.js island support. Renders `.strav` templat
 ## Quick start
 
 ```typescript
-import { ViewEngine, view } from '@stravigor/view'
+import { ViewEngine, view } from '@strav/view'
 
 // In a route handler via Context
 router.get('/users', async (ctx) => {
@@ -24,7 +24,7 @@ router.get('/', async () => {
 Add the `ViewProvider` to `start/providers.ts`:
 
 ```typescript
-import { ViewProvider } from '@stravigor/view'
+import { ViewProvider } from '@strav/view'
 
 new ViewProvider(),
 ```
@@ -34,7 +34,7 @@ This registers the `ViewEngine` singleton and wires it into the HTTP context so 
 Templates live in the `views/` directory by default. Configure via `config/view.ts`:
 
 ```typescript
-import { env } from '@stravigor/kernel'
+import { env } from '@strav/kernel'
 
 export default {
   directory: env('VIEW_DIRECTORY', 'views'),
@@ -280,7 +280,7 @@ The `@islands` directive emits `<script src="/islands.js"></script>`. You can pa
 **3. Build islands before server start:**
 
 ```typescript
-import { IslandBuilder } from '@stravigor/view'
+import { IslandBuilder } from '@strav/view'
 
 const islands = new IslandBuilder()
 await islands.build()
@@ -335,7 +335,7 @@ import Counter from './components/Counter.vue'
   'counter': Counter,
 }
 
-import '@stravigor/view/client/islands'
+import '@strav/view/client/islands'
 ```
 
 Include the bundled script in your layout:
@@ -354,7 +354,7 @@ Create a shared route file that both server and client import:
 
 ```typescript
 // routes/spa.ts
-import { defineRoutes } from '@stravigor/view'
+import { defineRoutes } from '@strav/view'
 
 export default defineRoutes([
   { path: '/', name: 'dashboard', view: 'Dashboard' },
@@ -374,7 +374,7 @@ Use `spaRoutes()` to register all routes as GET handlers pointing to a single co
 
 ```typescript
 // start/routes.ts
-import { spaRoutes } from '@stravigor/view'
+import { spaRoutes } from '@strav/view'
 import spaRouteDefs from '../routes/spa.ts'
 
 export default (router: Router) => {
@@ -393,7 +393,7 @@ The client-side router is a Vue plugin that provides reactive route matching, pr
 ```typescript
 // islands/setup.ts
 import type { App } from 'vue'
-import { createRouter } from '@stravigor/view/client/router'
+import { createRouter } from '@strav/view/client/router'
 import spaRouteDefs from '../../routes/spa.ts'
 import Dashboard from './views/Dashboard.vue'
 import Chat from './views/Chat.vue'
@@ -429,7 +429,7 @@ The `views` object maps view names (from route definitions) to Vue components. T
 **`useRouter()`** — returns the router instance for programmatic navigation:
 
 ```typescript
-import { useRouter } from '@stravigor/view/client/router'
+import { useRouter } from '@strav/view/client/router'
 
 const router = useRouter()
 
@@ -450,7 +450,7 @@ router.forward()
 **`useRoute()`** — returns a reactive ref of the current route:
 
 ```typescript
-import { useRoute } from '@stravigor/view/client/router'
+import { useRoute } from '@strav/view/client/router'
 
 const route = useRoute()
 
@@ -480,7 +480,7 @@ The scoped slot exposes `{ href, isActive, isExactActive, navigate }`.
 Serve files from a `public/` directory:
 
 ```typescript
-import { staticFiles } from '@stravigor/http'
+import { staticFiles } from '@strav/http'
 
 router.use(staticFiles('public'))
 ```
@@ -521,8 +521,8 @@ Test templates directly with the engine:
 
 ```typescript
 import { test, expect, beforeAll } from 'bun:test'
-import { ViewEngine } from '@stravigor/view'
-import { Configuration } from '@stravigor/kernel'
+import { ViewEngine } from '@strav/view'
+import { Configuration } from '@strav/kernel'
 
 let engine: ViewEngine
 

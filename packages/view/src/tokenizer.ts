@@ -1,4 +1,4 @@
-import { TemplateError } from '@stravigor/kernel/exceptions/errors'
+import { TemplateError } from '@strav/kernel/exceptions/errors'
 export type TokenType = 'text' | 'escaped' | 'raw' | 'comment' | 'directive' | 'vue_island'
 
 export interface VueAttr {

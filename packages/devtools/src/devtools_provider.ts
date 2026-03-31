@@ -1,7 +1,7 @@
-import { ServiceProvider } from '@stravigor/kernel'
-import type { Application } from '@stravigor/kernel'
-import type { Context } from '@stravigor/http'
-import { Router } from '@stravigor/http'
+import { ServiceProvider } from '@strav/kernel'
+import type { Application } from '@strav/kernel'
+import type { Context } from '@strav/http'
+import { Router } from '@strav/http'
 import DevtoolsManager from './devtools_manager.ts'
 import { registerDashboard } from './dashboard/routes.ts'
 

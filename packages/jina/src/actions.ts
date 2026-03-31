@@ -5,7 +5,7 @@ import type { JinaActions } from './types.ts'
  * Zero runtime cost — just provides autocompletion and type checking.
  *
  * @example
- * import { defineActions } from '@stravigor/jina'
+ * import { defineActions } from '@strav/jina'
  * import { User } from '../models/user'
  *
  * export default defineActions<User>({

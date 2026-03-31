@@ -1,5 +1,5 @@
-import ServiceProvider from '@stravigor/kernel/core/service_provider'
-import type Application from '@stravigor/kernel/core/application'
+import ServiceProvider from '@strav/kernel/core/service_provider'
+import type Application from '@strav/kernel/core/application'
 import Server from '../http/server.ts'
 import Router from '../http/router.ts'
 

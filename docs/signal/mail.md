@@ -5,7 +5,7 @@ Transactional email with pluggable transports (SMTP, Resend, SendGrid, Mailgun, 
 ## Quick start
 
 ```typescript
-import { mail } from '@stravigor/core/mail'
+import { mail } from '@strav/core/mail'
 
 // Fluent builder
 await mail.to('user@example.com')
@@ -35,7 +35,7 @@ await mail.raw({
 ### Using a service provider (recommended)
 
 ```typescript
-import { MailProvider } from '@stravigor/core/providers'
+import { MailProvider } from '@strav/core/providers'
 
 app.use(new MailProvider())
 ```
@@ -45,7 +45,7 @@ The `MailProvider` registers `MailManager` as a singleton. It depends on the `co
 To enable async sending via the queue, register the queue handler separately:
 
 ```typescript
-import { mail } from '@stravigor/core/mail'
+import { mail } from '@strav/core/mail'
 
 mail.registerQueueHandler()
 ```
@@ -53,8 +53,8 @@ mail.registerQueueHandler()
 ### Manual setup
 
 ```typescript
-import MailManager from '@stravigor/core/mail/mail_manager'
-import { mail } from '@stravigor/core/mail'
+import MailManager from '@strav/core/mail/mail_manager'
+import { mail } from '@strav/core/mail'
 
 app.singleton(MailManager)
 app.resolve(MailManager)
@@ -66,7 +66,7 @@ mail.registerQueueHandler()
 Create `config/mail.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers/env'
+import { env } from '@strav/core/helpers/env'
 
 export default {
   default: env('MAIL_DRIVER', 'log'),
@@ -354,8 +354,8 @@ MAIL_LOG_OUTPUT=console        # or a file path like 'logs/mail.log'
 Implement the `MailTransport` interface and swap it in:
 
 ```typescript
-import type { MailTransport, MailMessage, MailResult } from '@stravigor/core/mail'
-import MailManager from '@stravigor/core/mail/mail_manager'
+import type { MailTransport, MailMessage, MailResult } from '@strav/core/mail'
+import MailManager from '@strav/core/mail/mail_manager'
 
 class PostmarkTransport implements MailTransport {
   async send(message: MailMessage): Promise<MailResult> {
@@ -405,7 +405,7 @@ The template is rendered and CSS is inlined at enqueue time — the queue worker
 Register the queue handler in your bootstrap:
 
 ```typescript
-import { mail } from '@stravigor/core/mail'
+import { mail } from '@strav/core/mail'
 
 mail.registerQueueHandler()
 ```
@@ -447,9 +447,9 @@ Swap in a mock transport with `MailManager.useTransport()`:
 
 ```typescript
 import { test, expect, beforeEach } from 'bun:test'
-import MailManager from '@stravigor/core/mail/mail_manager'
-import { mail } from '@stravigor/core/mail'
-import type { MailTransport, MailMessage, MailResult } from '@stravigor/core/mail'
+import MailManager from '@strav/core/mail/mail_manager'
+import { mail } from '@strav/core/mail'
+import type { MailTransport, MailMessage, MailResult } from '@strav/core/mail'
 
 class MockTransport implements MailTransport {
   sent: MailMessage[] = []
@@ -481,7 +481,7 @@ test('sends welcome email', async () => {
 ## Controller example
 
 ```typescript
-import { mail } from '@stravigor/core/mail'
+import { mail } from '@strav/core/mail'
 
 export default class InvitationController {
   async create(ctx: Context) {

@@ -1,5 +1,5 @@
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 import McpManager from '../mcp_manager.ts'
 
 /**

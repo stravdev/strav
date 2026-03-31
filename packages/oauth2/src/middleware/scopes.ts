@@ -1,4 +1,4 @@
-import type { Middleware } from '@stravigor/http'
+import type { Middleware } from '@strav/http'
 import type { OAuthTokenData } from '../types.ts'
 
 /**
@@ -8,8 +8,8 @@ import type { OAuthTokenData } from '../types.ts'
  * Must be used after `oauth()` middleware.
  *
  * @example
- * import { oauth, scopes } from '@stravigor/oauth2'
- * import { compose } from '@stravigor/http/http/middleware'
+ * import { oauth, scopes } from '@strav/oauth2'
+ * import { compose } from '@strav/http/http/middleware'
  *
  * r.get('/repos', compose([oauth(), scopes('repos:read')], handler))
  * r.post('/repos', compose([oauth(), scopes('repos:read', 'repos:write')], handler))

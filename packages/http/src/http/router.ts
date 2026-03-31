@@ -1,11 +1,11 @@
 import type { ServerWebSocket } from 'bun'
-import { app } from '@stravigor/kernel/core/application'
+import { app } from '@strav/kernel/core/application'
 import Context from './context.ts'
 import { resolveCorsConfig, preflightResponse, withCorsHeaders } from './cors.ts'
 import type { CorsOptions, ResolvedCorsConfig } from './cors.ts'
 import { compose } from './middleware.ts'
 import type { Handler, Middleware } from './middleware.ts'
-import type { ExceptionHandler } from '@stravigor/kernel/exceptions/exception_handler'
+import type { ExceptionHandler } from '@strav/kernel/exceptions/exception_handler'
 
 // ---------------------------------------------------------------------------
 // Types

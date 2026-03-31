@@ -1,7 +1,7 @@
 import type { SQL, ReservedSQL } from 'bun'
-import { app, Configuration, ExceptionHandler } from '@stravigor/kernel'
-import { Database, BaseModel } from '@stravigor/database'
-import { Router } from '@stravigor/http'
+import { app, Configuration, ExceptionHandler } from '@strav/kernel'
+import { Database, BaseModel } from '@strav/database'
+import { Router } from '@strav/http'
 import { Factory } from './factory.ts'
 
 export interface TestCaseOptions {
@@ -22,7 +22,7 @@ export interface TestCaseOptions {
  * transaction for full isolation.
  *
  * @example
- * import { TestCase, Factory } from '@stravigor/testing'
+ * import { TestCase, Factory } from '@strav/testing'
  *
  * const t = await TestCase.boot({
  *   auth: true,
@@ -70,8 +70,8 @@ export class TestCase {
 
     // Auth + Session
     if (this.options.auth) {
-      const { SessionManager } = await import('@stravigor/http')
-      const { Auth } = await import('@stravigor/http')
+      const { SessionManager } = await import('@strav/http')
+      const { Auth } = await import('@strav/http')
 
       if (!app.has(SessionManager)) app.singleton(SessionManager)
       if (!app.has(Auth)) app.singleton(Auth)
@@ -89,8 +89,8 @@ export class TestCase {
 
     // View engine
     if (this.options.views) {
-      const { ViewEngine } = await import('@stravigor/view')
-      const { Context } = await import('@stravigor/http')
+      const { ViewEngine } = await import('@strav/view')
+      const { Context } = await import('@strav/http')
 
       if (!app.has(ViewEngine)) app.singleton(ViewEngine)
       const viewEngine = app.resolve(ViewEngine)
@@ -193,7 +193,7 @@ export class TestCase {
    * Creates a real AccessToken in the database.
    */
   async actingAs(user: unknown, tokenName = 'test-token'): Promise<this> {
-    const { AccessToken } = await import('@stravigor/http')
+    const { AccessToken } = await import('@strav/http')
     const { token } = await AccessToken.create(user, tokenName)
     this._token = token
     return this

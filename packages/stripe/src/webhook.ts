@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import type { Context, Handler } from '@stravigor/http'
+import type { Context, Handler } from '@strav/http'
 import StripeManager from './stripe_manager.ts'
 import Customer from './customer.ts'
 import Subscription from './subscription.ts'
@@ -14,7 +14,7 @@ const customHandlers = new Map<string, WebhookEventHandler[]>()
  * Register a custom handler for a Stripe webhook event type.
  *
  * @example
- * import { onWebhookEvent } from '@stravigor/stripe/webhook'
+ * import { onWebhookEvent } from '@strav/stripe/webhook'
  *
  * onWebhookEvent('invoice.payment_failed', async (event) => {
  *   const invoice = event.data.object as Stripe.Invoice
@@ -35,7 +35,7 @@ export function onWebhookEvent(eventType: string, handler: WebhookEventHandler):
  * `onWebhookEvent()`.
  *
  * @example
- * import { stripeWebhook } from '@stravigor/stripe/webhook'
+ * import { stripeWebhook } from '@strav/stripe/webhook'
  * router.post('/stripe/webhook', stripeWebhook())
  */
 export function stripeWebhook(): Handler {

@@ -1,20 +1,20 @@
-# @stravigor/oauth2
+# @strav/oauth2
 
-OAuth2 server for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Authorization Code + PKCE, Client Credentials, Refresh Token rotation, Token Revocation (RFC 7009), Token Introspection (RFC 7662), personal access tokens, and scoped API access.
+OAuth2 server for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Authorization Code + PKCE, Client Credentials, Refresh Token rotation, Token Revocation (RFC 7009), Token Introspection (RFC 7662), personal access tokens, and scoped API access.
 
 ## Install
 
 ```bash
-bun add @stravigor/oauth2
+bun add @strav/oauth2
 bun strav install oauth2
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { defineActions } from '@stravigor/oauth2'
+import { defineActions } from '@strav/oauth2'
 import User from './models/user'
 
 const actions = defineActions<User>({
@@ -24,7 +24,7 @@ const actions = defineActions<User>({
 ```
 
 ```ts
-import { OAuth2Provider } from '@stravigor/oauth2'
+import { OAuth2Provider } from '@strav/oauth2'
 
 app.use(new OAuth2Provider(actions))
 ```
@@ -37,8 +37,8 @@ bun strav oauth2:client --name "My App" --redirect "https://app.com/callback"
 ## Middleware
 
 ```ts
-import { oauth, scopes } from '@stravigor/oauth2'
-import { compose } from '@stravigor/core/http/middleware'
+import { oauth, scopes } from '@strav/oauth2'
+import { compose } from '@strav/core/http/middleware'
 
 router.group({ prefix: '/api', middleware: [oauth()] }, r => {
   r.get('/user', ctx => ctx.json({ user: ctx.get('user') }))
@@ -50,7 +50,7 @@ router.group({ prefix: '/api', middleware: [oauth()] }, r => {
 ## Personal Access Tokens
 
 ```ts
-import { oauth2 } from '@stravigor/oauth2'
+import { oauth2 } from '@strav/oauth2'
 
 const { token } = await oauth2.createPersonalToken(user, 'CLI Tool', ['read', 'write'])
 ```

@@ -1,4 +1,4 @@
-import { extractUserId } from '@stravigor/database'
+import { extractUserId } from '@strav/database'
 import StripeManager from './stripe_manager.ts'
 import type { SubscriptionData } from './types.ts'
 import { SubscriptionStatus } from './types.ts'

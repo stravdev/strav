@@ -12,7 +12,7 @@ Both modes feed into a built-in SPA dashboard served at `/_devtools`.
 ## Installation
 
 ```bash
-bun add @stravigor/devtools
+bun add @strav/devtools
 bun strav install devtools
 ```
 
@@ -27,7 +27,7 @@ The `install` command copies files into your project:
 ### Register the provider
 
 ```typescript
-import { DevtoolsProvider } from '@stravigor/devtools'
+import { DevtoolsProvider } from '@strav/devtools'
 
 app.use(new DevtoolsProvider())
 ```
@@ -70,9 +70,9 @@ app.use(new DevtoolsProvider({ middleware: false, dashboard: false }))
 If you prefer full control over middleware and route placement:
 
 ```typescript
-import DevtoolsManager from '@stravigor/devtools'
-import { devtools } from '@stravigor/devtools'
-import { registerDashboard } from '@stravigor/devtools/dashboard/routes'
+import DevtoolsManager from '@strav/devtools'
+import { devtools } from '@strav/devtools'
+import { registerDashboard } from '@strav/devtools/dashboard/routes'
 
 // Register and resolve the manager
 app.singleton(DevtoolsManager)
@@ -96,7 +96,7 @@ The middleware captures request/response data, sets a batch ID on the context, a
 Edit `config/devtools.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   enabled: env('DEVTOOLS_ENABLED', 'true').bool(),
@@ -223,7 +223,7 @@ const batchId = ctx.get<string>('_devtools_batch_id')
 The `devtools` helper provides the primary convenience API:
 
 ```typescript
-import { devtools } from '@stravigor/devtools'
+import { devtools } from '@strav/devtools'
 ```
 
 ### Querying entries
@@ -254,7 +254,7 @@ const exceptions = await devtools.count('exception')
 ### Querying metrics
 
 ```typescript
-import { PERIODS } from '@stravigor/devtools'
+import { PERIODS } from '@strav/devtools'
 
 // Time-series data
 const hourly = await devtools.aggregates('slow_request', PERIODS.ONE_HOUR, 'count')
@@ -304,7 +304,7 @@ By default, the dashboard is only accessible in `development` and `local` enviro
 To allow access in production, pass a custom guard:
 
 ```typescript
-import { registerDashboard } from '@stravigor/devtools/dashboard/routes'
+import { registerDashboard } from '@strav/devtools/dashboard/routes'
 
 registerDashboard(router, (ctx) => {
   const user = ctx.get('user')
@@ -317,7 +317,7 @@ The guard receives the request context and returns `true` or `false` (or a Promi
 You can also use the middleware directly:
 
 ```typescript
-import { dashboardAuth } from '@stravigor/devtools/dashboard/middleware'
+import { dashboardAuth } from '@strav/devtools/dashboard/middleware'
 
 router.group({
   prefix: '/_devtools',
@@ -388,7 +388,7 @@ type AggregateFunction = 'count' | 'min' | 'max' | 'sum' | 'avg'
 ## Aggregate periods
 
 ```typescript
-import { PERIODS } from '@stravigor/devtools'
+import { PERIODS } from '@strav/devtools'
 
 PERIODS.ONE_HOUR    // 3600
 PERIODS.SIX_HOURS   // 21600
@@ -441,7 +441,7 @@ When devtools is not installed or `enabled: false`, there are no listeners regis
 ## Error handling
 
 ```typescript
-import { DevtoolsError } from '@stravigor/devtools'
+import { DevtoolsError } from '@strav/devtools'
 ```
 
 `DevtoolsError` extends `ConfigurationError` from core. It's thrown when DevtoolsManager is accessed before being resolved through the container.
@@ -460,8 +460,8 @@ Or don't resolve `DevtoolsManager` in your test bootstrap — collectors and rec
 ## Full setup example
 
 ```typescript
-import { app } from '@stravigor/core/core'
-import { DevtoolsProvider } from '@stravigor/devtools'
+import { app } from '@strav/core/core'
+import { DevtoolsProvider } from '@strav/devtools'
 
 app.use(new DevtoolsProvider({
   guard: (ctx) => {

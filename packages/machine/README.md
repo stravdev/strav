@@ -1,21 +1,21 @@
-# @stravigor/machine
+# @strav/machine
 
-State machine for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Declarative state definitions with transitions, guards, side effects, and event emission.
+State machine for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Declarative state definitions with transitions, guards, side effects, and event emission.
 
 ## Install
 
 ```bash
-bun add @stravigor/machine
+bun add @strav/machine
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Usage
 
 ### Define a Machine
 
 ```ts
-import { defineMachine } from '@stravigor/machine'
+import { defineMachine } from '@strav/machine'
 
 const orderMachine = defineMachine({
   field: 'status',
@@ -61,8 +61,8 @@ await orderMachine.apply(order, 'process')
 ### ORM Mixin
 
 ```ts
-import { BaseModel } from '@stravigor/core/orm'
-import { stateful } from '@stravigor/machine'
+import { BaseModel } from '@strav/core/orm'
+import { stateful } from '@strav/machine'
 
 class Order extends stateful(BaseModel, orderMachine) {
   declare id: number

@@ -1,4 +1,4 @@
-import type { Context, Middleware, Next } from '@stravigor/http'
+import type { Context, Middleware, Next } from '@strav/http'
 import Collector from './collector.ts'
 import DevtoolsManager from '../devtools_manager.ts'
 import type EntryStore from '../storage/entry_store.ts'
@@ -16,7 +16,7 @@ interface RequestCollectorOptions extends CollectorOptions {
  * body, and response status.
  *
  * @example
- * import { devtools } from '@stravigor/devtools'
+ * import { devtools } from '@strav/devtools'
  * router.use(devtools.middleware())
  */
 export default class RequestCollector extends Collector {

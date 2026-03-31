@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import type { PaginationResult, PaginationMeta } from '@stravigor/database/database/query_builder'
+import type { PaginationResult, PaginationMeta } from '@strav/database/database/query_builder'
 
 // ---------------------------------------------------------------------------
 // Resource base class

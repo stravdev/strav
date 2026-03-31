@@ -1,6 +1,6 @@
-import { mail } from '@stravigor/signal'
-import { extractUserId } from '@stravigor/database'
-import type { Context } from '@stravigor/http'
+import { mail } from '@strav/signal'
+import { extractUserId } from '@strav/database'
+import type { Context } from '@strav/http'
 import JinaManager from '../jina_manager.ts'
 import { createSignedToken } from '../tokens.ts'
 

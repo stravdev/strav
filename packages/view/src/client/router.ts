@@ -7,7 +7,7 @@
  * Uses shared route definitions (from defineRoutes) so server and client stay in sync.
  *
  * Usage:
- *   import { createRouter, useRouter, useRoute } from '@stravigor/view/client/router'
+ *   import { createRouter, useRouter, useRoute } from '@strav/view/client/router'
  */
 
 import {

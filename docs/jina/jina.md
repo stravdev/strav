@@ -1,15 +1,15 @@
 # Jina
 
-The jina module (`@stravigor/jina`) provides headless authentication flows — registration, login, logout, password reset, email verification, two-factor authentication (TOTP), password confirmation, and profile updates. It handles routing, validation, rate limiting, tokens, and events so you only need to define how your User model works.
+The jina module (`@strav/jina`) provides headless authentication flows — registration, login, logout, password reset, email verification, two-factor authentication (TOTP), password confirmation, and profile updates. It handles routing, validation, rate limiting, tokens, and events so you only need to define how your User model works.
 
 Jina is headless: it returns JSON responses from API endpoints. You bring your own frontend. Supports both session-based (cookie) and token-based (access token) authentication.
 
-Built on top of the [auth](./auth.md) and [session](./session.md) modules from `@stravigor/core`.
+Built on top of the [auth](./auth.md) and [session](./session.md) modules from `@strav/core`.
 
 ## Installation
 
 ```bash
-bun add @stravigor/jina
+bun add @strav/jina
 bun strav install jina
 ```
 
@@ -29,8 +29,8 @@ Edit `actions/jina.ts` and fill in the functions that tell Jina how your User mo
 
 ```typescript
 // actions/jina.ts
-import { defineActions } from '@stravigor/jina'
-import { encrypt } from '@stravigor/core/encryption'
+import { defineActions } from '@strav/jina'
+import { encrypt } from '@strav/core/encryption'
 import User from '../models/user'
 
 export default defineActions<User>({
@@ -72,7 +72,7 @@ The `defineActions<TUser>()` helper is a typed identity function — it provides
 ### 2. Register the provider
 
 ```typescript
-import { JinaProvider } from '@stravigor/jina'
+import { JinaProvider } from '@strav/jina'
 import actions from './actions/jina'
 
 app.use(new JinaProvider(actions))
@@ -85,7 +85,7 @@ The `JinaProvider` depends on: `auth`, `session`, `encryption`, `mail`. It regis
 Edit `config/jina.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   features: [
@@ -429,8 +429,8 @@ Jina provides three middleware functions for protecting routes:
 Require the authenticated user to have a verified email. Returns `403` if not verified.
 
 ```typescript
-import { auth } from '@stravigor/core/auth'
-import { verified } from '@stravigor/jina'
+import { auth } from '@strav/core/auth'
+import { verified } from '@strav/jina'
 
 router.group({ middleware: [auth(), verified()] }, r => {
   r.get('/dashboard', dashboardHandler)
@@ -442,8 +442,8 @@ router.group({ middleware: [auth(), verified()] }, r => {
 Require the user to have confirmed their password recently. Returns `423` (Locked) if the confirmation has expired or never happened.
 
 ```typescript
-import { auth } from '@stravigor/core/auth'
-import { confirmed } from '@stravigor/jina'
+import { auth } from '@strav/core/auth'
+import { confirmed } from '@strav/jina'
 
 router.group({ middleware: [auth(), confirmed()] }, r => {
   r.delete('/account', deleteAccountHandler)
@@ -458,8 +458,8 @@ The timeout is configured via `confirmation.timeout` in the Jina config (default
 Require the user to have completed a 2FA challenge. Returns `403` if the user has 2FA enabled but a pending challenge exists in the session. If the user doesn't have 2FA enabled, the middleware passes through.
 
 ```typescript
-import { auth } from '@stravigor/core/auth'
-import { twoFactorChallenge } from '@stravigor/jina'
+import { auth } from '@strav/core/auth'
+import { twoFactorChallenge } from '@strav/jina'
 
 router.post('/transfer', auth(), twoFactorChallenge(), transferHandler)
 ```
@@ -469,8 +469,8 @@ router.post('/transfer', auth(), twoFactorChallenge(), transferHandler)
 Every auth flow emits an event via the core `Emitter`. Listen to events for side effects like logging, analytics, or notifications.
 
 ```typescript
-import Emitter from '@stravigor/core/events'
-import { JinaEvents } from '@stravigor/jina'
+import Emitter from '@strav/core/events'
+import { JinaEvents } from '@strav/jina'
 
 Emitter.on(JinaEvents.REGISTERED, async ({ user, ctx }) => {
   console.log(`New user: ${user.email}`)
@@ -501,7 +501,7 @@ All event handlers receive a `{ user, ctx }` payload.
 The `jina` helper provides utility functions for working with Jina's internals directly:
 
 ```typescript
-import { jina } from '@stravigor/jina'
+import { jina } from '@strav/jina'
 
 // Feature check
 jina.hasFeature('two-factor')  // true
@@ -550,7 +550,7 @@ The module throws these error types:
 - **`ValidationError`** — input validation failure
 
 ```typescript
-import { JinaError, MissingActionError } from '@stravigor/jina'
+import { JinaError, MissingActionError } from '@strav/jina'
 
 try {
   JinaManager.validateActions()
@@ -604,10 +604,10 @@ The client stores the token and sends it in the `Authorization: Bearer <token>` 
 ## Full example
 
 ```typescript
-import { router } from '@stravigor/core/http'
-import { session } from '@stravigor/core/session'
-import { auth, csrf } from '@stravigor/core/auth'
-import { JinaProvider, verified, confirmed } from '@stravigor/jina'
+import { router } from '@strav/core/http'
+import { session } from '@strav/core/session'
+import { auth, csrf } from '@strav/core/auth'
+import { JinaProvider, verified, confirmed } from '@strav/jina'
 import actions from './actions/jina'
 
 // Register the provider

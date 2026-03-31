@@ -12,7 +12,7 @@ import type {
  * Search helper — the primary convenience API.
  *
  * @example
- * import { search } from '@stravigor/search'
+ * import { search } from '@strav/search'
  *
  * const results = await search.query('articles', 'typescript generics')
  * await search.upsert('articles', 1, { title: 'Guide', body: '...' })

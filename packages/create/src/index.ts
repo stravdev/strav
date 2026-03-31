@@ -57,10 +57,10 @@ function parseArgs(): ParsedArgs {
 
 function printUsage(): void {
   console.log(`
-  ${bold('@stravigor/create')} ${dim(`v${VERSION}`)}
+  ${bold('@strav/create')} ${dim(`v${VERSION}`)}
 
   ${bold('Usage:')}
-    bunx @stravigor/create ${cyan('<project-name>')} [options]
+    bunx @strav/create ${cyan('<project-name>')} [options]
 
   ${bold('Options:')}
     --api                     Headless REST API template
@@ -86,7 +86,7 @@ async function main(): Promise<void> {
   }
 
   console.log()
-  console.log(`  ${bold('@stravigor/create')} ${dim(`v${VERSION}`)}`)
+  console.log(`  ${bold('@strav/create')} ${dim(`v${VERSION}`)}`)
   console.log()
 
   // Project name

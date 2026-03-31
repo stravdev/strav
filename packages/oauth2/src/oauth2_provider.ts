@@ -1,6 +1,6 @@
-import { ServiceProvider } from '@stravigor/kernel'
-import type { Application } from '@stravigor/kernel'
-import { Router } from '@stravigor/http'
+import { ServiceProvider } from '@strav/kernel'
+import type { Application } from '@strav/kernel'
+import { Router } from '@strav/http'
 import OAuth2Manager from './oauth2_manager.ts'
 import type { OAuth2Actions } from './types.ts'
 

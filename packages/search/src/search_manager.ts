@@ -1,4 +1,4 @@
-import { inject, Configuration, ConfigurationError } from '@stravigor/kernel'
+import { inject, Configuration, ConfigurationError } from '@strav/kernel'
 import type { SearchEngine } from './search_engine.ts'
 import type { SearchConfig, DriverConfig } from './types.ts'
 import { MeilisearchDriver } from './drivers/meilisearch_driver.ts'

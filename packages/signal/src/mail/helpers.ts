@@ -1,7 +1,7 @@
 import MailManager from './mail_manager.ts'
-import { ViewEngine } from '@stravigor/view'
+import { ViewEngine } from '@strav/view'
 import { inlineCss } from './css_inliner.ts'
-import Queue from '@stravigor/queue/queue/queue'
+import Queue from '@strav/queue/queue/queue'
 import type { MailMessage, MailResult, MailAttachment } from './types.ts'
 
 /**
@@ -133,7 +133,7 @@ export class PendingMail {
  * Mail helper object — the primary API for sending emails.
  *
  * @example
- * import { mail } from '@stravigor/signal/mail'
+ * import { mail } from '@strav/signal/mail'
  *
  * // Fluent builder
  * await mail.to('user@example.com').subject('Hello').template('welcome', { name }).send()

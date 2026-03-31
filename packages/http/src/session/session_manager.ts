@@ -1,7 +1,7 @@
-import { inject } from '@stravigor/kernel/core/inject'
-import { ConfigurationError } from '@stravigor/kernel/exceptions/errors'
-import Configuration from '@stravigor/kernel/config/configuration'
-import Database from '@stravigor/database/database/database'
+import { inject } from '@strav/kernel/core/inject'
+import { ConfigurationError } from '@strav/kernel/exceptions/errors'
+import Configuration from '@strav/kernel/config/configuration'
+import Database from '@strav/database/database/database'
 
 export interface SessionConfig {
   cookie: string

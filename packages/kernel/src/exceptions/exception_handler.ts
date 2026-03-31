@@ -23,7 +23,7 @@ export type ReportFn = (error: Error, ctx?: RequestContext) => void
  * Register with the router to catch all unhandled exceptions:
  *
  * @example
- * import { ExceptionHandler } from '@stravigor/kernel/exceptions'
+ * import { ExceptionHandler } from '@strav/kernel/exceptions'
  *
  * const handler = new ExceptionHandler(config.get('app.env') === 'local')
  * handler.report((error, ctx) => logger.error(error.message, { path: ctx?.path }))

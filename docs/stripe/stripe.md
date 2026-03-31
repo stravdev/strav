@@ -1,13 +1,13 @@
 # Stripe
 
-The stripe module (`@stravigor/stripe`) provides Stripe billing integration — subscriptions, one-time charges, checkout sessions, invoices, payment methods, and webhooks. Attach billing capabilities directly to your user model with the `billable()` mixin, or use the `stripe` helper object for a standalone API.
+The stripe module (`@strav/stripe`) provides Stripe billing integration — subscriptions, one-time charges, checkout sessions, invoices, payment methods, and webhooks. Attach billing capabilities directly to your user model with the `billable()` mixin, or use the `stripe` helper object for a standalone API.
 
 Stripe-only. Uses the official Stripe SDK under the hood.
 
 ## Installation
 
 ```bash
-bun add @stravigor/stripe
+bun add @strav/stripe
 bun strav install stripe
 ```
 
@@ -28,7 +28,7 @@ All files are yours to edit. If a file already exists, the command skips it (use
 #### Using a service provider (recommended)
 
 ```typescript
-import { StripeProvider } from '@stravigor/stripe'
+import { StripeProvider } from '@strav/stripe'
 
 app.use(new StripeProvider())
 ```
@@ -38,7 +38,7 @@ The `StripeProvider` registers `StripeManager` as a singleton. It depends on the
 #### Manual setup
 
 ```typescript
-import StripeManager from '@stravigor/stripe'
+import StripeManager from '@strav/stripe'
 
 app.singleton(StripeManager)
 app.resolve(StripeManager)
@@ -49,7 +49,7 @@ app.resolve(StripeManager)
 Edit `config/stripe.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   secret: env('STRIPE_SECRET', ''),
@@ -86,8 +86,8 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 The `billable()` mixin adds billing methods directly to your user model. This is the recommended API for most applications.
 
 ```typescript
-import { BaseModel } from '@stravigor/core/orm'
-import { billable } from '@stravigor/stripe'
+import { BaseModel } from '@strav/core/orm'
+import { billable } from '@strav/stripe'
 
 class User extends billable(BaseModel) {
   declare id: number
@@ -98,8 +98,8 @@ class User extends billable(BaseModel) {
 Works with `compose()` for combining multiple mixins:
 
 ```typescript
-import { compose } from '@stravigor/core/helpers'
-import { billable } from '@stravigor/stripe'
+import { compose } from '@strav/core/helpers'
+import { billable } from '@strav/stripe'
 
 class User extends compose(BaseModel, softDeletes, billable) {
   declare id: number
@@ -202,7 +202,7 @@ const subs = await user.subscriptions()
 The `Subscription` class also provides pure status-check functions that operate on `SubscriptionData` objects directly:
 
 ```typescript
-import Subscription from '@stravigor/stripe/subscription'
+import Subscription from '@strav/stripe/subscription'
 
 const sub = await user.subscription('pro')
 Subscription.active(sub)        // active, trialing, or past_due
@@ -218,7 +218,7 @@ Subscription.valid(sub)         // active OR onTrial OR onGracePeriod
 ### Canceling subscriptions
 
 ```typescript
-import Subscription from '@stravigor/stripe/subscription'
+import Subscription from '@strav/stripe/subscription'
 
 const sub = await user.subscription('pro')
 
@@ -349,7 +349,7 @@ const upcoming = await user.upcomingInvoice()
 For direct access to invoice operations:
 
 ```typescript
-import Invoice from '@stravigor/stripe/invoice'
+import Invoice from '@strav/stripe/invoice'
 
 const invoice = await Invoice.find('in_xxx')
 const pdfUrl = await Invoice.pdfUrl('in_xxx')
@@ -376,8 +376,8 @@ Register a route handler to receive Stripe webhook events. The handler verifies 
 ### Route setup
 
 ```typescript
-import { router } from '@stravigor/core/http'
-import { stripeWebhook } from '@stravigor/stripe/webhook'
+import { router } from '@strav/core/http'
+import { stripeWebhook } from '@strav/stripe/webhook'
 
 router.post('/stripe/webhook', stripeWebhook())
 ```
@@ -401,7 +401,7 @@ The webhook handler automatically processes these events to keep local records i
 Register handlers for any Stripe event type:
 
 ```typescript
-import { onWebhookEvent } from '@stravigor/stripe/webhook'
+import { onWebhookEvent } from '@strav/stripe/webhook'
 
 onWebhookEvent('invoice.payment_failed', async (event) => {
   const invoice = event.data.object as Stripe.Invoice
@@ -435,7 +435,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 The `stripe` helper provides the same functionality as the billable mixin but without requiring a model instance. Useful for standalone operations or when you don't want to use the mixin.
 
 ```typescript
-import { stripe } from '@stravigor/stripe'
+import { stripe } from '@strav/stripe'
 
 // Customer
 const customer = await stripe.createOrGetCustomer(user)
@@ -483,7 +483,7 @@ The module throws these error types:
 - **`WebhookSignatureError`** — Stripe webhook signature verification failed
 
 ```typescript
-import { StripeError, PaymentMethodError, SubscriptionCreationError } from '@stravigor/stripe'
+import { StripeError, PaymentMethodError, SubscriptionCreationError } from '@strav/stripe'
 
 try {
   await user.subscribe('pro', 'price_xxx')

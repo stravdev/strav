@@ -1,4 +1,4 @@
-import { brain } from '@stravigor/brain'
+import { brain } from '@strav/brain'
 import RagManager from './rag_manager.ts'
 import type { VectorStore } from './vector_store.ts'
 import type {

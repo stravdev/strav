@@ -7,8 +7,8 @@ The ORM module provides an Active Record implementation with model decorators, r
 All models extend `BaseModel`. The framework generates model classes from your schemas, but the API is the same whether you write models by hand or generate them.
 
 ```typescript
-import BaseModel from '@stravigor/core/orm/base_model'
-import { primary } from '@stravigor/core/orm/decorators'
+import BaseModel from '@strav/core/orm/base_model'
+import { primary } from '@strav/core/orm/decorators'
 
 class User extends BaseModel {
   static override softDeletes = true
@@ -121,7 +121,7 @@ If no property is decorated, the default PK name is `id`.
 Marks a field as a ULID that should be auto-generated on insert if not provided:
 
 ```typescript
-import { ulid } from '@stravigor/database/orm'
+import { ulid } from '@strav/database/orm'
 
 @ulid
 @primary
@@ -166,7 +166,7 @@ declare members: User[]
 Defines automatic type casting between database and application values. Transforms are applied during hydration (DB → model) and dehydration (model → DB).
 
 ```typescript
-import { cast } from '@stravigor/core/orm'
+import { cast } from '@strav/core/orm'
 
 // Bare — defaults to JSON parsing/serialization
 @cast
@@ -197,7 +197,7 @@ declare viewCount: number
 Encrypts a field before database storage (AES-256-GCM) and decrypts it on hydration. The database column **must** be TEXT to avoid truncating the encrypted payload.
 
 ```typescript
-import { encrypt } from '@stravigor/core/orm'
+import { encrypt } from '@strav/core/orm'
 
 @encrypt
 declare ssn: string
@@ -237,7 +237,7 @@ console.log(user.teams)                 // Team[]
 The `query()` function creates a fluent query builder for typed SELECT queries. It accepts an optional transaction handle as the second argument:
 
 ```typescript
-import { query, transaction } from '@stravigor/core/orm'
+import { query, transaction } from '@strav/core/orm'
 ```
 
 ### Basic queries
@@ -318,8 +318,8 @@ const { sql, params } = query(User).where('role', 'admin').toSQL()
 The `paginate()` method returns a structured result with data and metadata:
 
 ```typescript
-import { query } from '@stravigor/core/orm'
-import type { PaginationResult } from '@stravigor/core/orm'
+import { query } from '@strav/core/orm'
+import type { PaginationResult } from '@strav/core/orm'
 
 const result: PaginationResult<User> = await query(User)
   .where('organizationId', orgId)
@@ -352,7 +352,7 @@ Column references are automatically resolved:
 The `transaction()` helper runs a callback inside a database transaction that auto-commits on success and rolls back on error. Pass the `trx` handle to `query()`, `create()`, `save()`, `delete()`, and `forceDelete()` so they all run on the same connection:
 
 ```typescript
-import { query, transaction } from '@stravigor/core/orm'
+import { query, transaction } from '@strav/core/orm'
 
 const user = await transaction(async (trx) => {
   const u = await User.create({ name: 'Alice', email: 'alice@example.com' }, trx)

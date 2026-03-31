@@ -13,8 +13,8 @@ const SHUTDOWN_TIMEOUT = 30_000
  * graceful shutdown on SIGINT / SIGTERM.
  *
  * @example
- * import { app } from '@stravigor/kernel/core'
- * import { ConfigProvider, DatabaseProvider, AuthProvider } from '@stravigor/kernel/providers'
+ * import { app } from '@strav/kernel/core'
+ * import { ConfigProvider, DatabaseProvider, AuthProvider } from '@strav/kernel/providers'
  *
  * app
  *   .useProviders([

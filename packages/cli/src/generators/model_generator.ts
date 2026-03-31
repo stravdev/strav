@@ -1,14 +1,14 @@
 import { join } from 'node:path'
-import { Archetype } from '@stravigor/database/schema/types'
-import type { SchemaDefinition } from '@stravigor/database/schema/types'
+import { Archetype } from '@strav/database/schema/types'
+import type { SchemaDefinition } from '@strav/database/schema/types'
 import type {
   DatabaseRepresentation,
   TableDefinition,
   ColumnDefinition,
   EnumDefinition,
-} from '@stravigor/database/schema/database_representation'
-import type { PostgreSQLCustomType } from '@stravigor/database/schema/postgres'
-import { toSnakeCase, toCamelCase, toPascalCase } from '@stravigor/kernel/helpers/strings'
+} from '@strav/database/schema/database_representation'
+import type { PostgreSQLCustomType } from '@strav/database/schema/postgres'
+import { toSnakeCase, toCamelCase, toPascalCase } from '@strav/kernel/helpers/strings'
 import type { GeneratorConfig, GeneratorPaths } from './config.ts'
 import { resolvePaths, relativeImport, formatAndWrite, getModelPrefix } from './config.ts'
 
@@ -271,7 +271,7 @@ export default class ModelGenerator {
     // Assemble imports
     const importLines: string[] = []
     importLines.push("import { DateTime } from 'luxon'")
-    importLines.push("import BaseModel from '@stravigor/database/orm/base_model'")
+    importLines.push("import BaseModel from '@strav/database/orm/base_model'")
 
     const decoratorImports: string[] = []
     if (needsPrimaryImport) decoratorImports.push('primary')
@@ -279,7 +279,7 @@ export default class ModelGenerator {
     if (needsAssociateImport) decoratorImports.push('associate')
     if (decoratorImports.length > 0) {
       importLines.push(
-        `import { ${decoratorImports.join(', ')} } from '@stravigor/database/orm/decorators'`
+        `import { ${decoratorImports.join(', ')} } from '@strav/database/orm/decorators'`
       )
     }
 
@@ -424,7 +424,7 @@ export default class ModelGenerator {
   private findFieldForColumn(
     colName: string,
     schema: SchemaDefinition
-  ): import('@stravigor/database/schema/field_definition').FieldDefinition | null {
+  ): import('@strav/database/schema/field_definition').FieldDefinition | null {
     for (const [fieldName, fieldDef] of Object.entries(schema.fields)) {
       if (fieldDef.references) continue
       if (toSnakeCase(fieldName) === colName) {

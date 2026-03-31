@@ -1,4 +1,4 @@
-import { defineSchema, t, Archetype } from '@stravigor/database'
+import { defineSchema, t, Archetype } from '@strav/database'
 
 export const schema = defineSchema('social_account', {
   archetype: Archetype.Component,

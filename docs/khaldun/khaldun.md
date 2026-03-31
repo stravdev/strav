@@ -7,7 +7,7 @@ The engine is **pure computation** — every function is deterministic with zero
 ## Quick start
 
 ```typescript
-import { khaldun, updateStateSystem, DEFAULT_CONFIG } from '@stravigor/khaldun'
+import { khaldun, updateStateSystem, DEFAULT_CONFIG } from '@strav/khaldun'
 
 // Direct pure function (no IoC required)
 const state = updateStateSystem(inputMetrics, previousState, environment, DEFAULT_CONFIG)
@@ -21,7 +21,7 @@ const state = await khaldun.evaluate(inputMetrics, previousState, environment)
 ### Using a service provider (recommended)
 
 ```typescript
-import { KhaldunProvider } from '@stravigor/khaldun'
+import { KhaldunProvider } from '@strav/khaldun'
 
 app.use(new KhaldunProvider())
 ```
@@ -31,7 +31,7 @@ The `KhaldunProvider` registers `KhaldunManager` as a singleton. It depends on t
 ### Manual setup
 
 ```typescript
-import { KhaldunManager } from '@stravigor/khaldun'
+import { KhaldunManager } from '@strav/khaldun'
 
 app.singleton(KhaldunManager)
 app.resolve(KhaldunManager)
@@ -323,7 +323,7 @@ When detected, the engine recommends: *"Structural intervention needed: consider
 Before inputs reach the scoring engine, signals from agents carry two independent confidence dimensions. The `resolveInput` function handles uncertainty:
 
 ```typescript
-import { resolveInput } from '@stravigor/khaldun'
+import { resolveInput } from '@strav/khaldun'
 
 const resolved = resolveInput({
   value: 0.8,
@@ -368,7 +368,7 @@ When using the IoC-integrated `KhaldunManager.evaluate()`, events are emitted:
 | `khaldun:oscillation.detected` | `{ flag }` | Oscillation first detected |
 
 ```typescript
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 
 Emitter.on('khaldun:transition.ready', ({ transition, result }) => {
   console.log(`${transition} is ready! Score: ${result.readinessScore}`)
@@ -428,7 +428,7 @@ import {
   // Config
   DEFAULT_CONFIG,
   validateConfig,
-} from '@stravigor/khaldun'
+} from '@strav/khaldun'
 ```
 
 This is useful for:

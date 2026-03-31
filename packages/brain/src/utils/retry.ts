@@ -1,4 +1,4 @@
-import { ExternalServiceError } from '@stravigor/kernel'
+import { ExternalServiceError } from '@strav/kernel'
 
 export interface RetryOptions {
   maxRetries?: number

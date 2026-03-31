@@ -1,7 +1,7 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
-import { bootstrap, shutdown } from '@stravigor/cli'
-import { BaseModel } from '@stravigor/database'
+import { bootstrap, shutdown } from '@strav/cli'
+import { BaseModel } from '@strav/database'
 import RagManager from '../rag_manager.ts'
 
 export function register(program: Command): void {

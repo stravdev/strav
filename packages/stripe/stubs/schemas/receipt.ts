@@ -1,4 +1,4 @@
-import { defineSchema, t, Archetype } from '@stravigor/database/schema'
+import { defineSchema, t, Archetype } from '@strav/database/schema'
 
 export default defineSchema('receipt', {
   archetype: Archetype.Component,

@@ -1,20 +1,20 @@
-# @stravigor/stripe
+# @strav/stripe
 
-Stripe billing for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Subscriptions, one-time charges, checkout sessions, invoices, payment methods, and webhooks.
+Stripe billing for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Subscriptions, one-time charges, checkout sessions, invoices, payment methods, and webhooks.
 
 ## Install
 
 ```bash
-bun add @stravigor/stripe
+bun add @strav/stripe
 bun strav install stripe
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { StripeProvider } from '@stravigor/stripe'
+import { StripeProvider } from '@strav/stripe'
 
 app.use(new StripeProvider())
 ```
@@ -22,7 +22,7 @@ app.use(new StripeProvider())
 ## Usage
 
 ```ts
-import { stripe } from '@stravigor/stripe'
+import { stripe } from '@strav/stripe'
 
 // Create a customer
 const customer = await stripe.createOrGetCustomer(user)
@@ -44,7 +44,7 @@ const checkout = await stripe
 ## Billable Mixin
 
 ```ts
-import { billable } from '@stravigor/stripe'
+import { billable } from '@strav/stripe'
 
 class User extends billable(BaseModel) {
   // adds subscription, invoice, and payment helpers
@@ -54,7 +54,7 @@ class User extends billable(BaseModel) {
 ## Webhooks
 
 ```ts
-import { stripeWebhook, onWebhookEvent } from '@stravigor/stripe'
+import { stripeWebhook, onWebhookEvent } from '@strav/stripe'
 
 onWebhookEvent('customer.subscription.updated', async (event) => {
   // handle subscription changes

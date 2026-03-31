@@ -1,4 +1,4 @@
-import type { Middleware } from '@stravigor/http'
+import type { Middleware } from '@strav/http'
 import JinaManager from '../jina_manager.ts'
 
 /**

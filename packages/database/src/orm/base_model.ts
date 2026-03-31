@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { toSnakeCase, toCamelCase } from '@stravigor/kernel/helpers/strings'
-import { ulid as generateUlid } from '@stravigor/kernel/helpers'
-import { inject } from '@stravigor/kernel/core/inject'
+import { toSnakeCase, toCamelCase } from '@strav/kernel/helpers/strings'
+import { ulid as generateUlid } from '@strav/kernel/helpers'
+import { inject } from '@strav/kernel/core/inject'
 import {
   getPrimaryKey,
   getReferences,
@@ -13,7 +13,7 @@ import {
 } from './decorators'
 import type { ReferenceMetadata, AssociateMetadata } from './decorators'
 import Database from '../database/database'
-import { ConfigurationError, ModelNotFoundError } from '@stravigor/kernel/exceptions/errors'
+import { ConfigurationError, ModelNotFoundError } from '@strav/kernel/exceptions/errors'
 
 type ModelStatic<T extends BaseModel> = (new (...args: any[]) => T) & typeof BaseModel
 

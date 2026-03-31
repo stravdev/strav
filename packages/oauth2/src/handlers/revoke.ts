@@ -1,5 +1,5 @@
-import type { Context } from '@stravigor/http'
-import { Emitter } from '@stravigor/kernel'
+import type { Context } from '@strav/http'
+import { Emitter } from '@strav/kernel'
 import OAuthClient from '../client.ts'
 import OAuthToken from '../token.ts'
 import { OAuth2Events } from '../types.ts'

@@ -1,4 +1,4 @@
-import { env } from '@stravigor/kernel/helpers'
+import { env } from '@strav/kernel/helpers'
 
 export default {
   /** Server name shown to AI clients. Defaults to app name if not set. */

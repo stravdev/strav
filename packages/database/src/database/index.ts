@@ -16,7 +16,7 @@ export * from './domain/index'
  * Available after the Database is resolved through the DI container.
  *
  * @example
- * import { sql } from '@stravigor/database/database'
+ * import { sql } from '@strav/database/database'
  * const rows = await sql`SELECT * FROM "user" WHERE "id" = ${id}`
  * await sql.begin(async (tx) => { ... })
  */

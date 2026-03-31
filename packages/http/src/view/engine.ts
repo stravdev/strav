@@ -1,12 +1,12 @@
 import { resolve, join } from 'node:path'
-import { inject } from '@stravigor/kernel/core/inject'
-import Configuration from '@stravigor/kernel/config/configuration'
+import { inject } from '@strav/kernel/core/inject'
+import Configuration from '@strav/kernel/config/configuration'
 import { escapeHtml } from './escape.ts'
 import { tokenize } from './tokenizer.ts'
 import { compile } from './compiler.ts'
 import TemplateCache from './cache.ts'
 import type { CacheEntry, RenderFunction, IncludeFn } from './cache.ts'
-import { ConfigurationError, TemplateError } from '@stravigor/kernel/exceptions/errors'
+import { ConfigurationError, TemplateError } from '@strav/kernel/exceptions/errors'
 
 const MAX_INCLUDE_DEPTH = 50
 

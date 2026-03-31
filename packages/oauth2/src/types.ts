@@ -1,4 +1,4 @@
-import type { Context } from '@stravigor/http'
+import type { Context } from '@strav/http'
 
 // ---------------------------------------------------------------------------
 // Grant types

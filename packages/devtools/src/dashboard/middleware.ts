@@ -1,4 +1,4 @@
-import type { Context, Middleware, Next } from '@stravigor/http'
+import type { Context, Middleware, Next } from '@strav/http'
 
 /**
  * Authorization gate for the devtools dashboard.
@@ -7,7 +7,7 @@ import type { Context, Middleware, Next } from '@stravigor/http'
  * Pass a custom guard function for production access control.
  *
  * @example
- * import { dashboardAuth } from '@stravigor/devtools/dashboard/middleware'
+ * import { dashboardAuth } from '@strav/devtools/dashboard/middleware'
  *
  * // Default: local environment only
  * router.group({ prefix: '/_devtools', middleware: [dashboardAuth()] }, ...)

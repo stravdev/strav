@@ -5,7 +5,7 @@ Feature flags with a unified API, scoped per-user or per-team, and optional rich
 ## Installation
 
 ```bash
-bun add @stravigor/flag
+bun add @strav/flag
 bun strav install flag
 ```
 
@@ -18,7 +18,7 @@ The `install` command copies `config/flag.ts` into your project. The file is you
 #### Using a service provider (recommended)
 
 ```typescript
-import { FlagProvider } from '@stravigor/flag'
+import { FlagProvider } from '@strav/flag'
 
 app.use(new FlagProvider())
 ```
@@ -34,7 +34,7 @@ app.use(new FlagProvider({ ensureTables: false }))
 #### Manual setup
 
 ```typescript
-import FlagManager from '@stravigor/flag'
+import FlagManager from '@strav/flag'
 
 app.singleton(FlagManager)
 app.resolve(FlagManager)
@@ -46,7 +46,7 @@ await FlagManager.ensureTables()
 Edit `config/flag.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   default: env('FLAG_DRIVER', 'database'),
@@ -70,7 +70,7 @@ Features must be defined before they can be checked. Define them during app boot
 ### Closure-based
 
 ```typescript
-import { flag } from '@stravigor/flag'
+import { flag } from '@strav/flag'
 
 // Boolean flag
 flag.define('new-checkout', true)
@@ -92,7 +92,7 @@ flag.define('checkout-variant', (scope) => {
 ### Class-based
 
 ```typescript
-import type { FeatureClass } from '@stravigor/flag'
+import type { FeatureClass } from '@strav/flag'
 
 class NewBillingExperience implements FeatureClass {
   static readonly key = 'new-billing'
@@ -110,7 +110,7 @@ If `key` is not set, the class name is converted to kebab-case (`NewBillingExper
 ## Checking features
 
 ```typescript
-import { flag } from '@stravigor/flag'
+import { flag } from '@strav/flag'
 
 if (await flag.active('new-checkout')) {
   // feature is on
@@ -258,7 +258,7 @@ flag.flushCache()
 Gate routes behind a feature flag with `ensureFeature()`. Returns a `403` JSON response when the feature is not active.
 
 ```typescript
-import { ensureFeature } from '@stravigor/flag'
+import { ensureFeature } from '@strav/flag'
 
 router.group({ middleware: [auth(), ensureFeature('beta-ui')] }, (r) => {
   r.get('/beta/dashboard', betaDashboard)
@@ -268,7 +268,7 @@ router.group({ middleware: [auth(), ensureFeature('beta-ui')] }, (r) => {
 The middleware uses `ctx.get('user')` as the scope by default. Pass a custom scope extractor for other entities:
 
 ```typescript
-import { compose } from '@stravigor/core/http'
+import { compose } from '@strav/core/http'
 
 r.get('/team/:id/analytics', compose(
   [ensureFeature('team-analytics', (ctx) => ctx.get('team'))],
@@ -287,7 +287,7 @@ Feature operations emit events through the `Emitter`:
 | `flag:deleted` | `{ feature, scope }` | Value forgotten or purged |
 
 ```typescript
-import Emitter from '@stravigor/core/events/emitter'
+import Emitter from '@strav/core/events/emitter'
 
 Emitter.on('flag:resolved', ({ feature, scope, value }) => {
   console.log(`Feature "${feature}" resolved to ${value} for ${scope}`)
@@ -299,8 +299,8 @@ Emitter.on('flag:resolved', ({ feature, scope, value }) => {
 Register a custom storage driver with `extend()`:
 
 ```typescript
-import { flag } from '@stravigor/flag'
-import type { FeatureStore } from '@stravigor/flag'
+import { flag } from '@strav/flag'
+import type { FeatureStore } from '@strav/flag'
 
 flag.extend('redis', (config) => {
   return new RedisFeatureStore(config)
@@ -365,7 +365,7 @@ Call `FlagManager.reset()` in test teardown to clear definitions and stored valu
 
 ```typescript
 import { beforeEach } from 'bun:test'
-import FlagManager from '@stravigor/flag'
+import FlagManager from '@strav/flag'
 
 beforeEach(() => {
   FlagManager.reset()
@@ -375,7 +375,7 @@ beforeEach(() => {
 ## Controller example
 
 ```typescript
-import { flag } from '@stravigor/flag'
+import { flag } from '@strav/flag'
 
 export default class CheckoutController {
   async show(ctx: Context) {

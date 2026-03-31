@@ -1,4 +1,4 @@
-import { StravError } from '@stravigor/kernel'
+import { StravError } from '@strav/kernel'
 
 /** Base error for all OAuth2 errors. */
 export class OAuth2Error extends StravError {

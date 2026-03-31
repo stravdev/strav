@@ -13,7 +13,7 @@ import type {
  * MCP helper — the primary convenience API.
  *
  * @example
- * import { mcp } from '@stravigor/mcp'
+ * import { mcp } from '@strav/mcp'
  * import { z } from 'zod'
  *
  * mcp.tool('get-user', {

@@ -1,10 +1,10 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
 import { bootstrap, shutdown } from '../cli/bootstrap.ts'
-import SchemaDiffer from '@stravigor/database/database/migration/differ'
-import SqlGenerator from '@stravigor/database/database/migration/sql_generator'
-import MigrationFileGenerator from '@stravigor/database/database/migration/file_generator'
-import { discoverDomains } from '@stravigor/database'
+import SchemaDiffer from '@strav/database/database/migration/differ'
+import SqlGenerator from '@strav/database/database/migration/sql_generator'
+import MigrationFileGenerator from '@strav/database/database/migration/file_generator'
+import { discoverDomains } from '@strav/database'
 import { getDatabasePaths } from '../config/loader.ts'
 
 export function register(program: Command): void {

@@ -1,4 +1,4 @@
-import { TemplateError } from '@stravigor/kernel/exceptions/errors'
+import { TemplateError } from '@strav/kernel/exceptions/errors'
 import type { Token } from './tokenizer.ts'
 
 export interface CompilationResult {

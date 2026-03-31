@@ -1,5 +1,5 @@
-import { ServiceProvider } from '@stravigor/kernel'
-import type { Application } from '@stravigor/kernel'
+import { ServiceProvider } from '@strav/kernel'
+import type { Application } from '@strav/kernel'
 import SocialManager from './social_manager.ts'
 
 export default class SocialProvider extends ServiceProvider {

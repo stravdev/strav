@@ -1,2 +1,2 @@
 #!/usr/bin/env bun
-import '@stravigor/cli/cli/strav'
+import '@strav/cli/cli/strav'

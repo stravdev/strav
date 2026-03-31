@@ -1,4 +1,4 @@
-import { env } from '@stravigor/kernel/helpers/env'
+import { env } from '@strav/kernel/helpers/env'
 
 export default {
   host: env('DB_HOST', '127.0.0.1'),

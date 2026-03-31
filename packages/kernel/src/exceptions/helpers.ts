@@ -5,7 +5,7 @@ import { HttpException, ValidationError } from './http_exception.ts'
  * as a JSON error response.
  *
  * @example
- * import { abort } from '@stravigor/kernel/exceptions'
+ * import { abort } from '@strav/kernel/exceptions'
  *
  * const project = await Project.find(id)
  * if (!project) abort(404, 'Project not found')

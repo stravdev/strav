@@ -1,4 +1,4 @@
-import { inject, Configuration, ConfigurationError } from '@stravigor/kernel'
+import { inject, Configuration, ConfigurationError } from '@strav/kernel'
 import type { VectorStore } from './vector_store.ts'
 import type { RagConfig, StoreConfig, EmbeddingConfig, ChunkingConfig } from './types.ts'
 import { NullDriver } from './drivers/null_driver.ts'

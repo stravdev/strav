@@ -1,12 +1,12 @@
 import DevtoolsManager from './devtools_manager.ts'
-import type { Middleware } from '@stravigor/http'
+import type { Middleware } from '@strav/http'
 import type { EntryRecord, AggregateRecord, EntryType, AggregateFunction } from './types.ts'
 
 /**
  * Devtools helper — the primary convenience API.
  *
  * @example
- * import { devtools } from '@stravigor/devtools'
+ * import { devtools } from '@strav/devtools'
  *
  * // Add the middleware to capture requests
  * router.use(devtools.middleware())

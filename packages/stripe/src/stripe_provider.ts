@@ -1,5 +1,5 @@
-import { ServiceProvider } from '@stravigor/kernel'
-import type { Application } from '@stravigor/kernel'
+import { ServiceProvider } from '@strav/kernel'
+import type { Application } from '@strav/kernel'
 import StripeManager from './stripe_manager.ts'
 
 export default class StripeProvider extends ServiceProvider {

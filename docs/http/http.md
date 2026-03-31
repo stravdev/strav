@@ -5,7 +5,7 @@ The HTTP module provides routing, middleware, request/response helpers, and a Bu
 ## Quick start
 
 ```typescript
-import { router } from '@stravigor/core/http'
+import { router } from '@strav/core/http'
 
 router.get('/health', (ctx) => ctx.json({ status: 'ok' }))
 
@@ -16,7 +16,7 @@ router.group({ prefix: '/api' }, (r) => {
 })
 ```
 
-The `router` is a singleton resolved from the DI container — import it directly from `'@stravigor/core/http'`.
+The `router` is a singleton resolved from the DI container — import it directly from `'@strav/core/http'`.
 
 ## Context
 
@@ -299,7 +299,7 @@ type Middleware = (ctx: Context, next: Next) => Response | Promise<Response>
 ### Writing middleware
 
 ```typescript
-import type { Middleware } from '@stravigor/core/http'
+import type { Middleware } from '@strav/core/http'
 
 const logger: Middleware = async (ctx, next) => {
   const start = performance.now()
@@ -352,7 +352,7 @@ The `Server` class is `@inject`-able and reads from `config/http.ts`:
 
 ```typescript
 // config/http.ts
-import { ApiRouting } from '@stravigor/core/generators'
+import { ApiRouting } from '@strav/core/generators'
 
 export default {
   host: env('HTTP_HOST', '0.0.0.0'),
@@ -370,7 +370,7 @@ export default {
 ### Using a service provider (recommended)
 
 ```typescript
-import { HttpProvider } from '@stravigor/core/providers'
+import { HttpProvider } from '@strav/core/providers'
 
 app.use(new HttpProvider())
 ```
@@ -393,7 +393,7 @@ The `domain` setting is used for subdomain extraction from the `Host` header. Th
 Low-level cookie utilities are available for building custom cookie logic:
 
 ```typescript
-import { serializeCookie, parseCookies, withCookie, clearCookie } from '@stravigor/core/http'
+import { serializeCookie, parseCookies, withCookie, clearCookie } from '@strav/core/http'
 
 // Serialize a Set-Cookie header string
 const header = serializeCookie('theme', 'dark', {
@@ -480,7 +480,7 @@ Rate limiting is a standard middleware — it runs in the normal pipeline after 
 ### Quick start
 
 ```typescript
-import { rateLimit } from '@stravigor/core/http'
+import { rateLimit } from '@strav/core/http'
 
 // Global: 100 requests per minute
 router.use(rateLimit({ max: 100, window: 60_000 }))
@@ -546,7 +546,7 @@ Retry-After: 42
 The default `MemoryStore` uses fixed time windows with lazy cleanup — suitable for single-process deployments. For distributed setups, implement the `RateLimitStore` interface:
 
 ```typescript
-import type { RateLimitStore, RateLimitInfo } from '@stravigor/core/http'
+import type { RateLimitStore, RateLimitInfo } from '@strav/core/http'
 
 class RedisRateLimitStore implements RateLimitStore {
   async increment(key: string, window: number, max: number): Promise<RateLimitInfo> {
@@ -569,7 +569,7 @@ Resources are lightweight serializers that control the shape of JSON responses. 
 Extend `Resource<T>` and implement `define()`:
 
 ```typescript
-import { Resource } from '@stravigor/core/http'
+import { Resource } from '@strav/core/http'
 
 class UserResource extends Resource<User> {
   define(user: User) {

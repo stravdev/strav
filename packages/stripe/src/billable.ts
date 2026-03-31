@@ -1,7 +1,7 @@
 import type Stripe from 'stripe'
-import type { BaseModel } from '@stravigor/database'
-import type { NormalizeConstructor } from '@stravigor/kernel'
-import { extractUserId } from '@stravigor/database'
+import type { BaseModel } from '@strav/database'
+import type { NormalizeConstructor } from '@strav/kernel'
+import { extractUserId } from '@strav/database'
 import Customer from './customer.ts'
 import Subscription from './subscription.ts'
 import SubscriptionBuilder from './subscription_builder.ts'
@@ -49,8 +49,8 @@ class BoundCheckoutBuilder extends CheckoutBuilder {
  * Mixin that adds billing methods to a BaseModel subclass.
  *
  * @example
- * import { BaseModel } from '@stravigor/database'
- * import { billable } from '@stravigor/stripe'
+ * import { BaseModel } from '@strav/database'
+ * import { billable } from '@strav/stripe'
  *
  * class User extends billable(BaseModel) {
  *   declare id: number
@@ -58,7 +58,7 @@ class BoundCheckoutBuilder extends CheckoutBuilder {
  * }
  *
  * // Composable with other mixins:
- * import { compose } from '@stravigor/kernel'
+ * import { compose } from '@strav/kernel'
  * class User extends compose(BaseModel, softDeletes, billable) { }
  *
  * const user = await User.find(1)

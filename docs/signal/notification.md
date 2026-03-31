@@ -5,7 +5,7 @@ Multi-channel notifications (email, in-app, webhook, Discord) with event integra
 ## Quick start
 
 ```typescript
-import { notify } from '@stravigor/core/notification'
+import { notify } from '@strav/core/notification'
 
 // Send to a single recipient
 await notify(user, new TaskAssignedNotification(task, assigner))
@@ -19,7 +19,7 @@ await notify([user1, user2], new InvoicePaidNotification(invoice))
 ### Using a service provider (recommended)
 
 ```typescript
-import { NotificationProvider } from '@stravigor/core/providers'
+import { NotificationProvider } from '@strav/core/providers'
 
 app.use(new NotificationProvider())
 ```
@@ -35,7 +35,7 @@ Options:
 To enable async delivery via the queue, register the queue handler separately:
 
 ```typescript
-import { notifications } from '@stravigor/core/notification'
+import { notifications } from '@strav/core/notification'
 
 notifications.registerQueueHandler()
 ```
@@ -43,8 +43,8 @@ notifications.registerQueueHandler()
 ### Manual setup
 
 ```typescript
-import NotificationManager from '@stravigor/core/notification/notification_manager'
-import { notifications } from '@stravigor/core/notification'
+import NotificationManager from '@strav/core/notification/notification_manager'
+import { notifications } from '@strav/core/notification'
 
 app.singleton(NotificationManager)
 app.resolve(NotificationManager)
@@ -57,7 +57,7 @@ notifications.registerQueueHandler()
 Create `config/notification.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers/env'
+import { env } from '@strav/core/helpers/env'
 
 export default {
   // Default channels when a notification does not specify via()
@@ -86,8 +86,8 @@ export default {
 Extend `BaseNotification` and implement `via()` plus a `toXxx()` method for each channel:
 
 ```typescript
-import { BaseNotification } from '@stravigor/core/notification'
-import type { Notifiable, MailEnvelope, DatabaseEnvelope, DiscordEnvelope } from '@stravigor/core/notification'
+import { BaseNotification } from '@strav/core/notification'
+import type { Notifiable, MailEnvelope, DatabaseEnvelope, DiscordEnvelope } from '@strav/core/notification'
 
 export class TaskAssignedNotification extends BaseNotification {
   constructor(private task: Task, private assigner: User) {
@@ -143,7 +143,7 @@ export class TaskAssignedNotification extends BaseNotification {
 Any model that can receive notifications must implement the `Notifiable` interface:
 
 ```typescript
-import type { Notifiable } from '@stravigor/core/notification'
+import type { Notifiable } from '@strav/core/notification'
 
 class User extends BaseModel implements Notifiable {
   notifiableId() { return this.id }
@@ -236,8 +236,8 @@ toDiscord(): DiscordEnvelope {
 Implement the `NotificationChannel` interface and register it:
 
 ```typescript
-import type { NotificationChannel, Notifiable, NotificationPayload } from '@stravigor/core/notification'
-import NotificationManager from '@stravigor/core/notification/notification_manager'
+import type { NotificationChannel, Notifiable, NotificationPayload } from '@strav/core/notification'
+import NotificationManager from '@strav/core/notification/notification_manager'
 
 class SlackChannel implements NotificationChannel {
   readonly name = 'slack'
@@ -265,7 +265,7 @@ Then in your notification class, include `'slack'` in `via()` and add a `toSlack
 ### Direct send
 
 ```typescript
-import { notify } from '@stravigor/core/notification'
+import { notify } from '@strav/core/notification'
 
 await notify(user, new WelcomeNotification())
 await notify([user1, user2, user3], new ProjectInviteNotification(project))
@@ -292,7 +292,7 @@ When queued, routing information (email address, webhook URL, etc.) is resolved 
 Register the queue handler in bootstrap:
 
 ```typescript
-import { notifications } from '@stravigor/core/notification'
+import { notifications } from '@strav/core/notification'
 
 notifications.registerQueueHandler()
 ```
@@ -302,7 +302,7 @@ notifications.registerQueueHandler()
 Wire domain events to notifications using `NotificationManager.on()`:
 
 ```typescript
-import { NotificationManager, notifications } from '@stravigor/core/notification'
+import { NotificationManager, notifications } from '@strav/core/notification'
 import { TaskAssignedNotification } from '../app/notifications/task_assigned_notification'
 import { InvoicePaidNotification } from '../app/notifications/invoice_paid_notification'
 
@@ -332,7 +332,7 @@ After `wireEvents()`, when `Emitter.emit('task.assigned', payload)` fires from a
 The `notifications` helper provides query methods for the database channel:
 
 ```typescript
-import { notifications } from '@stravigor/core/notification'
+import { notifications } from '@strav/core/notification'
 
 // Fetch notifications
 const all    = await notifications.all('user', userId)
@@ -416,9 +416,9 @@ Swap in a mock channel or spy on existing channels:
 
 ```typescript
 import { test, expect, beforeEach } from 'bun:test'
-import NotificationManager from '@stravigor/core/notification/notification_manager'
-import { notify } from '@stravigor/core/notification'
-import type { NotificationChannel, Notifiable, NotificationPayload } from '@stravigor/core/notification'
+import NotificationManager from '@strav/core/notification/notification_manager'
+import { notify } from '@strav/core/notification'
+import type { NotificationChannel, Notifiable, NotificationPayload } from '@strav/core/notification'
 
 class MockChannel implements NotificationChannel {
   readonly name = 'mock'

@@ -1,11 +1,11 @@
-# @stravigor/stripe
+# @strav/stripe
 
 Stripe billing integration — subscriptions, one-time charges, checkout sessions, invoices, payment methods, and webhooks. Attach billing capabilities to user models with the billable() mixin.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/database (peer)
-- @stravigor/http (peer)
+- @strav/kernel (peer)
+- @strav/database (peer)
+- @strav/http (peer)
 
 ## Commands
 - bun test

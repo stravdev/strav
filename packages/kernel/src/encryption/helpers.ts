@@ -7,7 +7,7 @@ import EncryptionManager from './encryption_manager.ts'
  * Password hashing uses argon2id via Bun.password (no key needed).
  *
  * @example
- * import { encrypt } from '@stravigor/kernel/encryption'
+ * import { encrypt } from '@strav/kernel/encryption'
  *
  * // Encrypt & decrypt strings
  * const encrypted = encrypt.encrypt('sensitive data')

@@ -1,20 +1,20 @@
-# @stravigor/jina
+# @strav/jina
 
-Headless authentication flows for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Registration, login, logout, password reset, email verification, two-factor authentication (TOTP), password confirmation, and profile updates — all as JSON API endpoints.
+Headless authentication flows for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Registration, login, logout, password reset, email verification, two-factor authentication (TOTP), password confirmation, and profile updates — all as JSON API endpoints.
 
 ## Install
 
 ```bash
-bun add @stravigor/jina
+bun add @strav/jina
 bun strav install jina
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { defineActions } from '@stravigor/jina'
+import { defineActions } from '@strav/jina'
 import User from './models/user'
 
 const actions = defineActions<User>({
@@ -28,7 +28,7 @@ const actions = defineActions<User>({
 ```
 
 ```ts
-import { JinaProvider } from '@stravigor/jina'
+import { JinaProvider } from '@strav/jina'
 
 app.use(new JinaProvider(actions))
 ```
@@ -57,7 +57,7 @@ Routes are registered automatically:
 ## Middleware
 
 ```ts
-import { verified, confirmed, twoFactorChallenge } from '@stravigor/jina'
+import { verified, confirmed, twoFactorChallenge } from '@strav/jina'
 
 router.group({ middleware: [auth(), verified()] }, r => {
   r.delete('/account', compose([confirmed()], deleteAccountHandler))

@@ -1,20 +1,20 @@
-# @stravigor/flag
+# @strav/flag
 
-Feature flags for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Define, scope, and toggle features with database persistence, in-memory drivers, and per-user/team targeting.
+Feature flags for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Define, scope, and toggle features with database persistence, in-memory drivers, and per-user/team targeting.
 
 ## Install
 
 ```bash
-bun add @stravigor/flag
+bun add @strav/flag
 bun strav install flag
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { FlagProvider } from '@stravigor/flag'
+import { FlagProvider } from '@strav/flag'
 
 app.use(new FlagProvider())
 ```
@@ -22,7 +22,7 @@ app.use(new FlagProvider())
 ## Usage
 
 ```ts
-import { flag } from '@stravigor/flag'
+import { flag } from '@strav/flag'
 
 // Check if a feature is active
 if (await flag.active('dark-mode')) {
@@ -41,7 +41,7 @@ const limit = await flag.value('upload-limit', 10)
 ## Middleware
 
 ```ts
-import { ensureFeature } from '@stravigor/flag'
+import { ensureFeature } from '@strav/flag'
 
 router.get('/beta', ensureFeature('beta-dashboard'), betaHandler)
 ```

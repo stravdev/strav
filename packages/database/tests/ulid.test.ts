@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'bun:test'
-import { ulid, isUlid } from '@stravigor/kernel/helpers'
+import { ulid, isUlid } from '@strav/kernel/helpers'
 import { BaseModel, ulid as ulidDecorator } from '../src/orm'
 import { defineSchema, t, Archetype } from '../src/schema'
 

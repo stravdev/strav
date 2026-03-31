@@ -1,5 +1,5 @@
 import Queue, { hydrateJob } from './queue.ts'
-import Emitter from '@stravigor/kernel/events/emitter'
+import Emitter from '@strav/kernel/events/emitter'
 import type { JobRecord, JobMeta } from './queue.ts'
 
 export interface WorkerOptions {

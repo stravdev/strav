@@ -1,5 +1,5 @@
 import type { NotificationChannel, Notifiable, NotificationPayload } from '../types.ts'
-import Database from '@stravigor/database/database/database'
+import Database from '@strav/database/database/database'
 
 /**
  * Stores notifications in the `_strav_notifications` table.

@@ -1,7 +1,7 @@
-import ServiceProvider from '@stravigor/kernel/core/service_provider'
-import type Application from '@stravigor/kernel/core/application'
-import Configuration from '@stravigor/kernel/config/configuration'
-import Context from '@stravigor/http/http/context'
+import ServiceProvider from '@strav/kernel/core/service_provider'
+import type Application from '@strav/kernel/core/application'
+import Configuration from '@strav/kernel/config/configuration'
+import Context from '@strav/http/http/context'
 import ViewEngine from '../engine.ts'
 import { AssetVersioner } from '../asset_versioner.ts'
 

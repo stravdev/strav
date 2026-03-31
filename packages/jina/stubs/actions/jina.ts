@@ -1,5 +1,5 @@
-import { defineActions } from '@stravigor/jina'
-import { encrypt } from '@stravigor/kernel'
+import { defineActions } from '@strav/jina'
+import { encrypt } from '@strav/kernel'
 // import { User } from '../models/user'
 
 /**

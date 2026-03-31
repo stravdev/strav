@@ -4,9 +4,9 @@ import type { Command } from 'commander'
 import chalk from 'chalk'
 import { bootstrap, shutdown } from '../cli/bootstrap.ts'
 import { freshDatabase, requireLocalEnv } from './migration_fresh.ts'
-import { toSnakeCase } from '@stravigor/kernel/helpers/strings'
-import BaseModel from '@stravigor/database/orm/base_model'
-import { Seeder } from '@stravigor/database/database/seeder'
+import { toSnakeCase } from '@strav/kernel/helpers/strings'
+import BaseModel from '@strav/database/orm/base_model'
+import { Seeder } from '@strav/database/database/seeder'
 
 const SEEDERS_PATH = 'database/seeders'
 

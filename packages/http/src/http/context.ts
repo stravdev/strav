@@ -1,6 +1,9 @@
 import { parseCookies } from './cookie.ts'
-import type { ViewEngine } from '@stravigor/view'
-import { ConfigurationError } from '@stravigor/kernel/exceptions/errors'
+// ViewEngine interface - concrete implementation provided by @strav/view
+interface ViewEngine {
+  render(template: string, data?: Record<string, unknown>): Promise<string>
+}
+import { ConfigurationError } from '@strav/kernel/exceptions/errors'
 
 /**
  * HTTP request context — the primary object handlers interact with.

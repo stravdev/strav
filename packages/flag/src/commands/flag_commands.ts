@@ -1,6 +1,6 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
-import { bootstrap, shutdown } from '@stravigor/cli'
+import { bootstrap, shutdown } from '@strav/cli'
 import FlagManager from '../flag_manager.ts'
 
 export function register(program: Command): void {

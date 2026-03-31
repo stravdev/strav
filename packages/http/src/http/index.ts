@@ -1,4 +1,4 @@
-import { app } from '@stravigor/kernel/core/application'
+import { app } from '@strav/kernel/core/application'
 import Router from './router.ts'
 
 export { default as Context } from './context.ts'

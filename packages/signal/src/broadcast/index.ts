@@ -11,13 +11,13 @@ export type { BroadcastOptions } from './client.ts'
 
 import BroadcastManager from './broadcast_manager.ts'
 import type { AuthorizeCallback, ChannelConfig, BootOptions } from './broadcast_manager.ts'
-import type Router from '@stravigor/http/http/router'
+import type Router from '@strav/http/http/router'
 
 /**
  * Broadcast helper — convenience object that delegates to `BroadcastManager`.
  *
  * @example
- * import { broadcast } from '@stravigor/signal/broadcast'
+ * import { broadcast } from '@strav/signal/broadcast'
  *
  * // Bootstrap
  * broadcast.boot(router, { middleware: [session()] })

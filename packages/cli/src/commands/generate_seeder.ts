@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { existsSync } from 'node:fs'
 import type { Command } from 'commander'
 import chalk from 'chalk'
-import { toSnakeCase } from '@stravigor/kernel/helpers/strings'
+import { toSnakeCase } from '@strav/kernel/helpers/strings'
 import { formatAndWrite } from '../generators/config.ts'
 
 const SEEDERS_PATH = 'database/seeders'
@@ -44,7 +44,7 @@ export function register(program: Command): void {
 }
 
 function generateDatabaseSeeder(className: string): string {
-  return `import { Seeder } from '@stravigor/database/database'
+  return `import { Seeder } from '@strav/database/database'
 
 export default class ${className} extends Seeder {
   async run(): Promise<void> {
@@ -56,7 +56,7 @@ export default class ${className} extends Seeder {
 }
 
 function generateSeeder(className: string): string {
-  return `import { Seeder } from '@stravigor/database/database'
+  return `import { Seeder } from '@strav/database/database'
 
 export default class ${className} extends Seeder {
   async run(): Promise<void> {

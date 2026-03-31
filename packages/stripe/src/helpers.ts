@@ -13,7 +13,7 @@ import type { CustomerData, SubscriptionData, ReceiptData } from './types.ts'
  * Stripe helper object — the primary convenience API.
  *
  * @example
- * import { stripe } from '@stravigor/stripe'
+ * import { stripe } from '@strav/stripe'
  *
  * // Direct Stripe instance access
  * stripe.stripe.customers.list()

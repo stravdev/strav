@@ -1,8 +1,8 @@
-import ServiceProvider from '@stravigor/kernel/core/service_provider'
-import type Application from '@stravigor/kernel/core/application'
+import ServiceProvider from '@strav/kernel/core/service_provider'
+import type Application from '@strav/kernel/core/application'
 import BroadcastManager from '../broadcast/broadcast_manager.ts'
 import type { BootOptions } from '../broadcast/broadcast_manager.ts'
-import Router from '@stravigor/http/http/router'
+import Router from '@strav/http/http/router'
 
 export default class BroadcastProvider extends ServiceProvider {
   readonly name = 'broadcast'

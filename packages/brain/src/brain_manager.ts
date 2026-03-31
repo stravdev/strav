@@ -1,4 +1,4 @@
-import { inject, ConfigurationError, Configuration } from '@stravigor/kernel'
+import { inject, ConfigurationError, Configuration } from '@strav/kernel'
 import { AnthropicProvider } from './providers/anthropic_provider.ts'
 import { OpenAIProvider } from './providers/openai_provider.ts'
 import type {

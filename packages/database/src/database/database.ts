@@ -1,8 +1,8 @@
 import { SQL } from 'bun'
-import Configuration from '@stravigor/kernel/config/configuration'
-import { inject } from '@stravigor/kernel/core/inject'
-import { ConfigurationError } from '@stravigor/kernel/exceptions/errors'
-import { env } from '@stravigor/kernel/helpers/env'
+import Configuration from '@strav/kernel/config/configuration'
+import { inject } from '@strav/kernel/core/inject'
+import { ConfigurationError } from '@strav/kernel/exceptions/errors'
+import { env } from '@strav/kernel/helpers/env'
 import { createSchemaAwareSQL } from './domain/wrapper'
 import { getCurrentSchema, hasSchemaContext } from './domain/context'
 

@@ -7,7 +7,7 @@ The `searchable()` mixin integrates search directly into your ORM models — ups
 ## Installation
 
 ```bash
-bun add @stravigor/search
+bun add @strav/search
 bun strav install search
 ```
 
@@ -20,7 +20,7 @@ The `install` command copies `config/search.ts` into your project. The file is y
 #### Using a service provider (recommended)
 
 ```typescript
-import { SearchProvider } from '@stravigor/search'
+import { SearchProvider } from '@strav/search'
 
 app.use(new SearchProvider())
 ```
@@ -30,7 +30,7 @@ The `SearchProvider` registers `SearchManager` as a singleton. It depends on the
 #### Manual setup
 
 ```typescript
-import SearchManager from '@stravigor/search'
+import SearchManager from '@strav/search'
 
 app.singleton(SearchManager)
 app.resolve(SearchManager)
@@ -41,7 +41,7 @@ app.resolve(SearchManager)
 Edit `config/search.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   default: env('SEARCH_DRIVER', 'meilisearch'),
@@ -86,8 +86,8 @@ MEILISEARCH_KEY=your-master-key
 Add full-text search to any model with the `searchable()` mixin:
 
 ```typescript
-import BaseModel from '@stravigor/core/orm/base_model'
-import { searchable } from '@stravigor/search'
+import BaseModel from '@strav/core/orm/base_model'
+import { searchable } from '@strav/search'
 
 class Article extends searchable(BaseModel) {
   declare id: number
@@ -114,8 +114,8 @@ class Article extends searchable(BaseModel) {
 Works with `compose()` for multiple mixins:
 
 ```typescript
-import { compose } from '@stravigor/core/helpers'
-import { softDeletes } from '@stravigor/core/orm'
+import { compose } from '@strav/core/helpers'
+import { softDeletes } from '@strav/core/orm'
 
 class Article extends compose(BaseModel, softDeletes, searchable) {
   // ...
@@ -232,7 +232,7 @@ This hooks into events emitted by generated services (`article.created`, `articl
 The `search` helper provides a standalone API for working with indexes directly, without going through a model:
 
 ```typescript
-import { search } from '@stravigor/search'
+import { search } from '@strav/search'
 ```
 
 ### Indexing documents
@@ -303,8 +303,8 @@ search.engine('algolia').search('articles', 'query')
 Register a custom search driver with `extend()`:
 
 ```typescript
-import { search } from '@stravigor/search'
-import type { SearchEngine } from '@stravigor/search'
+import { search } from '@strav/search'
+import type { SearchEngine } from '@strav/search'
 
 search.extend('sonic', (config) => {
   return new SonicDriver(config)
@@ -365,8 +365,8 @@ SEARCH_DRIVER=null
 Or swap in a recording engine at runtime:
 
 ```typescript
-import SearchManager from '@stravigor/search'
-import { NullDriver } from '@stravigor/search'
+import SearchManager from '@strav/search'
+import { NullDriver } from '@strav/search'
 
 SearchManager.useEngine(new NullDriver())
 ```
@@ -376,7 +376,7 @@ Call `SearchManager.reset()` in test teardown to clear cached engines.
 ## Controller example
 
 ```typescript
-import { search } from '@stravigor/search'
+import { search } from '@strav/search'
 
 export default class ArticleController {
   async search(ctx: Context) {

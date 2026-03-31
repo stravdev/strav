@@ -1,6 +1,6 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
-import { bootstrap, shutdown } from '@stravigor/cli'
+import { bootstrap, shutdown } from '@strav/cli'
 import OAuth2Manager from '../oauth2_manager.ts'
 import OAuthClient from '../client.ts'
 import OAuthToken from '../token.ts'

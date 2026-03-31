@@ -1,5 +1,5 @@
-import { inject, Configuration, ConfigurationError } from '@stravigor/kernel'
-import { Database, toSnakeCase } from '@stravigor/database'
+import { inject, Configuration, ConfigurationError } from '@strav/kernel'
+import { Database, toSnakeCase } from '@strav/database'
 import type { AbstractProvider } from './abstract_provider.ts'
 import type { ProviderConfig, SocialConfig } from './types.ts'
 import { GoogleProvider } from './providers/google_provider.ts'

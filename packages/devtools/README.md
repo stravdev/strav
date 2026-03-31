@@ -1,20 +1,20 @@
-# @stravigor/devtools
+# @strav/devtools
 
-Debug inspector and performance monitor for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Request inspector, SQL query profiler, exception tracker, log viewer, and APM dashboard.
+Debug inspector and performance monitor for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Request inspector, SQL query profiler, exception tracker, log viewer, and APM dashboard.
 
 ## Install
 
 ```bash
-bun add -d @stravigor/devtools
+bun add -d @strav/devtools
 bun strav install devtools
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { DevtoolsProvider } from '@stravigor/devtools'
+import { DevtoolsProvider } from '@strav/devtools'
 
 app.use(new DevtoolsProvider())
 ```
@@ -41,7 +41,7 @@ Recorders aggregate data for performance monitoring:
 ## Usage
 
 ```ts
-import { devtools } from '@stravigor/devtools'
+import { devtools } from '@strav/devtools'
 
 // Access collector data programmatically
 const entries = await devtools.entries({ type: 'request', limit: 50 })

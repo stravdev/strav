@@ -1,12 +1,12 @@
 import 'reflect-metadata'
-import { app } from '@stravigor/kernel/core'
-import { router } from '@stravigor/http/http'
-import { ConfigProvider, EncryptionProvider } from '@stravigor/kernel/providers'
-import { DatabaseProvider } from '@stravigor/database/providers'
-import BaseModel from '@stravigor/database/orm/base_model'
-import Database from '@stravigor/database/database/database'
-import Server from '@stravigor/http/http/server'
-import { ExceptionHandler } from '@stravigor/kernel/exceptions'
+import { app } from '@strav/kernel/core'
+import { router } from '@strav/http/http'
+import { ConfigProvider, EncryptionProvider } from '@strav/kernel/providers'
+import { DatabaseProvider } from '@strav/database/providers'
+import BaseModel from '@strav/database/orm/base_model'
+import Database from '@strav/database/database/database'
+import Server from '@strav/http/http/server'
+import { ExceptionHandler } from '@strav/kernel/exceptions'
 
 // Register service providers
 app.use(new ConfigProvider()).use(new DatabaseProvider()).use(new EncryptionProvider())

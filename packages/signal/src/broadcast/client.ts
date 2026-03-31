@@ -8,7 +8,7 @@
  * Zero dependencies — works in any browser.
  *
  * @example
- * import { Broadcast } from '@stravigor/signal/broadcast/client'
+ * import { Broadcast } from '@strav/signal/broadcast/client'
  *
  * const bc = new Broadcast()
  *

@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import { extractUserId } from '@stravigor/database'
+import { extractUserId } from '@strav/database'
 import StripeManager from './stripe_manager.ts'
 import Customer from './customer.ts'
 

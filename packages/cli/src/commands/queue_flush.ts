@@ -1,7 +1,7 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
 import { bootstrap, shutdown } from '../cli/bootstrap.ts'
-import Queue from '@stravigor/queue/queue/queue'
+import Queue from '@strav/queue/queue/queue'
 
 export function register(program: Command): void {
   program

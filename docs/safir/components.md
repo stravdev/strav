@@ -280,7 +280,7 @@ Programmatic toast system. Two parts:
 
 ```ts
 // In your component
-import { useToast } from '@stravigor/safir'
+import { useToast } from '@strav/safir'
 
 const { toast } = useToast()
 toast({ title: 'Saved', variant: 'success' })

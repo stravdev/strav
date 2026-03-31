@@ -1,12 +1,12 @@
-# @stravigor/oauth2
+# @strav/oauth2
 
 OAuth2 authorization server implementation. Turns a Strav application into a full OAuth2 provider. Supports Authorization Code + PKCE, Client Credentials, Refresh Token rotation, Token Revocation, and Token Introspection.
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/database (peer)
-- @stravigor/cli (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/database (peer)
+- @strav/cli (peer)
 
 ## Commands
 - bun test

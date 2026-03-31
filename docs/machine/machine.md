@@ -5,7 +5,7 @@ Declarative state machines for domain models. Define states, transitions, guards
 ## Installation
 
 ```bash
-bun add @stravigor/machine
+bun add @strav/machine
 ```
 
 No service provider or configuration needed — `defineMachine()` returns a standalone utility object.
@@ -13,7 +13,7 @@ No service provider or configuration needed — `defineMachine()` returns a stan
 ## Defining a machine
 
 ```typescript
-import { defineMachine } from '@stravigor/machine'
+import { defineMachine } from '@strav/machine'
 
 const orderMachine = defineMachine({
   field: 'status',
@@ -73,7 +73,7 @@ const meta = await orderMachine.apply(order, 'process')
 ### Invalid transitions
 
 ```typescript
-import { TransitionError } from '@stravigor/machine'
+import { TransitionError } from '@strav/machine'
 
 const order = { status: 'shipped' }
 
@@ -139,7 +139,7 @@ guards: {
 ### Guard errors
 
 ```typescript
-import { GuardError } from '@stravigor/machine'
+import { GuardError } from '@strav/machine'
 
 try {
   await orderMachine.apply(order, 'cancel')
@@ -195,7 +195,7 @@ interface TransitionMeta {
 Map transitions to event names. Events are emitted via `Emitter` after the transition completes (after effects run).
 
 ```typescript
-import Emitter from '@stravigor/core/events/emitter'
+import Emitter from '@strav/core/events/emitter'
 
 const orderMachine = defineMachine({
   // ...states, transitions...
@@ -218,8 +218,8 @@ Events are fire-and-forget — errors in listeners don't affect the transition.
 The `stateful()` mixin adds state machine methods directly to a `BaseModel` subclass, with automatic persistence via `.save()`.
 
 ```typescript
-import { BaseModel } from '@stravigor/core/orm'
-import { stateful } from '@stravigor/machine'
+import { BaseModel } from '@strav/core/orm'
+import { stateful } from '@strav/machine'
 
 class Order extends stateful(BaseModel, orderMachine) {
   declare id: number
@@ -260,8 +260,8 @@ const active = await Order.inState(['processing', 'shipped']).get()
 Use `compose()` to combine `stateful()` with other mixins:
 
 ```typescript
-import { compose } from '@stravigor/core/helpers'
-import { searchable } from '@stravigor/search'
+import { compose } from '@strav/core/helpers'
+import { searchable } from '@strav/search'
 
 class Order extends compose(
   BaseModel,

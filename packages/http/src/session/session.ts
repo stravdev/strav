@@ -1,7 +1,7 @@
 import type Context from '../http/context.ts'
 import { clearCookie } from '../http/cookie.ts'
-import { randomHex } from '@stravigor/kernel/helpers/crypto'
-import { extractUserId } from '@stravigor/database/helpers/identity'
+import { randomHex } from '@strav/kernel/helpers/crypto'
+import { extractUserId } from '@strav/database/helpers/identity'
 import SessionManager from './session_manager.ts'
 
 const FLASH_KEY = '_flash'

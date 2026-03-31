@@ -1,11 +1,11 @@
-import { inject } from '@stravigor/kernel/core/inject'
-import { ConfigurationError } from '@stravigor/kernel/exceptions/errors'
-import Configuration from '@stravigor/kernel/config/configuration'
-import Database from '@stravigor/database/database/database'
+import { inject } from '@strav/kernel/core/inject'
+import { ConfigurationError } from '@strav/kernel/exceptions/errors'
+import Configuration from '@strav/kernel/config/configuration'
+import Database from '@strav/database/database/database'
 
 // Re-export helpers that were originally defined here
-export { extractUserId } from '@stravigor/database/helpers/identity'
-export { randomHex } from '@stravigor/kernel/helpers/crypto'
+export { extractUserId } from '@strav/database/helpers/identity'
+export { randomHex } from '@strav/kernel/helpers/crypto'
 
 export interface TokenConfig {
   expiration: number | null

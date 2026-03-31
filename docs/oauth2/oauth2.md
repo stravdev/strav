@@ -1,15 +1,15 @@
 # OAuth2
 
-The OAuth2 module (`@stravigor/oauth2`) turns your Strav application into a full OAuth2 authorization server. Third-party (and first-party) applications can obtain scoped access tokens via standard OAuth2 grants, and your users can issue personal access tokens for API usage.
+The OAuth2 module (`@strav/oauth2`) turns your Strav application into a full OAuth2 authorization server. Third-party (and first-party) applications can obtain scoped access tokens via standard OAuth2 grants, and your users can issue personal access tokens for API usage.
 
 Supports **Authorization Code + PKCE** (RFC 7636), **Client Credentials**, **Refresh Token rotation**, **Token Revocation** (RFC 7009), and **Token Introspection** (RFC 7662).
 
-Built on top of the [auth](./auth.md) and [session](./session.md) modules from `@stravigor/core`.
+Built on top of the [auth](./auth.md) and [session](./session.md) modules from `@strav/core`.
 
 ## Installation
 
 ```bash
-bun add @stravigor/oauth2
+bun add @strav/oauth2
 bun strav install oauth2
 ```
 
@@ -29,7 +29,7 @@ Edit `actions/oauth2.ts` and fill in the two required functions:
 
 ```typescript
 // actions/oauth2.ts
-import { defineActions } from '@stravigor/oauth2'
+import { defineActions } from '@strav/oauth2'
 import User from '../models/user'
 
 export default defineActions<User>({
@@ -61,7 +61,7 @@ One method is optional:
 ### 2. Register the provider
 
 ```typescript
-import { OAuth2Provider } from '@stravigor/oauth2'
+import { OAuth2Provider } from '@strav/oauth2'
 import actions from './actions/oauth2'
 
 app.use(new OAuth2Provider(actions))
@@ -94,7 +94,7 @@ Store the client secret securely — it is shown only once.
 Edit `config/oauth2.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   // Token lifetimes (in minutes)
@@ -371,8 +371,8 @@ DELETE /oauth/personal-tokens/:id
 Validate the `Authorization: Bearer <token>` header, load the associated user, and set `oauth_token` and `oauth_client` on the context.
 
 ```typescript
-import { router } from '@stravigor/core/http'
-import { oauth } from '@stravigor/oauth2'
+import { router } from '@strav/core/http'
+import { oauth } from '@strav/oauth2'
 
 router.group({ prefix: '/api', middleware: [oauth()] }, r => {
   r.get('/me', ctx => {
@@ -397,8 +397,8 @@ Returns `401` with `{ error: 'unauthenticated' }` if the header is missing, or `
 Enforce that the token has specific scopes. Must be used after `oauth()`.
 
 ```typescript
-import { oauth, scopes } from '@stravigor/oauth2'
-import { compose } from '@stravigor/core/http/middleware'
+import { oauth, scopes } from '@strav/oauth2'
+import { compose } from '@strav/core/http/middleware'
 
 router.group({ prefix: '/api', middleware: [oauth()] }, r => {
   r.get('/repos', compose([scopes('repos:read')], listRepos))
@@ -414,8 +414,8 @@ Returns `403` with `{ error: 'insufficient_scope' }` and lists the missing scope
 Every significant action emits an event via the core `Emitter`:
 
 ```typescript
-import Emitter from '@stravigor/core/events'
-import { OAuth2Events } from '@stravigor/oauth2'
+import Emitter from '@strav/core/events'
+import { OAuth2Events } from '@strav/oauth2'
 
 Emitter.on(OAuth2Events.TOKEN_ISSUED, async ({ ctx, userId, clientId, grantType }) => {
   console.log(`Token issued for user ${userId} via ${grantType}`)
@@ -441,7 +441,7 @@ Emitter.on(OAuth2Events.ACCESS_DENIED, async ({ ctx, clientId }) => {
 The `oauth2` helper provides a convenience API for common operations:
 
 ```typescript
-import { oauth2 } from '@stravigor/oauth2'
+import { oauth2 } from '@strav/oauth2'
 
 // Client management
 const { client, plainSecret } = await oauth2.createClient({
@@ -586,7 +586,7 @@ Error classes:
 | `AccessDeniedError` | `access_denied` | 403 | User denied the authorization request |
 
 ```typescript
-import { OAuth2Error, InvalidGrantError } from '@stravigor/oauth2'
+import { OAuth2Error, InvalidGrantError } from '@strav/oauth2'
 
 // Errors expose .toJSON() for RFC-compliant responses
 const error = new InvalidGrantError('Authorization code expired.')
@@ -609,7 +609,7 @@ console.log(error.toJSON())
 
 ## Integration with existing auth
 
-- **Works alongside Jina**: The authorize endpoint uses `auth()` middleware from `@stravigor/core`. Jina handles the login flow — OAuth2 picks up from the authenticated session.
+- **Works alongside Jina**: The authorize endpoint uses `auth()` middleware from `@strav/core`. Jina handles the login flow — OAuth2 picks up from the authenticated session.
 - **Separate from AccessToken**: OAuth2 tokens are stored in `_strav_oauth_tokens`, not `_strav_access_tokens`. They are a different system with scopes, clients, and refresh tokens.
 - **Coexistence**: Use `oauth()` for OAuth2-protected API routes and `auth()` for session-based routes. They can coexist on different route groups.
 - **Session-aware**: The authorize flow uses sessions (CSRF, consent state). Token endpoints are stateless.
@@ -617,11 +617,11 @@ console.log(error.toJSON())
 ## Full example
 
 ```typescript
-import { router } from '@stravigor/core/http'
-import { session } from '@stravigor/core/session'
-import { auth } from '@stravigor/core/auth'
-import { compose } from '@stravigor/core/http/middleware'
-import { OAuth2Provider, oauth, scopes, oauth2 } from '@stravigor/oauth2'
+import { router } from '@strav/core/http'
+import { session } from '@strav/core/session'
+import { auth } from '@strav/core/auth'
+import { compose } from '@strav/core/http/middleware'
+import { OAuth2Provider, oauth, scopes, oauth2 } from '@strav/oauth2'
 import actions from './actions/oauth2'
 
 // Register the provider

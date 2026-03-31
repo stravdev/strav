@@ -1,4 +1,4 @@
-# @stravigor/kernel
+# @strav/kernel
 
 Foundation of the Stravigor ecosystem. Provides the Application lifecycle, IoC container, dependency injection, configuration, events, and core utilities. Every other package depends on this.
 
@@ -30,6 +30,6 @@ All packages: http, database, signal, queue, cli, flag, jina, stripe, devtools, 
 
 ## Important
 - Changes to exports affect the entire ecosystem — test all dependent packages
-- The RequestContext interface in exceptions is implemented by @stravigor/http's Context
-- identity.ts (extractUserId) lives in @stravigor/database, not here
-- HTTP middleware for cache/i18n/logger lives in @stravigor/http, not here
+- The RequestContext interface in exceptions is implemented by @strav/http's Context
+- identity.ts (extractUserId) lives in @strav/database, not here
+- HTTP middleware for cache/i18n/logger lives in @strav/http, not here

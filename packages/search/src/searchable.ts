@@ -1,6 +1,6 @@
-import type { BaseModel } from '@stravigor/database'
-import type { NormalizeConstructor } from '@stravigor/kernel'
-import { Emitter } from '@stravigor/kernel'
+import type { BaseModel } from '@strav/database'
+import type { NormalizeConstructor } from '@strav/kernel'
+import { Emitter } from '@strav/kernel'
 import SearchManager from './search_manager.ts'
 import type { SearchOptions, SearchResult, SearchDocument, IndexSettings } from './types.ts'
 
@@ -8,8 +8,8 @@ import type { SearchOptions, SearchResult, SearchDocument, IndexSettings } from 
  * Mixin that adds full-text search capabilities to a BaseModel subclass.
  *
  * @example
- * import { BaseModel } from '@stravigor/database'
- * import { searchable } from '@stravigor/search'
+ * import { BaseModel } from '@strav/database'
+ * import { searchable } from '@strav/search'
  *
  * class Article extends searchable(BaseModel) {
  *   declare id: number
@@ -24,7 +24,7 @@ import type { SearchOptions, SearchResult, SearchDocument, IndexSettings } from 
  * }
  *
  * // Composable with other mixins:
- * import { compose } from '@stravigor/kernel'
+ * import { compose } from '@strav/kernel'
  * class Article extends compose(BaseModel, softDeletes, searchable) { }
  *
  * // Boot auto-indexing (in app bootstrap):

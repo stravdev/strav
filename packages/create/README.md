@@ -1,13 +1,13 @@
-# @stravigor/create
+# @strav/create
 
-Scaffold a new [Strav](https://www.npmjs.com/package/@stravigor/core) application.
+Scaffold a new [Strav](https://www.npmjs.com/package/@strav/core) application.
 
 ## Usage
 
 ```bash
-bunx @stravigor/create@latest my-app --api   # headless REST API
-bunx @stravigor/create@latest my-app --web   # full-stack with views
-bunx @stravigor/create@latest my-app         # interactive prompt
+bunx @strav/create@latest my-app --api   # headless REST API
+bunx @strav/create@latest my-app --web   # full-stack with views
+bunx @strav/create@latest my-app         # interactive prompt
 ```
 
 ## Templates
@@ -18,7 +18,7 @@ bunx @stravigor/create@latest my-app         # interactive prompt
 ## Options
 
 ```
-bunx @stravigor/create <project-name> [options]
+bunx @strav/create <project-name> [options]
 
 --api                     Headless REST API template
 --web                     Full-stack template with views and static files

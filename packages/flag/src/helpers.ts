@@ -7,7 +7,7 @@ import type { Scopeable, FeatureResolver, FeatureClassConstructor, DriverConfig 
  * Flag helper — the primary convenience API.
  *
  * @example
- * import { flag } from '@stravigor/flag'
+ * import { flag } from '@strav/flag'
  *
  * flag.define('new-checkout', (scope) => scope.startsWith('User:'))
  *

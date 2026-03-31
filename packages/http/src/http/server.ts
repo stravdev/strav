@@ -1,7 +1,7 @@
 import { readdirSync, statSync, existsSync } from 'node:fs'
 import { join, resolve, normalize, relative } from 'node:path'
-import { inject } from '@stravigor/kernel/core/inject'
-import Configuration from '@stravigor/kernel/config/configuration'
+import { inject } from '@strav/kernel/core/inject'
+import Configuration from '@strav/kernel/config/configuration'
 import type Router from './router.ts'
 import type { WebSocketData } from './router.ts'
 

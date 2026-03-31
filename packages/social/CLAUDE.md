@@ -1,11 +1,11 @@
-# @stravigor/social
+# @strav/social
 
 OAuth 2.0 social authentication with a fluent, driver-based API. Built-in providers: Google, GitHub, Discord, Facebook, LinkedIn. Custom providers can be added via extend().
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/http (peer)
-- @stravigor/database (peer)
+- @strav/kernel (peer)
+- @strav/http (peer)
+- @strav/database (peer)
 
 ## Commands
 - bun test

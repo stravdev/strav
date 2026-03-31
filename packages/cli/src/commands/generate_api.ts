@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import type { Command } from 'commander'
 import chalk from 'chalk'
-import SchemaRegistry from '@stravigor/database/schema/registry'
+import SchemaRegistry from '@strav/database/schema/registry'
 import ApiGenerator from '../generators/api_generator.ts'
 import RouteGenerator from '../generators/route_generator.ts'
 import TestGenerator from '../generators/test_generator.ts'

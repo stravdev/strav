@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import SearchManager from '../src/search_manager.ts'
 import { searchable } from '../src/searchable.ts'
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 import { bootSearch, recordingEngine } from './helpers.ts'
 
 // ---------------------------------------------------------------------------

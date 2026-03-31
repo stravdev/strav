@@ -14,7 +14,7 @@ import type {
  * OAuth2 helper — convenience API for common OAuth2 server operations.
  *
  * @example
- * import { oauth2 } from '@stravigor/oauth2'
+ * import { oauth2 } from '@strav/oauth2'
  *
  * const { client, plainSecret } = await oauth2.createClient({ name: 'My App', redirectUris: ['...'] })
  * const { token } = await oauth2.createPersonalToken(user, 'CLI Tool', ['read'])

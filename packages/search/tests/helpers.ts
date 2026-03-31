@@ -3,7 +3,7 @@ import type { SearchEngine } from '../src/search_engine.ts'
 import type { SearchDocument, SearchOptions, SearchResult, IndexSettings } from '../src/types.ts'
 
 // ---------------------------------------------------------------------------
-// Mock fetch (same pattern as @stravigor/brain tests)
+// Mock fetch (same pattern as @strav/brain tests)
 // ---------------------------------------------------------------------------
 
 const originalFetch = globalThis.fetch

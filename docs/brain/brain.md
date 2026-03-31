@@ -5,7 +5,7 @@ Multi-provider AI with agents, tool use, structured output, multi-turn threads, 
 ## Quick start
 
 ```typescript
-import { brain } from '@stravigor/brain'
+import { brain } from '@strav/brain'
 
 // One-shot chat
 const answer = await brain.chat('What is the capital of France?')
@@ -28,7 +28,7 @@ for await (const chunk of brain.stream('Write a haiku about code')) {
 ### Using a service provider (recommended)
 
 ```typescript
-import { BrainProvider } from '@stravigor/brain'
+import { BrainProvider } from '@strav/brain'
 
 app.use(new BrainProvider())
 ```
@@ -38,7 +38,7 @@ The `BrainProvider` registers `BrainManager` as a singleton. It depends on the `
 ### Manual setup
 
 ```typescript
-import BrainManager from '@stravigor/brain/brain_manager'
+import BrainManager from '@strav/brain/brain_manager'
 
 app.singleton(BrainManager)
 app.resolve(BrainManager)
@@ -47,7 +47,7 @@ app.resolve(BrainManager)
 Create `config/ai.ts`:
 
 ```typescript
-import { env } from '@stravigor/core/helpers/env'
+import { env } from '@strav/core/helpers/env'
 
 export default {
   default: env('AI_PROVIDER', 'anthropic'),
@@ -84,7 +84,7 @@ DeepSeek uses the OpenAI-compatible API — set `driver: 'openai'` with a custom
 The `brain` object is the primary API. All methods respect provider configuration and support per-call overrides.
 
 ```typescript
-import { brain } from '@stravigor/brain'
+import { brain } from '@strav/brain'
 ```
 
 ### chat
@@ -162,8 +162,8 @@ Agents encapsulate instructions, tools, output format, and lifecycle hooks into 
 ### Defining an agent
 
 ```typescript
-import { Agent } from '@stravigor/brain'
-import { defineTool } from '@stravigor/brain'
+import { Agent } from '@strav/brain'
+import { defineTool } from '@strav/brain'
 import { z } from 'zod'
 
 class SupportAgent extends Agent {
@@ -286,7 +286,7 @@ class LoggingAgent extends Agent {
 Tools give agents the ability to call functions. Define them with `defineTool()`:
 
 ```typescript
-import { defineTool, defineToolbox } from '@stravigor/brain'
+import { defineTool, defineToolbox } from '@strav/brain'
 
 const searchTool = defineTool({
   name: 'search',
@@ -484,8 +484,8 @@ The model sees:
 For long-running conversations that span multiple sessions, use the `ThreadStore` interface with `serializeMemory()` / `restoreMemory()`:
 
 ```typescript
-import { InMemoryThreadStore } from '@stravigor/brain'
-import BrainManager from '@stravigor/brain'
+import { InMemoryThreadStore } from '@strav/brain'
+import BrainManager from '@strav/brain'
 
 // Register a thread store (use InMemoryThreadStore for dev, DatabaseThreadStore for production)
 BrainManager.useThreadStore(new InMemoryThreadStore())
@@ -518,7 +518,7 @@ if (saved) {
 Implement the `ThreadStore` interface for database-backed persistence:
 
 ```typescript
-import type { ThreadStore, SerializedMemoryThread } from '@stravigor/brain'
+import type { ThreadStore, SerializedMemoryThread } from '@strav/brain'
 
 class DatabaseThreadStore implements ThreadStore {
   async save(thread: SerializedMemoryThread): Promise<void> {
@@ -555,7 +555,7 @@ BrainManager.useThreadStore(new DatabaseThreadStore())
 Implement the `CompactionStrategy` interface:
 
 ```typescript
-import type { CompactionStrategy } from '@stravigor/brain'
+import type { CompactionStrategy } from '@strav/brain'
 
 const customStrategy: CompactionStrategy = {
   name: 'custom',
@@ -598,7 +598,7 @@ export default {
 The `TokenCounter` utility provides approximate token estimation (~4 chars/token) without external dependencies:
 
 ```typescript
-import { TokenCounter } from '@stravigor/brain'
+import { TokenCounter } from '@strav/brain'
 
 TokenCounter.estimate('Hello, world!')                      // ~4 tokens
 TokenCounter.estimateMessages(thread.getMessages())          // total for message array
@@ -695,7 +695,7 @@ brain.workflow('refinement')
 Register global before/after hooks on `BrainManager` for logging, cost tracking, or rate limiting:
 
 ```typescript
-import BrainManager from '@stravigor/brain/brain_manager'
+import BrainManager from '@strav/brain/brain_manager'
 
 // Log all completions
 BrainManager.before((request) => {
@@ -712,8 +712,8 @@ BrainManager.after((request, response) => {
 Implement the `AIProvider` interface to add any provider:
 
 ```typescript
-import type { AIProvider, CompletionRequest, CompletionResponse, StreamChunk } from '@stravigor/brain'
-import BrainManager from '@stravigor/brain/brain_manager'
+import type { AIProvider, CompletionRequest, CompletionResponse, StreamChunk } from '@strav/brain'
+import BrainManager from '@strav/brain/brain_manager'
 
 class OllamaProvider implements AIProvider {
   readonly name = 'ollama'
@@ -755,9 +755,9 @@ Swap in a mock provider with `BrainManager.useProvider()`:
 
 ```typescript
 import { test, expect, beforeEach } from 'bun:test'
-import BrainManager from '@stravigor/brain/brain_manager'
-import { brain } from '@stravigor/brain'
-import type { AIProvider, CompletionRequest, CompletionResponse, StreamChunk } from '@stravigor/brain'
+import BrainManager from '@strav/brain/brain_manager'
+import { brain } from '@strav/brain'
+import type { AIProvider, CompletionRequest, CompletionResponse, StreamChunk } from '@strav/brain'
 
 class MockProvider implements AIProvider {
   readonly name = 'mock'
@@ -812,9 +812,9 @@ test('one-shot chat', async () => {
 ## Controller example
 
 ```typescript
-import { brain } from '@stravigor/brain'
-import { Agent } from '@stravigor/brain'
-import { defineTool } from '@stravigor/brain'
+import { brain } from '@strav/brain'
+import { Agent } from '@strav/brain'
+import { defineTool } from '@strav/brain'
 import { z } from 'zod'
 
 class AssistantAgent extends Agent {

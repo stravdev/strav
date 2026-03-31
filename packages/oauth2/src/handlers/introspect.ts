@@ -1,4 +1,4 @@
-import type { Context } from '@stravigor/http'
+import type { Context } from '@strav/http'
 import OAuthClient from '../client.ts'
 import OAuthToken from '../token.ts'
 import { InvalidClientError } from '../errors.ts'

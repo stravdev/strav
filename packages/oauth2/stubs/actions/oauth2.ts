@@ -1,4 +1,4 @@
-import { defineActions } from '@stravigor/oauth2'
+import { defineActions } from '@strav/oauth2'
 // import { User } from '../models/user'
 
 export default defineActions({

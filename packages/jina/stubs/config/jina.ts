@@ -1,4 +1,4 @@
-import { env } from '@stravigor/kernel'
+import { env } from '@strav/kernel'
 
 export default {
   // Toggle features on/off. Uncomment to enable.

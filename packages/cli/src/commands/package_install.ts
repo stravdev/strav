@@ -7,11 +7,11 @@ export function register(program: Command): void {
   program
     .command('install <name>')
     .aliases(['package:install', 'i'])
-    .description('Copy config and schema stubs from a @stravigor/* package into your project')
+    .description('Copy config and schema stubs from a @strav/* package into your project')
     .option('-f, --force', 'Overwrite existing files')
     .action(async (name: string, { force }: { force?: boolean }) => {
       try {
-        const packageName = name.startsWith('@stravigor/') ? name : `@stravigor/${name}`
+        const packageName = name.startsWith('@strav/') ? name : `@strav/${name}`
 
         const packageRoot = await resolvePackageRoot(packageName)
         if (!packageRoot) {

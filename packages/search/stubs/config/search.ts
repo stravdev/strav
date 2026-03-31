@@ -1,4 +1,4 @@
-import { env } from '@stravigor/kernel'
+import { env } from '@strav/kernel'
 
 export default {
   /** The default search driver to use. */

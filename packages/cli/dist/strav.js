@@ -3671,7 +3671,7 @@ class CommandLoader {
   static async resolvePackages(root) {
     const results = [];
     const seen = new Set;
-    const nodeModulesDir = join(root, "node_modules", "@stravigor");
+    const nodeModulesDir = join(root, "node_modules", "@strav");
     if (dirExists(nodeModulesDir)) {
       const dirs = readdirSync(nodeModulesDir);
       for (const dir of dirs) {

@@ -1,5 +1,5 @@
-import { Workflow as BaseWorkflow } from '@stravigor/workflow'
-import type { WorkflowContext as BaseContext } from '@stravigor/workflow'
+import { Workflow as BaseWorkflow } from '@strav/workflow'
+import type { WorkflowContext as BaseContext } from '@strav/workflow'
 import { AgentRunner } from './helpers.ts'
 import type { Agent } from './agent.ts'
 import type { AgentResult, WorkflowResult, Usage } from './types.ts'
@@ -30,7 +30,7 @@ function addUsage(total: Usage, add: Usage): void {
 // ── Workflow Builder ────────────────────────────────────────────────────────
 
 /**
- * Multi-agent workflow orchestrator built on `@stravigor/workflow`.
+ * Multi-agent workflow orchestrator built on `@strav/workflow`.
  *
  * Supports sequential steps, parallel fan-out, routing, and loops.
  * Each step wraps an Agent execution through the general-purpose workflow engine.

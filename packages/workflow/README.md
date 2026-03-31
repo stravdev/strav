@@ -1,19 +1,19 @@
-# @stravigor/workflow
+# @strav/workflow
 
-Workflow orchestration for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Build multi-step processes with sequential, parallel, conditional, and looping steps — plus saga-style compensation on failure.
+Workflow orchestration for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Build multi-step processes with sequential, parallel, conditional, and looping steps — plus saga-style compensation on failure.
 
 ## Install
 
 ```bash
-bun add @stravigor/workflow
+bun add @strav/workflow
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Usage
 
 ```ts
-import { workflow } from '@stravigor/workflow'
+import { workflow } from '@strav/workflow'
 
 const result = await workflow('order-process')
   .step('validate', async (ctx) => {

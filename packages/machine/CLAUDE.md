@@ -1,10 +1,10 @@
-# @stravigor/machine
+# @strav/machine
 
 Declarative state machines for domain models — define states, transitions, guards, side effects, and events in a single definition. Use standalone or as an ORM mixin with auto-persistence via stateful().
 
 ## Dependencies
-- @stravigor/kernel (peer)
-- @stravigor/database (peer)
+- @strav/kernel (peer)
+- @strav/database (peer)
 
 ## Commands
 - bun test

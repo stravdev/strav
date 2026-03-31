@@ -10,7 +10,7 @@ function prefixed(key: string): string {
  * All methods delegate to `CacheManager.store` with the configured prefix.
  *
  * @example
- * import { cache } from '@stravigor/kernel/cache'
+ * import { cache } from '@strav/kernel/cache'
  *
  * const user = await cache.remember(`user:${id}`, 300, () => User.find(id))
  * await cache.forget(`user:${id}`)

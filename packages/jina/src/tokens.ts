@@ -1,4 +1,4 @@
-import { encrypt } from '@stravigor/kernel'
+import { encrypt } from '@strav/kernel'
 
 // ---------------------------------------------------------------------------
 // Signed token payloads

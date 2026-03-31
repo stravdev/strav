@@ -1,6 +1,6 @@
 import type { PostgreSQLType } from './postgres'
 
-export { toSnakeCase } from '@stravigor/kernel/helpers/strings'
+export { toSnakeCase } from '@strav/kernel/helpers/strings'
 
 /**
  * Map a serial/bigserial/smallserial pgType to the corresponding integer type

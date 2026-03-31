@@ -13,7 +13,7 @@ import SessionManager from './session_manager.ts'
  * 5. After the handler: saves dirty data and refreshes the cookie
  *
  * @example
- * import { session } from '@stravigor/http/session'
+ * import { session } from '@strav/http/session'
  * router.use(session())
  */
 export function session(): Middleware {

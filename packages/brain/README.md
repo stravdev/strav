@@ -1,14 +1,14 @@
-# @stravigor/brain
+# @strav/brain
 
-AI module for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Provides a unified interface for AI providers with support for agents, threads, tool use, and multi-step workflows.
+AI module for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Provides a unified interface for AI providers with support for agents, threads, tool use, and multi-step workflows.
 
 ## Install
 
 ```bash
-bun add @stravigor/brain
+bun add @strav/brain
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Providers
 
@@ -18,7 +18,7 @@ Requires `@stravigor/core` as a peer dependency.
 ## Usage
 
 ```ts
-import { brain } from '@stravigor/brain'
+import { brain } from '@strav/brain'
 
 // One-shot chat
 const response = await brain.chat('Explain quantum computing')
@@ -41,7 +41,7 @@ const vectors = await brain.embed('Hello world')
 ## Agents
 
 ```ts
-import { Agent, defineTool } from '@stravigor/brain'
+import { Agent, defineTool } from '@strav/brain'
 
 class ResearchAgent extends Agent {
   provider = 'anthropic'

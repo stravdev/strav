@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { Application } from '@stravigor/kernel'
+import type { Application } from '@strav/kernel'
 import type {
   CallToolResult,
   GetPromptResult,

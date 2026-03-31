@@ -1,4 +1,4 @@
-import { StravError } from '@stravigor/kernel'
+import { StravError } from '@strav/kernel'
 
 /** Thrown when a transition is not valid from the entity's current state. */
 export class TransitionError extends StravError {

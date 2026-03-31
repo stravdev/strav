@@ -1,10 +1,10 @@
-import Configuration from '@stravigor/kernel/config/configuration'
-import Database from '@stravigor/database/database/database'
-import SchemaRegistry from '@stravigor/database/schema/registry'
-import DatabaseIntrospector from '@stravigor/database/database/introspector'
-import Application from '@stravigor/kernel/core/application'
-import type ServiceProvider from '@stravigor/kernel/core/service_provider'
-import { discoverDomains } from '@stravigor/database'
+import Configuration from '@strav/kernel/config/configuration'
+import Database from '@strav/database/database/database'
+import SchemaRegistry from '@strav/database/schema/registry'
+import DatabaseIntrospector from '@strav/database/database/introspector'
+import Application from '@strav/kernel/core/application'
+import type ServiceProvider from '@strav/kernel/core/service_provider'
+import { discoverDomains } from '@strav/database'
 import { getDatabasePaths } from '../config/loader.ts'
 
 export interface BootstrapResult {

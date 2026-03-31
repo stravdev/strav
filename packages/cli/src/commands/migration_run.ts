@@ -1,9 +1,9 @@
 import type { Command } from 'commander'
 import chalk from 'chalk'
 import { bootstrap, shutdown } from '../cli/bootstrap.ts'
-import MigrationTracker from '@stravigor/database/database/migration/tracker'
-import MigrationRunner from '@stravigor/database/database/migration/runner'
-import { discoverDomains } from '@stravigor/database'
+import MigrationTracker from '@strav/database/database/migration/tracker'
+import MigrationRunner from '@strav/database/database/migration/runner'
+import { discoverDomains } from '@strav/database'
 import { getDatabasePaths } from '../config/loader.ts'
 
 export function register(program: Command): void {

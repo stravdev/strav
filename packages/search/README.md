@@ -1,20 +1,20 @@
-# @stravigor/search
+# @strav/search
 
-Full-text search for the [Strav](https://www.npmjs.com/package/@stravigor/core) framework. Unified API for Meilisearch, Typesense, and Algolia with automatic indexing via model events.
+Full-text search for the [Strav](https://www.npmjs.com/package/@strav/core) framework. Unified API for Meilisearch, Typesense, and Algolia with automatic indexing via model events.
 
 ## Install
 
 ```bash
-bun add @stravigor/search
+bun add @strav/search
 bun strav install search
 ```
 
-Requires `@stravigor/core` as a peer dependency.
+Requires `@strav/core` as a peer dependency.
 
 ## Setup
 
 ```ts
-import { SearchProvider } from '@stravigor/search'
+import { SearchProvider } from '@strav/search'
 
 app.use(new SearchProvider())
 ```
@@ -22,7 +22,7 @@ app.use(new SearchProvider())
 ## Searchable Models
 
 ```ts
-import { searchable } from '@stravigor/search'
+import { searchable } from '@strav/search'
 
 class Post extends searchable(BaseModel) {
   static searchableAs = 'posts'
@@ -36,7 +36,7 @@ class Post extends searchable(BaseModel) {
 ## Usage
 
 ```ts
-import { search } from '@stravigor/search'
+import { search } from '@strav/search'
 
 // Search
 const results = await search.query('posts', 'hello world', {

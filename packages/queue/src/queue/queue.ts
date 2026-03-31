@@ -1,8 +1,8 @@
-import { inject } from '@stravigor/kernel/core/inject'
-import Configuration from '@stravigor/kernel/config/configuration'
-import Database from '@stravigor/database/database/database'
-import Emitter from '@stravigor/kernel/events/emitter'
-import { ConfigurationError } from '@stravigor/kernel/exceptions/errors'
+import { inject } from '@strav/kernel/core/inject'
+import Configuration from '@strav/kernel/config/configuration'
+import Database from '@strav/database/database/database'
+import Emitter from '@strav/kernel/events/emitter'
+import { ConfigurationError } from '@strav/kernel/exceptions/errors'
 
 export interface JobOptions {
   queue?: string

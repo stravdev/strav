@@ -1,12 +1,12 @@
-# @stravigor/workflow
+# @strav/workflow
 
 General-purpose workflow orchestration for multi-step processes with sequential, parallel, conditional, and looping steps. Includes saga-style compensation for automatic rollback on failure.
 
 ## Dependencies
-- @stravigor/kernel (peer)
+- @strav/kernel (peer)
 
 ## Consumed by
-- @stravigor/brain (for AI workflow orchestration)
+- @strav/brain (for AI workflow orchestration)
 
 ## Commands
 - bun test

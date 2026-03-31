@@ -1,5 +1,5 @@
-import { inject, Configuration, Emitter, ConfigurationError } from '@stravigor/kernel'
-import { Database } from '@stravigor/database'
+import { inject, Configuration, Emitter, ConfigurationError } from '@strav/kernel'
+import { Database } from '@strav/database'
 import type {
   FlagConfig,
   DriverConfig,

@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach } from 'bun:test'
 import RagManager from '../src/rag_manager.ts'
 import { retrievable } from '../src/retrievable.ts'
-import { Emitter } from '@stravigor/kernel'
+import { Emitter } from '@strav/kernel'
 import { bootRag, recordingStore } from './helpers.ts'
 
 // ── Fake BaseModel ──────────────────────────────────────────────────────

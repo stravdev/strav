@@ -1,4 +1,4 @@
-import { extractUserId } from '@stravigor/database'
+import { extractUserId } from '@strav/database'
 import SocialManager from './social_manager.ts'
 import type { SocialUser } from './types.ts'
 

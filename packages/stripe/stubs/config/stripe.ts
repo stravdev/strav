@@ -1,4 +1,4 @@
-import { env } from '@stravigor/kernel/helpers'
+import { env } from '@strav/kernel/helpers'
 
 export default {
   /** Stripe secret key. */

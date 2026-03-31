@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import EncryptionManager from '@stravigor/kernel/encryption/encryption_manager'
+import EncryptionManager from '@strav/kernel/encryption/encryption_manager'
 
 const PRIMARY_KEY = Symbol('orm:primary')
 const REFERENCE_KEY = Symbol('orm:references')

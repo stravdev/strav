@@ -1,3 +1,3 @@
-import { ConfigurationError } from '@stravigor/kernel'
+import { ConfigurationError } from '@strav/kernel'
 
 export class DevtoolsError extends ConfigurationError {}

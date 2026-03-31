@@ -1,4 +1,4 @@
-import { t } from '@stravigor/kernel/i18n/helpers'
+import { t } from '@strav/kernel/i18n/helpers'
 
 export interface Rule {
   name: string

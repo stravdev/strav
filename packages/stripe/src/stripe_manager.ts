@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
-import { inject, Configuration, ConfigurationError } from '@stravigor/kernel'
-import { Database, toSnakeCase } from '@stravigor/database'
+import { inject, Configuration, ConfigurationError } from '@strav/kernel'
+import { Database, toSnakeCase } from '@strav/database'
 import type { StripeConfig } from './types.ts'
 
 @inject

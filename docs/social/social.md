@@ -1,6 +1,6 @@
 # Social
 
-The social module (`@stravigor/social`) provides OAuth 2.0 social authentication with a fluent, driver-based API. Users click "Sign in with Google" (or GitHub, Discord, etc.), get redirected to the provider, and come back with a verified profile you can use to create or log in a user.
+The social module (`@strav/social`) provides OAuth 2.0 social authentication with a fluent, driver-based API. Users click "Sign in with Google" (or GitHub, Discord, etc.), get redirected to the provider, and come back with a verified profile you can use to create or log in a user.
 
 Built-in providers: **Google**, **GitHub**, **Discord**, **Facebook**, **LinkedIn**. Custom providers can be added via `extend()`.
 
@@ -9,7 +9,7 @@ Requires the `session()` middleware from the [session module](./session.md) for 
 ## Installation
 
 ```bash
-bun add @stravigor/social
+bun add @strav/social
 bun strav install social
 ```
 
@@ -27,7 +27,7 @@ Both files are yours to edit. If a file already exists, the command skips it (us
 #### Using a service provider (recommended)
 
 ```typescript
-import { SocialProvider } from '@stravigor/social'
+import { SocialProvider } from '@strav/social'
 
 app.use(new SocialProvider())
 ```
@@ -37,7 +37,7 @@ The `SocialProvider` registers `SocialManager` as a singleton. It depends on the
 #### Manual setup
 
 ```typescript
-import { SocialManager } from '@stravigor/social'
+import { SocialManager } from '@strav/social'
 
 app.singleton(SocialManager)
 app.resolve(SocialManager)
@@ -49,7 +49,7 @@ Edit `config/social.ts` and uncomment the providers you need:
 
 ```typescript
 // config/social.ts
-import { env } from '@stravigor/core/helpers'
+import { env } from '@strav/core/helpers'
 
 export default {
   userKey: 'id',
@@ -96,9 +96,9 @@ Only configure the providers you need.
 The flow has two steps: **redirect** (send the user to the provider) and **callback** (receive the user back).
 
 ```typescript
-import { router } from '@stravigor/core/http'
-import { session } from '@stravigor/core/session'
-import { social } from '@stravigor/social'
+import { router } from '@strav/core/http'
+import { session } from '@strav/core/session'
+import { social } from '@strav/social'
 
 router.group({ middleware: [session()] }, r => {
   // Step 1: Redirect to provider
@@ -261,8 +261,8 @@ social.driver('linkedin').scopes(['w_member_social']).redirect(ctx)
 Register a custom OAuth provider with `extend()`:
 
 ```typescript
-import { AbstractProvider, social } from '@stravigor/social'
-import type { SocialUser } from '@stravigor/social'
+import { AbstractProvider, social } from '@strav/social'
+import type { SocialUser } from '@strav/social'
 
 class SpotifyProvider extends AbstractProvider {
   readonly name = 'Spotify'
@@ -365,7 +365,7 @@ The module throws two error types:
 - **`ExternalServiceError`** — HTTP errors from the provider API (token exchange failure, profile fetch failure)
 
 ```typescript
-import { SocialError } from '@stravigor/social'
+import { SocialError } from '@strav/social'
 
 r.get('/auth/github/callback', async ctx => {
   try {
@@ -392,7 +392,7 @@ The `SocialAccount` class provides static methods for managing the `social_accou
 The recommended way to link a social account. If a record already exists for the provider + provider ID, it updates the tokens. Otherwise it creates a new row.
 
 ```typescript
-import { social, SocialAccount } from '@stravigor/social'
+import { social, SocialAccount } from '@strav/social'
 
 const githubUser = await social.driver('github').user(ctx)
 const { account, created } = await social.findOrCreate('github', githubUser, user)

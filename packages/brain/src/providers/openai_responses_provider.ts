@@ -1,6 +1,6 @@
 import { parseSSE } from '../utils/sse_parser.ts'
 import { retryableFetch, type RetryOptions } from '../utils/retry.ts'
-import { ExternalServiceError } from '@stravigor/kernel'
+import { ExternalServiceError } from '@strav/kernel'
 import type {
   AIProvider,
   CompletionRequest,

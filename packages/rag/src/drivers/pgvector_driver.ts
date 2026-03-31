@@ -1,4 +1,4 @@
-import { Database } from '@stravigor/database'
+import { Database } from '@strav/database'
 import type { VectorStore } from '../vector_store.ts'
 import type { VectorDocument, QueryOptions, QueryResult, VectorMatch, StoreConfig } from '../types.ts'
 import { VectorQueryError } from '../errors.ts'

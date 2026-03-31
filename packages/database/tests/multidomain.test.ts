@@ -1,6 +1,6 @@
 import { expect, test, describe, beforeAll, afterAll } from 'bun:test'
-import { Container } from '@stravigor/kernel/core'
-import Configuration from '@stravigor/kernel/config/configuration'
+import { Container } from '@strav/kernel/core'
+import Configuration from '@strav/kernel/config/configuration'
 import Database from '../src/database/database'
 import {
   withSchema,
@@ -27,7 +27,7 @@ describe('Multi-domain Database', () => {
     config.set('database.port', 5432)
     config.set('database.username', 'liva')
     config.set('database.password', 'password1234')
-    config.set('database.database', 'stravigor_testing')
+    config.set('database.database', 'strav_testing')
     config.set('database.multiSchema.enabled', true)
 
     container.singleton(Configuration, () => config)

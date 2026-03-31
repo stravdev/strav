@@ -3,5 +3,5 @@ export default {
   port: 5432,
   username: 'liva',
   password: 'password1234',
-  database: 'stravigor_testing',
+  database: 'strav_testing',
 }

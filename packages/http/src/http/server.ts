@@ -30,12 +30,24 @@ export default class Server {
       port,
       hostname,
       ...(staticRoutes ? { static: staticRoutes } : {}),
-      fetch: (request: Request, server: import('bun').Server<WebSocketData>) => {
-        // Content negotiation for files with pre-compressed variants
-        if (resolvedPublicDir && compressedFiles?.size) {
+      fetch: async (request: Request, server: import('bun').Server<WebSocketData>) => {
+        // Handle static files that may have been added after startup
+        if (resolvedPublicDir && (request.method === 'GET' || request.method === 'HEAD')) {
           const url = new URL(request.url)
-          if (compressedFiles.has(url.pathname)) {
+
+          // Content negotiation for files with pre-compressed variants
+          if (compressedFiles?.has(url.pathname)) {
             return this.serveCompressed(request, resolvedPublicDir, url.pathname)
+          }
+
+          // Check for runtime-added files not in the static map
+          const filePath = normalize(resolve(resolvedPublicDir + url.pathname))
+          if (filePath.startsWith(resolvedPublicDir)) {
+            const file = Bun.file(filePath)
+            // Only serve if file exists and wasn't already in static routes
+            if ((await file.exists()) && !staticRoutes?.[url.pathname]) {
+              return new Response(file)
+            }
           }
         }
 

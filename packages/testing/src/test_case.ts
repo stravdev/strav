@@ -75,6 +75,7 @@ export class TestCase {
     this.db = await dbManager.getDatabase()
 
     this.router = app.resolve(Router)
+    this.router.setDomain(this._domain)
 
     // Auth + Session
     if (this.options.auth) {

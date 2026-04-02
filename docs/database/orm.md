@@ -240,6 +240,8 @@ The `query()` function creates a fluent query builder for typed SELECT queries. 
 import { query, transaction } from '@strav/core/orm'
 ```
 
+> **📖 Complete Reference**: For comprehensive QueryBuilder documentation including all methods, advanced patterns, and performance tips, see the [QueryBuilder Reference Guide](./query-builder.md).
+
 ### Basic queries
 
 ```typescript

@@ -11,6 +11,7 @@ import SqlGenerator from '@strav/database/database/migration/sql_generator'
 import MigrationFileGenerator from '@strav/database/database/migration/file_generator'
 import MigrationTracker from '@strav/database/database/migration/tracker'
 import MigrationRunner from '@strav/database/database/migration/runner'
+import { discoverDomains } from '@strav/database'
 import { getDatabasePaths } from '../config/loader.ts'
 
 /**
@@ -23,7 +24,8 @@ export async function freshDatabase(
   db: Database,
   registry: SchemaRegistry,
   introspector: DatabaseIntrospector,
-  migrationsPath: string = 'database/migrations'
+  migrationsPath: string = 'database/migrations',
+  scope: string = 'public'
 ): Promise<number> {
   // Drop all tables in public schema
   console.log(chalk.cyan('\nDropping all tables and types...'))
@@ -69,8 +71,8 @@ export async function freshDatabase(
   // Run the migration
   console.log(chalk.cyan('Running migration...'))
 
-  const tracker = new MigrationTracker(db)
-  const runner = new MigrationRunner(db, tracker, migrationsPath)
+  const tracker = new MigrationTracker(db, scope)
+  const runner = new MigrationRunner(db, tracker, migrationsPath, scope)
   const result = await runner.run()
 
   return result.applied.length
@@ -99,7 +101,8 @@ export function register(program: Command): void {
     .command('fresh')
     .alias('migration:fresh')
     .description('Reset database and migrations, regenerate and run from scratch')
-    .action(async () => {
+    .option('-s, --scope <scope>', 'Domain (e.g., public, tenant, factory, marketing)', 'public')
+    .action(async (opts: { scope: string }) => {
       requireLocalEnv('fresh')
 
       // 6-digit challenge
@@ -123,10 +126,19 @@ export function register(program: Command): void {
         // Get configured database paths
         const dbPaths = await getDatabasePaths()
 
-        const { db: database, registry, introspector } = await bootstrap()
+        // Validate scope against available domains
+        const availableDomains = discoverDomains(dbPaths.schemas)
+        if (!availableDomains.includes(opts.scope)) {
+          throw new Error(`Invalid domain: ${opts.scope}. Available domains: ${availableDomains.join(', ')}`)
+        }
+        const scope = opts.scope
+
+        const { db: database, registry, introspector } = await bootstrap(scope)
         db = database
 
-        const applied = await freshDatabase(db, registry, introspector, dbPaths.migrations)
+        // Use scoped migrations path
+        const scopedPath = `${dbPaths.migrations}/${scope}`
+        const applied = await freshDatabase(db, registry, introspector, scopedPath, scope)
 
         console.log(chalk.green(`\nFresh migration complete. Applied ${applied} migration(s).`))
       } catch (err) {

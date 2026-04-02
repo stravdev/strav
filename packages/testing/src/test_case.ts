@@ -3,6 +3,7 @@ import { app, Configuration, ExceptionHandler } from '@strav/kernel'
 import { Database, BaseModel } from '@strav/database'
 import { Router } from '@strav/http'
 import { Factory } from './factory.ts'
+import { TestDatabaseManager } from './database_manager.ts'
 
 export interface TestCaseOptions {
   /** Route loader — called during setup to register routes. */
@@ -64,17 +65,16 @@ export class TestCase {
   /** Boot the app — mirrors index.ts bootstrap, minus Server. Call in beforeAll. */
   async setup(): Promise<void> {
     if (!app.has(Configuration)) app.singleton(Configuration)
-    if (!app.has(Database)) app.singleton(Database)
     if (!app.has(Router)) app.singleton(Router)
 
     this.config = app.resolve(Configuration)
     await this.config.load()
 
-    this.db = app.resolve(Database)
-    new BaseModel(this.db)
+    // Use shared database manager to prevent connection closed errors
+    const dbManager = TestDatabaseManager.getInstance()
+    this.db = await dbManager.getDatabase()
 
     this.router = app.resolve(Router)
-    this.router.setDomain(this._domain)
 
     // Auth + Session
     if (this.options.auth) {
@@ -128,7 +128,10 @@ export class TestCase {
       this._reserved = null
     }
 
-    await this.db.close()
+    // Release database reference instead of closing it directly
+    // This allows multiple test files to share the same connection
+    const dbManager = TestDatabaseManager.getInstance()
+    await dbManager.releaseDatabase()
   }
 
   /** Begin a transaction for test isolation. Call in beforeEach. */

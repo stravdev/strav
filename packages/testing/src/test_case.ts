@@ -15,6 +15,8 @@ export interface TestCaseOptions {
   transaction?: boolean
   /** User resolver for Auth.useResolver() (required when auth: true). */
   userResolver?: (id: string | number) => Promise<unknown>
+  /** Base domain for subdomain extraction (default: 'localhost'). */
+  domain?: string
 }
 
 /**
@@ -26,6 +28,7 @@ export interface TestCaseOptions {
  *
  * const t = await TestCase.boot({
  *   auth: true,
+ *   domain: 'example.com',
  *   routes: () => import('../start/api_routes'),
  * })
  *
@@ -47,8 +50,12 @@ export class TestCase {
   private _headers: Record<string, string> = {}
   private _originalSql: SQL | null = null
   private _reserved: ReservedSQL | null = null
+  private _subdomain: string | null = null
+  private _domain: string
 
-  constructor(private options: TestCaseOptions = {}) {}
+  constructor(private options: TestCaseOptions = {}) {
+    this._domain = options.domain || 'localhost'
+  }
 
   // ---------------------------------------------------------------------------
   // Lifecycle
@@ -67,6 +74,7 @@ export class TestCase {
     new BaseModel(this.db)
 
     this.router = app.resolve(Router)
+    this.router.setDomain(this._domain)
 
     // Auth + Session
     if (this.options.auth) {
@@ -153,6 +161,7 @@ export class TestCase {
     // Clear per-test state
     this._token = null
     this._headers = {}
+    this._subdomain = null
   }
 
   // ---------------------------------------------------------------------------
@@ -211,6 +220,18 @@ export class TestCase {
     return this
   }
 
+  /** Set subdomain for subsequent requests in this test. */
+  onSubdomain(subdomain: string): this {
+    this._subdomain = subdomain
+    return this
+  }
+
+  /** Clear subdomain for subsequent requests. */
+  withoutSubdomain(): this {
+    this._subdomain = null
+    return this
+  }
+
   // ---------------------------------------------------------------------------
   // Static shorthand
   // ---------------------------------------------------------------------------
@@ -221,6 +242,7 @@ export class TestCase {
    * @example
    * const t = await TestCase.boot({
    *   auth: true,
+   *   domain: 'example.com',
    *   routes: () => import('../start/api_routes'),
    * })
    */
@@ -250,6 +272,13 @@ export class TestCase {
     if (this._token) merged['Authorization'] = `Bearer ${this._token}`
     if (body !== undefined) merged['Content-Type'] = 'application/json'
 
+    // Set Host header for subdomain routing
+    if (this._subdomain) {
+      merged['Host'] = `${this._subdomain}.${this._domain}`
+    } else {
+      merged['Host'] = this._domain
+    }
+
     if (headers) {
       const entries =
         headers instanceof Headers
@@ -260,8 +289,10 @@ export class TestCase {
       Object.assign(merged, entries)
     }
 
+    // Use the subdomain in the URL when present for clarity
+    const hostname = this._subdomain ? `${this._subdomain}.${this._domain}` : this._domain
     const res = this.router.handle(
-      new Request(`http://localhost${path}`, {
+      new Request(`http://${hostname}${path}`, {
         method,
         headers: merged,
         body: body !== undefined ? JSON.stringify(body) : undefined,

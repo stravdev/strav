@@ -18,6 +18,7 @@ const UserFactory = Factory.define(User, (seq) => ({
 
 const t = await TestCase.boot({
   auth: true,
+  domain: 'example.com',
   routes: () => import('../start/api_routes'),
 })
 
@@ -74,6 +75,9 @@ const t = await TestCase.boot({
 
   // Wrap each test in a transaction (default: true)
   transaction: true,
+
+  // Base domain for subdomain extraction (default: 'localhost')
+  domain: 'example.com',
 })
 ```
 
@@ -121,6 +125,28 @@ const res = await t.get('/api/content')
 ```
 
 Headers reset after each test.
+
+### Subdomain Testing
+
+Test subdomain-based APIs (e.g., `api.example.com`) using the subdomain helpers:
+
+```typescript
+// Test routes on api.example.com
+await t.onSubdomain('api').get('/users')
+await t.onSubdomain('api').post('/posts', { title: 'Hello' })
+
+// Test tenant-specific routes (tenant.example.com)
+await t.onSubdomain('acme').get('/dashboard')
+// ctx.params.tenant === 'acme' in subdomain routes
+
+// Clear subdomain for main domain requests
+t.withoutSubdomain()
+await t.get('/health')  // example.com/health
+```
+
+Subdomain state resets automatically after each test.
+
+**Note:** You must set `domain: 'example.com'` in `TestCase.boot()` for subdomain routing to work properly.
 
 ### Exposed Properties
 
@@ -233,6 +259,53 @@ const custom = UserFactory.make({ name: 'Override' })
 Factory.resetSequences()  // Resets all factory counters to 0
 ```
 
+## API Testing Patterns
+
+### Prefix vs Subdomain Routing
+
+Strav supports two approaches for API organization:
+
+#### 1. Path Prefix (Traditional)
+```typescript
+// Route registration
+router.group({ prefix: '/api' }, (r) => {
+  r.get('/users', listUsers)       // example.com/api/users
+  r.post('/posts', createPost)     // example.com/api/posts
+})
+
+// Testing
+const res = await t.get('/api/users')
+```
+
+#### 2. Subdomain-based
+```typescript
+// Route registration
+router.setDomain('example.com')
+router.subdomain('api', (r) => {
+  r.get('/users', listUsers)       // api.example.com/users
+  r.post('/posts', createPost)     // api.example.com/posts
+})
+
+// Testing
+const t = await TestCase.boot({ domain: 'example.com' })
+const res = await t.onSubdomain('api').get('/users')
+```
+
+#### Multi-tenant with Dynamic Subdomains
+```typescript
+// Route registration
+router.subdomain(':tenant', (r) => {
+  r.get('/dashboard', (ctx) => {
+    const tenant = ctx.params.tenant  // 'acme', 'corp', etc.
+    return ctx.json({ tenant })
+  })
+})
+
+// Testing
+await t.onSubdomain('acme').get('/dashboard')    // acme.example.com/dashboard
+await t.onSubdomain('corp').get('/dashboard')    // corp.example.com/dashboard
+```
+
 ## Full Example
 
 ```typescript
@@ -255,6 +328,7 @@ const PostFactory = Factory.define(Post, (seq) => ({
 
 const t = await TestCase.boot({
   auth: true,
+  domain: 'example.com',
   userResolver: async (id) => User.find(id as string),
   routes: () => import('../start/api_routes'),
 })
@@ -291,6 +365,28 @@ describe('Posts API', () => {
   test('unauthenticated request returns 401', async () => {
     const res = await t.get('/api/profile')
     expect(res.status).toBe(401)
+  })
+
+  test('API on subdomain', async () => {
+    const user = await UserFactory.create()
+    await t.actingAs(user)
+
+    // Test API routes on api.example.com subdomain
+    await t.onSubdomain('api')
+    const res = await t.get('/users')  // api.example.com/users
+    expect(res.status).toBe(200)
+  })
+
+  test('tenant subdomain with parameter', async () => {
+    const user = await UserFactory.create()
+    await t.actingAs(user)
+
+    // Test tenant routes: acme.example.com/dashboard
+    // Router should be configured with router.subdomain(':tenant', ...)
+    const res = await t.onSubdomain('acme').get('/dashboard')
+    expect(res.status).toBe(200)
+
+    // Route handler can access ctx.params.tenant === 'acme'
   })
 })
 ```

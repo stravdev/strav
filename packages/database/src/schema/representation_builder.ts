@@ -43,6 +43,7 @@ const PARENT_FK_ARCHETYPES: Set<Archetype> = new Set([
 interface PKInfo {
   name: string
   pgType: PostgreSQLType
+  fieldDef?: FieldDefinition  // Full field definition for preserving column properties
 }
 
 /**
@@ -169,6 +170,10 @@ export default class RepresentationBuilder {
         sensitive: false,
         isArray: false,
         arrayDimensions: 1,
+        length: parentPK.fieldDef?.length,
+        precision: parentPK.fieldDef?.precision,
+        scale: parentPK.fieldDef?.scale,
+        isUlid: parentPK.fieldDef?.isUlid,
       })
 
       foreignKeys.push({
@@ -218,6 +223,10 @@ export default class RepresentationBuilder {
         sensitive: false,
         isArray: false,
         arrayDimensions: 1,
+        length: entityPK.fieldDef?.length,
+        precision: entityPK.fieldDef?.precision,
+        scale: entityPK.fieldDef?.scale,
+        isUlid: entityPK.fieldDef?.isUlid,
       })
 
       foreignKeys.push({
@@ -299,6 +308,10 @@ export default class RepresentationBuilder {
       sensitive: fieldDef.sensitive,
       isArray: false,
       arrayDimensions: 1,
+      length: refPK.fieldDef?.length,
+      precision: refPK.fieldDef?.precision,
+      scale: refPK.fieldDef?.scale,
+      isUlid: refPK.fieldDef?.isUlid,
     })
 
     foreignKeys.push({
@@ -399,7 +412,7 @@ export default class RepresentationBuilder {
   private findPrimaryKey(schema: SchemaDefinition): PKInfo {
     for (const [fieldName, fieldDef] of Object.entries(schema.fields)) {
       if (fieldDef.primaryKey) {
-        return { name: fieldName, pgType: fieldDef.pgType }
+        return { name: fieldName, pgType: fieldDef.pgType, fieldDef }
       }
     }
     return { name: 'id', pgType: 'serial' }

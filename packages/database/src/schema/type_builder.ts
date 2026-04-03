@@ -32,9 +32,9 @@ const t = {
   money: () => new FieldBuilder('money'),
 
   // --- Character Types ---
-  varchar: (length?: number) => new FieldBuilder('varchar', { length }),
+  varchar: (length: number = 100) => new FieldBuilder('varchar', { length }),
   /** Alias for {@link varchar}. */
-  string: (length?: number) => new FieldBuilder('varchar', { length }),
+  string: (length: number = 100) => new FieldBuilder('varchar', { length }),
   char: (length?: number) => new FieldBuilder('char', { length }),
   text: () => new FieldBuilder('text'),
 

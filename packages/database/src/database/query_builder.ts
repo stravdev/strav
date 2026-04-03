@@ -963,8 +963,20 @@ export default class QueryBuilder<T extends BaseModel> {
       if (castDef) return castDef.set(value)
     }
 
-    if (value instanceof DateTime) return value.toJSDate()
+    if (this.isLuxonDateTime(value)) return value.toJSDate()
     return value
+  }
+
+  /**
+   * Robust check for Luxon DateTime objects that works across different class instances.
+   * Uses duck-typing instead of instanceof to avoid module resolution issues.
+   */
+  private isLuxonDateTime(value: any): value is DateTime {
+    return value &&
+           typeof value === 'object' &&
+           typeof value.toJSDate === 'function' &&
+           typeof value.toISO === 'function' &&
+           value.constructor.name === 'DateTime'
   }
 
   private get castMap(): Map<string, CastDefinition> {

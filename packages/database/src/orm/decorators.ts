@@ -220,11 +220,32 @@ export function cast(targetOrTypeOrDef: any, propertyKey?: string): any {
 }
 
 function addCastMetadata(target: any, propertyKey: string, castDef: CastDefinition): void {
+  if (isLikelyDateTimeField(propertyKey)) {
+    console.warn(
+      `Warning: @cast applied to DateTime field "${propertyKey}" on ${target.constructor.name}. ` +
+      `This may interfere with automatic DateTime conversion. ` +
+      `Consider using DateTime-specific handling instead of generic @cast.`
+    )
+  }
+
   const casts = new Map<string, CastDefinition>(
     Reflect.getMetadata(CAST_KEY, target.constructor) ?? []
   )
   casts.set(propertyKey, castDef)
   Reflect.defineMetadata(CAST_KEY, casts, target.constructor)
+}
+
+function isLikelyDateTimeField(propertyKey: string): boolean {
+  const dateTimeFieldPatterns = [
+    /createdAt/i,
+    /updatedAt/i,
+    /deletedAt/i,
+    /timestamp/i,
+    /.*At$/,
+    /.*Date$/,
+    /.*Time$/,
+  ]
+  return dateTimeFieldPatterns.some(pattern => pattern.test(propertyKey))
 }
 
 /** Get all @cast metadata for a model class as a Map<propertyName, CastDefinition>. */

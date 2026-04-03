@@ -3,6 +3,7 @@ export { default as SqlGenerator } from './sql_generator'
 export { default as MigrationFileGenerator } from './file_generator'
 export { default as MigrationRunner } from './runner'
 export { default as MigrationTracker } from './tracker'
+export { DateTimeRepairer } from './datetime_repair'
 export type {
   SchemaDiff,
   EnumDiff,

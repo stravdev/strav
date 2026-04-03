@@ -141,7 +141,7 @@ export default class BaseModel {
       if (encryptedProps.has(key)) continue
 
       const value = (this as any)[key]
-      if (value instanceof DateTime) {
+      if (this.isLuxonDateTime(value)) {
         result[key] = value.toISO()
       } else if (typeof value === 'bigint') {
         result[key] =
@@ -367,15 +367,29 @@ export default class BaseModel {
         continue
       }
 
-      const castDef = casts.get(prop)
-      if (castDef) {
-        ;(this as any)[prop] = castDef.get(value)
-      } else if (value instanceof Date) {
+      if (value instanceof Date) {
         ;(this as any)[prop] = DateTime.fromJSDate(value)
       } else {
-        ;(this as any)[prop] = value
+        const castDef = casts.get(prop)
+        if (castDef) {
+          ;(this as any)[prop] = castDef.get(value)
+        } else {
+          ;(this as any)[prop] = value
+        }
       }
     }
+  }
+
+  /**
+   * Robust check for Luxon DateTime objects that works across different class instances.
+   * Uses duck-typing instead of instanceof to avoid module resolution issues.
+   */
+  private isLuxonDateTime(value: any): value is DateTime {
+    return value &&
+           typeof value === 'object' &&
+           typeof value.toJSDate === 'function' &&
+           typeof value.toISO === 'function' &&
+           value.constructor.name === 'DateTime'
   }
 
   /**
@@ -402,13 +416,15 @@ export default class BaseModel {
         continue
       }
 
-      const castDef = casts.get(key)
-      if (castDef) {
-        data[column] = castDef.set(value)
-      } else if (value instanceof DateTime) {
+      if (this.isLuxonDateTime(value)) {
         data[column] = value.toJSDate()
       } else {
-        data[column] = value
+        const castDef = casts.get(key)
+        if (castDef) {
+          data[column] = castDef.set(value)
+        } else {
+          data[column] = value
+        }
       }
     }
 

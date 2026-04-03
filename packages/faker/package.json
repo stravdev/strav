@@ -1,0 +1,24 @@
+{
+  "name": "@strav/faker",
+  "version": "0.1.7",
+  "type": "module",
+  "description": "Simple and powerful fake data generator for testing in the Strav framework",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "files": [
+    "src/",
+    "package.json",
+    "tsconfig.json",
+    "CHANGELOG.md"
+  ],
+  "peerDependencies": {
+    "@strav/kernel": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test tests/",
+    "typecheck": "tsc --noEmit"
+  }
+}

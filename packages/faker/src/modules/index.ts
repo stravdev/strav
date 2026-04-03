@@ -1,0 +1,6 @@
+export { PersonModule } from './person.ts'
+export { InternetModule } from './internet.ts'
+export { LoremModule } from './lorem.ts'
+export { CompanyModule } from './company.ts'
+export { CommerceModule } from './commerce.ts'
+export { LocationModule } from './location.ts'
